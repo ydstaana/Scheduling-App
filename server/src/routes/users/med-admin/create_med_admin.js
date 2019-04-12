@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
-var Student = require('../../models/users/StudentSchema.js');
+var MedAdmin = require('../../../models/users/MedAdminSchema.js');
 
 module.exports = function (req, res, done) {
-	Student.create(req.body, function (err, student) {
+	MedAdmin.create(req.body, function (err, admin) {
 		console.log(req.body);
 		if (err) {
 			res.status(422).json({
@@ -10,7 +10,7 @@ module.exports = function (req, res, done) {
 			});
 		}
 	    else{
-	    	res.status(200).send(student);
+	    	res.status(200).send(admin);
 	    }
 	});
 }

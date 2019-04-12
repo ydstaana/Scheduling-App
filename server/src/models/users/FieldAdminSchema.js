@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var User = require('./UserSchema.js');
 
-var Student = User.discriminator('Student',
+var FieldAdmin = User.discriminator('FieldAdmin',
   new mongoose.Schema({
     field: {
       type: mongoose.Schema.Types.ObjectId,

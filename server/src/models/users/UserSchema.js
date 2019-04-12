@@ -1,9 +1,13 @@
 var mongoose = require('mongoose');
+const moment = require('moment');
 
 var UserSchema = new mongoose.Schema({
-  name: String,
-	username: String,
-	password: String
+  firstName: String,
+  lastName: String,
+  username: String,
+  password: String,
+  dateCreated: Date,
+  lastModified: Date
 },
 {
   discriminatorKey: 'kind'
@@ -31,5 +35,5 @@ UserSchema.statics.authenticate = function (username, password, callback) {
     });
 }
 
-var User = mongoose.model('User', UserSchema);
+var User = mongoose.model('User', UserSchema)
 module.exports = User;

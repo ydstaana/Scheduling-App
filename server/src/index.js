@@ -26,7 +26,7 @@ app.use(function(req, res, next) {
     next();
 });
 
-var routes = require('./src/routes/routes');
+var routes = require('./routes/routes');
 
 //SET ROUTE FOR API
 app.use(routes);
