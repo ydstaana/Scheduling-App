@@ -5,8 +5,16 @@ export class Field extends Model {
         return this.api().fields().create(field);
     }
 
+    static createGroup(group: any) {
+        return this.api().fields().createGroup(group);
+    }
+
     static list() {
         return this.api().fields().list();
+    }
+
+    static listFieldGroups() {
+        return this.api().fields().listFieldGroups();
     }
 
     static listAdmins() {
@@ -15,5 +23,9 @@ export class Field extends Model {
 
     static update(field: any) {
         return this.api().fields().update(field);
+    }
+
+    static updateGroup(group: any) {
+        return this.api().fields().updateGroup(group);
     }
 }

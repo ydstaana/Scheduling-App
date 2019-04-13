@@ -1,0 +1,34 @@
+<ion-content>
+  <ion-grid fixed class="p-25">
+    <ion-row class="m-b-15">
+      <ion-col>
+        <ion-button (click)="createFieldGroup()">
+          Add new field group
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="border-bottom">
+      <ion-col size="10">
+        <b>Name</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>Status</b>
+      </ion-col>
+    </ion-row>
+    <ion-row 
+      class="border-bottom log p-t-b-10" 
+      align-items-center *ngFor="let g of fieldGroups"
+      (click)="viewFieldGroup(g)">
+      <ion-col size="10">
+        {{ g.name }}
+      </ion-col>
+      <ion-col size="2" *ngIf="g.isActive">
+        Active
+      </ion-col>
+      <ion-col size="2" *ngIf="!g.isActive">
+        Inactive
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+  

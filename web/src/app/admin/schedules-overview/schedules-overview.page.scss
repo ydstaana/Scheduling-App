@@ -1,0 +1,88 @@
+.ust-bg {
+    background-color: #FEC00F;
+}
+
+.modal-header, .btn-default, .card-header {
+    background-color: #FEC00F;
+}
+
+.modal-footer, .card-footer {
+    background-color: #2e2e2e;
+    color: #EEE;
+}
+
+.card {
+    border: 2px solid;
+}
+
+.no-border td, .no-border th {
+    border: 0;
+}
+
+.table-clickable tbody tr:hover {
+    background-color: #FEC00F;
+}
+
+.required:after { 
+    content:" *"; 
+}
+
+.grp1 {
+    background-color: rgb(252, 169, 133);
+}
+
+.grp2 {
+    background-color: rgb(191, 228, 118);
+}
+
+.grp3 {
+    background-color: rgb(255, 237, 81);
+}
+
+.grp4 {
+    background-color: rgb(179, 226, 221);
+}
+
+.grp5 {
+    background-color: rgb(251, 182, 209);
+}
+
+.grp6 {
+    background-color: rgb(219, 213, 185);
+}
+
+.grp7 {
+    background-color: rgb(193, 179, 215);
+}
+
+.grp8 {
+    background-color: rgb(145, 210, 144);
+}
+
+.grp9 {
+    background-color: rgb(252, 124, 126);
+}
+
+.grp10 {
+    background-color: #A8D0E6;
+}
+
+.grp11 {
+    background-color: rgb(222, 165, 164);
+}
+
+.grp12 {
+    background-color: #FCF0CF;
+}
+
+.table td, .table th {
+    padding: .75rem;
+    vertical-align: top;
+    border-top: 1px solid #dee2e6;
+}
+
+.table .thead-dark th {
+    color: #fff;
+    background-color: #343a40;
+    border-color: #454d55;
+}

@@ -13,6 +13,10 @@ export class FieldsApi extends Api {
     return Promise.resolve(field);
   }
 
+  createGroup(field: any) {
+    return Promise.resolve(field);
+  }
+
   list() {
     return Promise.resolve([
       {
@@ -44,6 +48,44 @@ export class FieldsApi extends Api {
     ]);
   }
 
+  listFieldGroups() {
+    return Promise.resolve([
+      {
+        id: 1,
+        name: 'Com-Med, Derma',
+        fields: [
+          {
+            id: 1,
+            name: 'Com-Med',
+            address: 'Pateros',
+            admin: {
+                id: 1,
+                firstName: 'Gregorio',
+                middleName: 'Del',
+                lastName: 'Pilar'
+                // other fields
+            },
+            isActive: true
+          },
+          {
+            id: 2,
+            name: 'Derma',
+            address: 'Pateros',
+            admin: {
+                id: 2,
+                firstName: 'Marcel',
+                middleName: 'Del',
+                lastName: 'Pilar'
+                // other fields
+            },
+            isActive: true
+          }
+        ],
+        isActive: true
+      }
+    ]);
+  }
+
   listAdmins() {
     return Promise.resolve([
         {
@@ -65,5 +107,9 @@ export class FieldsApi extends Api {
 
   update(field: any) {
     return Promise.resolve(field);
+  }
+
+  updateGroup(group: any) {
+    return Promise.resolve(group);
   }
 }
