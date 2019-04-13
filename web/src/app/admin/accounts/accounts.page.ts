@@ -2,7 +2,7 @@ import { AccountsViewPage } from './accounts-view/accounts-view.page';
 import { AccountsCreatePage } from './accounts-create/accounts-create.page';
 import { Component, OnInit } from '@angular/core';
 import { UserService } from 'src/app/services/user.service';
-import { PopoverController } from '@ionic/angular';
+import { PopoverController, ModalController } from '@ionic/angular';
 import { UserType } from 'src/app/models/user.model';
 
 @Component({
@@ -16,7 +16,8 @@ export class AccountsPage implements OnInit {
 
   constructor(
     private userService: UserService,
-    private popoverCtrl: PopoverController
+    private popoverCtrl: PopoverController,
+    private modalCtrl: ModalController
   ) { }
 
   ngOnInit() {
