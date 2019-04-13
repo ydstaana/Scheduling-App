@@ -1,0 +1,53 @@
+<ion-content>
+  <ion-grid fixed class="p-25">
+    <ion-row class="m-b-15">
+      <ion-col>
+        <ion-button (click)="createUser()">
+          Add new account
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="border-bottom">
+      <ion-col size="3">
+        <b>Name</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>Email</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>Mobile Number</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>Role</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>Status</b>
+      </ion-col>
+    </ion-row>
+    <ion-row class="border-bottom log" align-items-center *ngFor="let user of users">
+      <ion-col size="3">
+        {{ user.name }}
+      </ion-col>
+      <ion-col size="2">
+        {{ user.email }}
+      </ion-col>
+      <ion-col size="2">
+        {{ user.mobileNumber }}
+      </ion-col>
+      <ion-col size="2">
+        {{ user.role }}
+      </ion-col>
+      <ion-col size="1">
+        {{ user.isActive }}
+      </ion-col>
+      <ion-col>
+        <ion-button size="small" color="success">
+          <ion-icon name="create"></ion-icon>
+        </ion-button>
+        <ion-button size="small">
+          <ion-icon name="eye"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
