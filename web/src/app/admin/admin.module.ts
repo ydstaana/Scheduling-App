@@ -11,6 +11,11 @@ import { AdminPage } from './admin.page';
 import { UserService } from '../services/user.service';
 import { AccountsViewPage } from './accounts/accounts-view/accounts-view.page';
 import { AccountsUpdatePage } from './accounts/accounts-update/accounts-update.page';
+import { FieldsPage } from './fields/fields.page';
+import { FieldsCreatePage } from './fields/fields-create/fields-create.page';
+import { FieldsUpdatePage } from './fields/fields-update/fields-update.page';
+import { FieldsViewPage } from './fields/fields-view/fields-view.page';
+import { FieldService } from '../services/field.service';
 
 const routes: Routes = [
   {
@@ -25,6 +30,10 @@ const routes: Routes = [
       {
         path: 'accounts',
         component: AccountsPage
+      },
+      {
+        path: 'fields',
+        component: FieldsPage
       }
     ]
   }
@@ -43,15 +52,23 @@ const routes: Routes = [
     AccountsViewPage,
     AccountsUpdatePage,
     AccountsPage,
-    AdminPage
+    AdminPage,
+    FieldsPage,
+    FieldsCreatePage,
+    FieldsUpdatePage,
+    FieldsViewPage
   ],
   providers: [
+    FieldService,
     UserService
   ],
   entryComponents: [
     AccountsCreatePage,
     AccountsViewPage,
-    AccountsUpdatePage
+    AccountsUpdatePage,
+    FieldsCreatePage,
+    FieldsUpdatePage,
+    FieldsViewPage
   ]
 })
 export class AdminPageModule {}

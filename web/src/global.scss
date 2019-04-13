@@ -10,6 +10,19 @@
 @import '~@ionic/angular/css/text-transformation.css';
 @import '~@ionic/angular/css/flex-utils.css';
 
+.border-bottom {
+    border-bottom: 1px solid #dadad9;
+    padding-bottom: 5px;
+}
+
+.log {
+    cursor: pointer;
+}
+
+.log:hover {
+    background-color: lightgray;
+}
+
 .custom-popover .popover-content {
     width: 60%;
 }
