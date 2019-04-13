@@ -10,6 +10,7 @@ import { IonicModule } from '@ionic/angular';
 import { AdminPage } from './admin.page';
 import { UserService } from '../services/user.service';
 import { AccountsViewPage } from './accounts/accounts-view/accounts-view.page';
+import { AccountsUpdatePage } from './accounts/accounts-update/accounts-update.page';
 
 const routes: Routes = [
   {
@@ -40,6 +41,7 @@ const routes: Routes = [
   declarations: [
     AccountsCreatePage,
     AccountsViewPage,
+    AccountsUpdatePage,
     AccountsPage,
     AdminPage
   ],
@@ -48,7 +50,8 @@ const routes: Routes = [
   ],
   entryComponents: [
     AccountsCreatePage,
-    AccountsViewPage
+    AccountsViewPage,
+    AccountsUpdatePage
   ]
 })
 export class AdminPageModule {}

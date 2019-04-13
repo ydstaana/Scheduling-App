@@ -29,11 +29,7 @@ export class UsersApi extends Api {
         email: 'jdc@gmail.com',
         mobileNumber: '09123123123',
         role: 'UST Medicine Admin',
-        isActive: true,
-        lastLogin: {
-          id: 1,
-          dateCreated: '09/01/2019 10:11'
-        }
+        isActive: true
       },
       {
         id: 2,
@@ -43,11 +39,7 @@ export class UsersApi extends Api {
         email: 'mhp@gmail.com',
         mobileNumber: '09123123123',
         role: 'Field Admin',
-        isActive: false,
-        lastLogin: {
-          id: 2,
-          dateCreated: '09/01/2019 10:11'
-        }
+        isActive: false
       },
       {
         id: 3,

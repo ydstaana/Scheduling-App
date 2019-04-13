@@ -1,16 +1,16 @@
+import { ToastController, PopoverController } from '@ionic/angular';
+import { FormGroup, Validators, FormBuilder } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
-import { PopoverController, ToastController } from '@ionic/angular';
 import { UserType } from 'src/app/models/user.model';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-accounts-create',
-  templateUrl: './accounts-create.page.html',
-  styleUrls: ['./accounts-create.page.scss'],
+  selector: 'app-accounts-update',
+  templateUrl: './accounts-update.page.html',
+  styleUrls: ['./accounts-update.page.scss'],
 })
-export class AccountsCreatePage implements OnInit {
-  callInProgress = false;
+export class AccountsUpdatePage implements OnInit {
+  user: any;
   accountForm: FormGroup;
 
   // user type variables
@@ -20,61 +20,45 @@ export class AccountsCreatePage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
+    private toastCtrl: ToastController,
     private userService: UserService,
-    private popoverCtrl: PopoverController,
-    private toastCtrl: ToastController
+    private popoverCtrl: PopoverController
   ) { }
 
   ngOnInit() {
     this.buildForm();
-  }
 
-  buildForm() {
-    this.accountForm = this.formBuilder.group({
-      studentNumber: ['', [Validators.required]],
-      accountType: ['', [
-        Validators.required
-      ]],
-      firstName: ['', [
-        Validators.required
-      ]],
-      middleName: ['', [
-        Validators.required
-      ]],
-      lastName: ['', [
-        Validators.required
-      ]],
-      email: ['', [
-        Validators.required,
-        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-      ]],
-      mobile: ['', [
-        Validators.required,
-        Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-      ]],
-      username: ['', [
-        Validators.required
-      ]],
-      password: ['', [
-        Validators.required
-      ]]
-    });
-  }
-
-  createAccount() {
-    if (this.accountForm.valid) {
-      this.userService.create(this.accountForm.value).then(data => {
-        console.log(data);
-        this.popoverCtrl.dismiss();
-        this.success('Successfully created an account');
-      }, error => {
-        this.error('Unable to create user. Please try again');
-      });
-    }
+    this.userType = this.user.role;
   }
 
   dismiss() {
     this.popoverCtrl.dismiss();
+  }
+
+  buildForm() {
+    this.accountForm = this.formBuilder.group({
+      studentNumber: [this.user.id, [Validators.required]],
+      accountType: ['', [
+        Validators.required
+      ]],
+      firstName: [this.user.firstName, [
+        Validators.required
+      ]],
+      middleName: [this.user.middleName, [
+        Validators.required
+      ]],
+      lastName: [this.user.lastName, [
+        Validators.required
+      ]],
+      email: [this.user.email, [
+        Validators.required,
+        Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
+      ]],
+      mobile: [this.user.mobileNumber, [
+        Validators.required,
+        Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+      ]]
+    });
   }
 
   resolveAccountType() {
@@ -83,6 +67,22 @@ export class AccountsCreatePage implements OnInit {
       studentNumberCtrl.setValue('');
     } else {
       studentNumberCtrl.setValue('dummy');
+    }
+  }
+
+  updateAccount() {
+    const updatedUser = {
+      ...this.user,
+      ...this.accountForm.value
+    };
+    if (this.accountForm.valid) {
+      this.userService.update(updatedUser).then(data => {
+        this.user = updatedUser;
+        this.success('Successfully updated account');
+        this.popoverCtrl.dismiss(updatedUser);
+      }, error => {
+        this.error('Unable to update account. Please try again');
+      });
     }
   }
 
