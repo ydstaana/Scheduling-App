@@ -1,3 +1,7 @@
+import { FieldGroupsUpdatePage } from './field-groups/field-groups-update/field-groups-update.page';
+import { FieldGroupsViewPage } from './field-groups/field-groups-view/field-groups-view.page';
+import { FieldGroupsCreatePage } from './field-groups/field-groups-create/field-groups-create.page';
+import { FieldGroupsPage } from './field-groups/field-groups.page';
 import { ScheduleService } from './../services/schedule.service';
 import { SchedulesViewPage } from './schedules/schedules-view/schedules-view.page';
 import { SchedulesUpdatePage } from './schedules/schedules-update/schedules-update.page';
@@ -21,6 +25,7 @@ import { FieldsCreatePage } from './fields/fields-create/fields-create.page';
 import { FieldsUpdatePage } from './fields/fields-update/fields-update.page';
 import { FieldsViewPage } from './fields/fields-view/fields-view.page';
 import { FieldService } from '../services/field.service';
+import { SchedulesOverviewPage } from './schedules-overview/schedules-overview.page';
 
 const routes: Routes = [
   {
@@ -41,8 +46,16 @@ const routes: Routes = [
         component: FieldsPage
       },
       {
+        path: 'field-groups',
+        component: FieldGroupsPage
+      },
+      {
         path: 'schedules',
         component: SchedulesPage
+      },
+      {
+        path: 'schedules-overview',
+        component: SchedulesOverviewPage
       }
     ]
   }
@@ -66,10 +79,15 @@ const routes: Routes = [
     FieldsCreatePage,
     FieldsUpdatePage,
     FieldsViewPage,
+    FieldGroupsPage,
+    FieldGroupsCreatePage,
+    FieldGroupsViewPage,
+    FieldGroupsUpdatePage,
     SchedulesPage,
     SchedulesCreatePage,
     SchedulesUpdatePage,
-    SchedulesViewPage
+    SchedulesViewPage,
+    SchedulesOverviewPage
   ],
   providers: [
     FieldService,
@@ -83,6 +101,9 @@ const routes: Routes = [
     FieldsCreatePage,
     FieldsUpdatePage,
     FieldsViewPage,
+    FieldGroupsCreatePage,
+    FieldGroupsViewPage,
+    FieldGroupsUpdatePage,
     SchedulesCreatePage,
     SchedulesUpdatePage,
     SchedulesViewPage

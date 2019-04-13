@@ -12,8 +12,16 @@ export class FieldService {
     return Field.create(field);
   }
 
+  createFieldGroup(group) {
+    return Field.createGroup(group);
+  }
+
   list() {
     return Field.list();
+  }
+
+  listFieldGroups() {
+    return Field.listFieldGroups();
   }
 
   listAdmins() {
@@ -22,5 +30,9 @@ export class FieldService {
 
   update(field: any) {
     return Field.update(field);
+  }
+
+  updateGroup(group) {
+    return Field.updateGroup(group);
   }
 }
