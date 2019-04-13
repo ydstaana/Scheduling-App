@@ -8,6 +8,14 @@ export class UserService {
 
   constructor() { }
 
+  create(user: any) {
+    return User.create(user);
+  }
+
+  listUsers() {
+    return User.list();
+  }
+
   login(username: string, password: string) {
     return User.login(username, password);
   }

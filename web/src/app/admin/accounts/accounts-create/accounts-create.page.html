@@ -1,0 +1,110 @@
+<ion-content padding>
+  <ion-grid fixed>
+    <form [formGroup]="accountForm">
+      <ion-list>
+        <ion-row>
+          <ion-col>
+            <h3>Add new account</h3>
+          </ion-col>
+          <ion-col text-right>
+            <ion-button fill="clear" color="dark" (click)="dismiss()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Account Type</ion-label>
+              <ion-select 
+                interface="popover" 
+                placeholder="Select Account Type"
+                [value]="userType"
+                [(ngModel)]="userType"
+                formControlName="accountType"
+                (ionChange)="resolveAccountType()">
+                <ion-select-option [value]="USER_TYPE_VALUES[u]" *ngFor="let u of USER_TYPE_KEYS">
+                  {{ USER_TYPE_VALUES[u] }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="student-number-input" [ngClass]="{'input-hidden': userType !== USER_TYPE_VALUES.STUDENT}">
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Student Number</ion-label>
+              <ion-input formControlName="studentNumber" type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">First Name</ion-label>
+              <ion-input formControlName="firstName"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Middle Name</ion-label>
+              <ion-input formControlName="middleName"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Last Name</ion-label>
+              <ion-input formControlName="lastName"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input formControlName="email" type="email"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Mobile Number</ion-label>
+              <ion-input formControlName="mobile" type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Username</ion-label>
+              <ion-input formControlName="username"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input formControlName="password" type="password"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row text-right>
+          <ion-col size="12">
+            <ion-button color="light" (click)="dismiss()">
+              <ion-label>Cancel</ion-label>
+            </ion-button>
+            <ion-button [disabled]="accountForm.invalid || callInProgress" (click)="createAccount()">
+              <ion-label>Save</ion-label>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </form>
+  </ion-grid>
+</ion-content>

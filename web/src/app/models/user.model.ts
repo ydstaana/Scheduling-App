@@ -1,6 +1,20 @@
 import { Model } from './model';
 
+export enum UserType {
+  UST_MEDICINE_ADMIN = 'UST Medicine Admin',
+  FIELD_ADMIN = 'Field Admin',
+  STUDENT = 'Student'
+}
+
 export class User extends Model {
+  static create(user: any) {
+    return this.api().users().create(user);
+  }
+
+  static list() {
+    return this.api().users().list();
+  }
+
   static login(username: string, password: string) {
     return this.api().users().login(username, password);
   }

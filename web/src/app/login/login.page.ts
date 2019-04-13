@@ -45,7 +45,10 @@ export class LoginPage implements OnInit {
         this.callInProgress = false;
 
         // TODO: handle token
+        // store current user
+        // store current permission
         console.log(data);
+        this.router.navigateByUrl('/admin');
 
         // get user permissions
         // this.userService.getPermissions().then((perm: any) => {
