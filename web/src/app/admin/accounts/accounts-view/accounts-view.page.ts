@@ -1,16 +1,19 @@
-import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { UserService } from 'src/app/services/user.service';
-import { PopoverController, ToastController } from '@ionic/angular';
 import { UserType } from 'src/app/models/user.model';
+import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Component, OnInit } from '@angular/core';
+import { PopoverController, ToastController } from '@ionic/angular';
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-accounts-create',
-  templateUrl: './accounts-create.page.html',
-  styleUrls: ['./accounts-create.page.scss'],
+  selector: 'app-accounts-view',
+  templateUrl: './accounts-view.page.html',
+  styleUrls: ['./accounts-view.page.scss'],
 })
-export class AccountsCreatePage implements OnInit {
-  callInProgress = false;
+export class AccountsViewPage implements OnInit {
+  user: any;
+  currentTab = 'PERSONAL_INFORMATION';
+  isEdit = false;
+
   accountForm: FormGroup;
 
   // user type variables
@@ -20,62 +23,49 @@ export class AccountsCreatePage implements OnInit {
 
   constructor(
     private formBuilder: FormBuilder,
-    private userService: UserService,
     private popoverCtrl: PopoverController,
-    private toastCtrl: ToastController
+    private toastCtrl: ToastController,
+    private userService: UserService
   ) { }
 
   ngOnInit() {
     this.buildForm();
+
+    this.userType = this.user.role;
   }
 
   buildForm() {
     this.accountForm = this.formBuilder.group({
-      studentNumber: ['', [Validators.required]],
+      studentNumber: [this.user.id, [Validators.required]],
       accountType: ['', [
         Validators.required
       ]],
-      firstName: ['', [
+      firstName: [this.user.firstName, [
         Validators.required
       ]],
-      middleName: ['', [
+      middleName: [this.user.middleName, [
         Validators.required
       ]],
-      lastName: ['', [
+      lastName: [this.user.lastName, [
         Validators.required
       ]],
-      email: ['', [
+      email: [this.user.email, [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       ]],
-      mobile: ['', [
+      mobile: [this.user.mobileNumber, [
         Validators.required,
         Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-      ]],
-      username: ['', [
-        Validators.required
-      ]],
-      password: ['', [
-        Validators.required
       ]]
     });
   }
 
-  createAccount() {
-    console.log(this.accountForm.value);
-    if (this.accountForm.valid) {
-      this.userService.create(this.accountForm.value).then(data => {
-        console.log(data);
-        this.popoverCtrl.dismiss();
-        this.success('Successfully created an account');
-      }, error => {
-        this.error('Unable to create user. Please try again');
-      });
-    }
-  }
-
   dismiss() {
     this.popoverCtrl.dismiss();
+  }
+
+  toggleView(tab) {
+    this.currentTab = tab;
   }
 
   resolveAccountType() {
@@ -84,6 +74,21 @@ export class AccountsCreatePage implements OnInit {
       studentNumberCtrl.setValue('');
     } else {
       studentNumberCtrl.setValue('dummy');
+    }
+  }
+
+  updateAccount() {
+    const updatedUser = {
+      ...this.user,
+      ...this.accountForm.value
+    };
+    if (this.accountForm.valid) {
+      this.userService.update(updatedUser).then(data => {
+        this.user = updatedUser;
+        this.success('Successfully updated account');
+      }, error => {
+        this.error('Unable to update account. Please try again');
+      });
     }
   }
 

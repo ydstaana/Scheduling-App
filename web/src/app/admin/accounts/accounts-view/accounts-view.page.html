@@ -1,0 +1,231 @@
+<ion-content>
+  <ion-grid fixed>
+    <ion-row>
+      <ion-col 
+        class="w-f-c border-right"
+        [ngClass]="{'border-bottom': currentTab !== 'PERSONAL_INFORMATION'}">
+        <ion-button 
+          (click)="toggleView('PERSONAL_INFORMATION')" 
+          fill="clear"
+          color="medium"
+          *ngIf="currentTab !== 'PERSONAL_INFORMATION'">
+          Personal Information
+        </ion-button>
+        <ion-button 
+          (click)="toggleView('PERSONAL_INFORMATION')" 
+          fill="clear"
+          *ngIf="currentTab === 'PERSONAL_INFORMATION'">
+          Personal Information
+        </ion-button>
+      </ion-col>
+      <ion-col 
+        class="w-f-c"
+        [ngClass]="{'border-bottom': currentTab !== 'ROTATIONS', 'border-right': currentTab === 'ROTATIONS'}">
+        <ion-button 
+          (click)="toggleView('ROTATIONS')" 
+          fill="clear" 
+          color="medium"
+          *ngIf="currentTab !== 'ROTATIONS'">
+          Rotations
+        </ion-button>
+        <ion-button 
+          (click)="toggleView('ROTATIONS')" 
+          fill="clear"
+          *ngIf="currentTab === 'ROTATIONS'">
+          Rotations
+        </ion-button>
+      </ion-col>
+      <ion-col text-right class="border-bottom">
+        <ion-button fill="clear" color="dark" (click)="dismiss()">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- START OF PERSONAL INFORMATION TAB (VIEW ONLY) -->
+  <ion-grid padding fixed *ngIf="currentTab === 'PERSONAL_INFORMATION' && !isEdit">
+    <ion-row>
+      <ion-col size="4">
+        <ion-label>
+          <b>Student ID</b>
+        </ion-label>
+      </ion-col>
+      <ion-col size="8">
+        <ion-label>{{ user.id }}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4">
+        <ion-label>
+          <b>Name</b>
+        </ion-label>
+      </ion-col>
+      <ion-col size="8">
+        <ion-label>{{ user.firstName + ' ' + user.lastName }}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4">
+        <ion-label>
+          <b>Email Address</b>
+        </ion-label>
+      </ion-col>
+      <ion-col size="8">
+        <ion-label>{{ user.email }}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4">
+        <ion-label>
+          <b>Mobile Number</b>
+        </ion-label>
+      </ion-col>
+      <ion-col size="8">
+        <ion-label>{{ user.mobileNumber }}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col size="4">
+        <ion-label>
+          <b>Group</b>
+        </ion-label>
+      </ion-col>
+      <ion-col size="8">
+        <ion-label>{{ user.group ? user.group.name : 'Unassigned' }}</ion-label>
+      </ion-col>
+    </ion-row>
+    <!-- TODO: Hide elements for students if current user is not a student -->
+    <ng-container>
+      <ion-row class="p-t-10">
+        <ion-col>
+          <ion-label>
+            <b>Person to contact in case of emergency</b>
+          </ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-label>
+            <b>Name</b>
+          </ion-label>
+        </ion-col>
+        <ion-col size="8">
+          <ion-label>{{ user.contactPersonName ? user.contactPersonName : 'N/A' }}</ion-label>
+        </ion-col>
+      </ion-row>
+      <ion-row>
+        <ion-col size="4">
+          <ion-label>
+            <b>Contact</b>
+          </ion-label>
+        </ion-col>
+        <ion-col size="8">
+          <ion-label>{{ user.contactPersonNumber ? user.contactPersonNumber : 'N/A' }}</ion-label>
+        </ion-col>
+      </ion-row>
+    </ng-container>
+    <ion-row>
+      <ion-col text-right>
+        <ion-button (click)="isEdit = true">
+          Edit Information
+        </ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- END OF PERSONAL INFORMATION TAB (VIEW ONLY) -->
+
+  <!-- START OF PERSONAL INFORMATION TAB (EDIT) -->
+  <ion-grid padding fixed *ngIf="currentTab === 'PERSONAL_INFORMATION' && isEdit">
+    <form [formGroup]="accountForm">
+      <ion-list>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Account Type</ion-label>
+              <ion-select 
+                interface="popover" 
+                placeholder="Select Account Type"
+                [value]="userType"
+                [(ngModel)]="userType"
+                formControlName="accountType"
+                (ionChange)="resolveAccountType()">
+                <ion-select-option [value]="USER_TYPE_VALUES[u]" *ngFor="let u of USER_TYPE_KEYS">
+                  {{ USER_TYPE_VALUES[u] }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="student-number-input" [ngClass]="{'input-hidden': userType !== USER_TYPE_VALUES.STUDENT}">
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Student Number</ion-label>
+              <ion-input formControlName="studentNumber" type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">First Name</ion-label>
+              <ion-input formControlName="firstName"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Middle Name</ion-label>
+              <ion-input formControlName="middleName"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Last Name</ion-label>
+              <ion-input formControlName="lastName"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input formControlName="email" type="email"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Mobile Number</ion-label>
+              <ion-input formControlName="mobile" type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row text-right>
+          <ion-col size="12">
+            <ion-button color="light" (click)="isEdit = false">
+              Cancel
+            </ion-button>
+            <ion-button [disabled]="accountForm.invalid || callInProgress" (click)="updateAccount()">
+              <ion-label>Update</ion-label>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </form>
+  </ion-grid>
+  <!-- END OF PERSONAL INFORMATION TAB (EDIT) -->
+
+  <!-- START OF ROTATIONS TAB -->
+  <ion-grid padding fixed *ngIf="currentTab === 'ROTATIONS'">
+    <ion-row>
+      <ion-col>
+        <h1>ROTATIONS</h1>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+  <!-- END OF ROTATIONS TAB -->
+</ion-content>
