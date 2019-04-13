@@ -1,3 +1,8 @@
+import { ScheduleService } from './../services/schedule.service';
+import { SchedulesViewPage } from './schedules/schedules-view/schedules-view.page';
+import { SchedulesUpdatePage } from './schedules/schedules-update/schedules-update.page';
+import { SchedulesCreatePage } from './schedules/schedules-create/schedules-create.page';
+import { SchedulesPage } from './schedules/schedules.page';
 import { AccountsCreatePage } from './accounts/accounts-create/accounts-create.page';
 import { AccountsPage } from './accounts/accounts.page';
 import { NgModule } from '@angular/core';
@@ -34,6 +39,10 @@ const routes: Routes = [
       {
         path: 'fields',
         component: FieldsPage
+      },
+      {
+        path: 'schedules',
+        component: SchedulesPage
       }
     ]
   }
@@ -56,11 +65,16 @@ const routes: Routes = [
     FieldsPage,
     FieldsCreatePage,
     FieldsUpdatePage,
-    FieldsViewPage
+    FieldsViewPage,
+    SchedulesPage,
+    SchedulesCreatePage,
+    SchedulesUpdatePage,
+    SchedulesViewPage
   ],
   providers: [
     FieldService,
-    UserService
+    UserService,
+    ScheduleService
   ],
   entryComponents: [
     AccountsCreatePage,
@@ -68,7 +82,10 @@ const routes: Routes = [
     AccountsUpdatePage,
     FieldsCreatePage,
     FieldsUpdatePage,
-    FieldsViewPage
+    FieldsViewPage,
+    SchedulesCreatePage,
+    SchedulesUpdatePage,
+    SchedulesViewPage
   ]
 })
 export class AdminPageModule {}
