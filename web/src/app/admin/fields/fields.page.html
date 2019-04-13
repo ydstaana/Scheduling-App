@@ -1,0 +1,46 @@
+<ion-content>
+  <ion-grid fixed class="p-25">
+    <ion-row class="m-b-15">
+      <ion-col>
+        <ion-button (click)="createField()">
+          Add new field
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="border-bottom">
+      <ion-col size="3">
+        <b>Field</b>
+      </ion-col>
+      <ion-col size="3">
+        <b>Field Admin</b>
+      </ion-col>
+      <ion-col size="3">
+        <b>Address</b>
+      </ion-col>
+      <ion-col size="3">
+        <b>Status</b>
+      </ion-col>
+    </ion-row>
+    <ion-row 
+      class="border-bottom log p-t-b-10" 
+      align-items-center *ngFor="let field of fields"
+      (click)="viewField(field)">
+      <ion-col size="3">
+        {{ field.name }}
+      </ion-col>
+      <ion-col size="3">
+        {{ field.admin.firstName + ' ' + field.admin.lastName }}
+      </ion-col>
+      <ion-col size="3">
+        {{ field.address }}
+      </ion-col>
+      <ion-col size="3" *ngIf="field.isActive">
+        Active
+      </ion-col>
+      <ion-col size="3" *ngIf="!field.isActive">
+        Inactive
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+  
