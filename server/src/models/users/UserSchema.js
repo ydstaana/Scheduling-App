@@ -1,17 +1,27 @@
 var mongoose = require('mongoose');
 const moment = require('moment');
 
+const baseOptions = {
+  discriminatorKey: 'userType',
+  collection: 'users'
+};
+
 var UserSchema = new mongoose.Schema({
   firstName: String,
+  middleName: String,
   lastName: String,
+  address: String,
+  mobileNumber: String,
+  isActive:  Boolean,
+  contactPersonName: String,
+  contactPersonNumber: String,
+  email: String,
   username: String,
   password: String,
-  dateCreated: Date,
-  lastModified: Date
-},
-{
-  discriminatorKey: 'kind'
-});
+  status: String,
+  dateCreated : { type: Date, default : new Date() },
+  lastModified: { type: Date, default : new Date() }
+}, baseOptions);
 
 UserSchema.statics.authenticate = function (username, password, callback) {
   this.findOne({ username: username })
