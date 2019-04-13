@@ -23,10 +23,12 @@ export class UsersApi extends Api {
     return Promise.resolve([
       {
         id: 1,
-        name: 'Juan Dela Cruz',
+        firstName: 'Gregorio',
+        middleName: 'Del',
+        lastName: 'Pilar',
         email: 'jdc@gmail.com',
         mobileNumber: '09123123123',
-        role: 'UMA',
+        role: 'UST Medicine Admin',
         isActive: true,
         lastLogin: {
           id: 1,
@@ -35,15 +37,37 @@ export class UsersApi extends Api {
       },
       {
         id: 2,
-        name: 'Marcelo Del Pilar',
+        firstName: 'Marcelo',
+        middleName: 'Del',
+        lastName: 'Pilar',
         email: 'mhp@gmail.com',
         mobileNumber: '09123123123',
-        role: 'UMA',
-        isActive: true,
+        role: 'Field Admin',
+        isActive: false,
         lastLogin: {
           id: 2,
           dateCreated: '09/01/2019 10:11'
         }
+      },
+      {
+        id: 3,
+        firstName: 'Shim',
+        middleName: 'Del',
+        lastName: 'Pilar',
+        email: 'shp@gmail.com',
+        mobileNumber: '09123123123',
+        role: 'Student',
+        isActive: true,
+        lastLogin: {
+          id: 3,
+          dateCreated: '09/01/2019 10:11'
+        },
+        group: {
+          id: 1,
+          name: 'Group 1'
+        },
+        contactPersonNumber: '09123123123',
+        contactPersonName: 'Tatay Niya'
       }
     ]);
   }
@@ -59,5 +83,9 @@ export class UsersApi extends Api {
     } else {
       return Promise.reject();
     }
+  }
+
+  update(user: any) {
+    return Promise.resolve(user);
   }
 }

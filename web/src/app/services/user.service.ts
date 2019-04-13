@@ -19,4 +19,8 @@ export class UserService {
   login(username: string, password: string) {
     return User.login(username, password);
   }
+
+  update(user: any) {
+    return User.update(user);
+  }
 }

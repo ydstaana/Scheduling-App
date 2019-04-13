@@ -31,6 +31,20 @@
     padding: 25px;
 }
 
+.p-t-10 {
+    padding-top: 10px;
+}
+
+.p-t-b-10 {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.w-f-c {
+	max-width: fit-content;
+	min-width: fit-content;
+}
+
 ion-toast.toast-success {
     --background: green !important;
 }

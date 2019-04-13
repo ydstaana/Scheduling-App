@@ -18,4 +18,8 @@ export class User extends Model {
   static login(username: string, password: string) {
     return this.api().users().login(username, password);
   }
+
+  static update(user: any) {
+    return this.api().users().update(user);
+  }
 }
