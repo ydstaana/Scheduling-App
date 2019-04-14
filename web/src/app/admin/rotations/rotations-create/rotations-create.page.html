@@ -1,0 +1,113 @@
+<ion-content padding>
+  <ion-grid fixed>
+    <form [formGroup]="rotationForm">
+      <ion-list>
+        <ion-row>
+          <ion-col>
+            <h3>Add new rotation</h3>
+          </ion-col>
+          <ion-col text-right>
+            <ion-button fill="clear" color="dark" (click)="dismiss()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Schedules</ion-label>
+              <ion-select 
+                interface="popover" 
+                placeholder="Select Schedule"
+                formControlName="scheduleId">
+                <ion-select-option [value]="sched.id" *ngFor="let sched of schedules">
+                  {{ sched.startDate | date: 'MMM dd, yyyy' }} - {{ sched.endDate | date: 'MMM dd, yyyy' }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Rotation Type</ion-label>
+              <ion-select 
+                interface="popover" 
+                placeholder="Select Rotation Type"
+                [value]="rotationType"
+                [(ngModel)]="rotationType"
+                formControlName="rotationType"
+                (ionChange)="resolveRotationType()">
+                <ion-select-option [value]="ROTATION_TYPE_VALUES[u]" *ngFor="let u of ROTATION_TYPE_KEYS">
+                  {{ ROTATION_TYPE_VALUES[u] }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row
+          class="field-input" 
+          [ngClass]="{'input-hidden': rotationType !== ROTATION_TYPE_VALUES.Single}">
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Field</ion-label>
+              <ion-select 
+                interface="popover" 
+                placeholder="Select Field"
+                formControlName="fieldId">
+                <ion-select-option [value]="field.id" *ngFor="let field of fields">
+                  {{ field.name }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row
+          class="field-input" 
+          [ngClass]="{'input-hidden': rotationType === ROTATION_TYPE_VALUES.Single}">
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Field Group</ion-label>
+              <ion-select 
+                interface="popover" 
+                placeholder="Select Field Group"
+                formControlName="fieldGroupId">
+                <ion-select-option [value]="fg.id" *ngFor="let fg of fieldGroups">
+                  {{ fg.name }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Group</ion-label>
+              <ion-select 
+                interface="popover" 
+                placeholder="Select Group"
+                formControlName="groupId">
+                <ng-container *ngFor="let group of groups">
+                  <ion-select-option [value]="group.id" *ngIf="group.name !== 'Unassigned'">
+                    {{ group.name }}
+                  </ion-select-option>
+                </ng-container>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row text-right>
+          <ion-col size="12">
+            <ion-button color="light" (click)="dismiss()">
+              <ion-label>Cancel</ion-label>
+            </ion-button>
+            <ion-button [disabled]="rotationForm.invalid || callInProgress" (click)="createFieldGroup()">
+              <ion-label>Save</ion-label>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </form>
+  </ion-grid>
+</ion-content>
+  

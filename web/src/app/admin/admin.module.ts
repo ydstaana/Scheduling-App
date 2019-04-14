@@ -27,6 +27,9 @@ import { FieldsViewPage } from './fields/fields-view/fields-view.page';
 import { FieldService } from '../services/field.service';
 import { SchedulesOverviewPage } from './schedules-overview/schedules-overview.page';
 import { GroupAssignmentsPage } from './group-assignments/group-assignments.page';
+import { RotationsPage } from './rotations/rotations.page';
+import { RotationsCreatePage } from './rotations/rotations-create/rotations-create.page';
+import { RotationService } from '../services/rotation.service';
 
 const routes: Routes = [
   {
@@ -61,6 +64,10 @@ const routes: Routes = [
       {
         path: 'group-assignments',
         component: GroupAssignmentsPage
+      },
+      {
+        path: 'rotations',
+        component: RotationsPage
       }
     ]
   }
@@ -93,12 +100,15 @@ const routes: Routes = [
     SchedulesUpdatePage,
     SchedulesViewPage,
     SchedulesOverviewPage,
-    GroupAssignmentsPage
+    GroupAssignmentsPage,
+    RotationsPage,
+    RotationsCreatePage
   ],
   providers: [
     FieldService,
     UserService,
-    ScheduleService
+    ScheduleService,
+    RotationService
   ],
   entryComponents: [
     AccountsCreatePage,
@@ -112,7 +122,8 @@ const routes: Routes = [
     FieldGroupsUpdatePage,
     SchedulesCreatePage,
     SchedulesUpdatePage,
-    SchedulesViewPage
+    SchedulesViewPage,
+    RotationsCreatePage
   ]
 })
 export class AdminPageModule {}
