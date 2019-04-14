@@ -1,0 +1,58 @@
+<ion-content>
+  <ion-grid fixed class="p-25">
+    <ion-row class="m-b-15">
+      <ion-col>
+        <ion-button (click)="createRotation()">
+          Add new rotation
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="border-bottom">
+      <ion-col size="2">
+        <b>Field</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>Start Date</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>End Date</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>Field Admin</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>Group</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>Status</b>
+      </ion-col>
+    </ion-row>
+    <ion-row 
+      class="border-bottom log p-t-b-10" 
+      align-items-center *ngFor="let rotation of rotations"
+      (click)="viewRotation(rotation)">
+      <ion-col size="2">
+        {{ rotation.field.name }}
+      </ion-col>
+      <ion-col size="2">
+        {{ rotation.schedule.startDate | date: 'MMM dd, yyyy' }}
+      </ion-col>
+      <ion-col size="2">
+        {{ rotation.schedule.endDate | date: 'MMM dd, yyyy' }}
+      </ion-col>
+      <ion-col size="2">
+        {{ rotation.field.admin.firstName + ' ' + rotation.field.admin.lastName }}
+      </ion-col>
+      <ion-col size="2">
+        {{ rotation.group.name }}
+      </ion-col>
+      <ion-col size="2" *ngIf="rotation.isActive">
+        Active
+      </ion-col>
+      <ion-col size="2" *ngIf="!rotation.isActive">
+        Inactive
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+</ion-content>
+  
