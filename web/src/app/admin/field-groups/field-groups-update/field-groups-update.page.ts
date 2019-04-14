@@ -2,6 +2,7 @@ import { FieldService } from './../../../services/field.service';
 import { ToastController, PopoverController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import { RotationType } from 'src/app/models/rotation.model';
 
 @Component({
   selector: 'app-field-groups-update',
@@ -14,6 +15,11 @@ export class FieldGroupsUpdatePage implements OnInit {
   fieldGroupForm: FormGroup;
   fields = [];
   selectedFields = [];
+
+  // rotation type variables
+  rotationType: string = RotationType.Single;
+  ROTATION_TYPE_VALUES = RotationType;
+  ROTATION_TYPE_KEYS = Object.keys(RotationType);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -29,13 +35,16 @@ export class FieldGroupsUpdatePage implements OnInit {
       this.fields = data;
     });
 
+    this.rotationType = this.fieldGroup.rotationType;
+
     this.selectedFields = this.fieldGroup.fields.map(f => f.id);
     console.log(this.selectedFields);
   }
 
   buildForm() {
     this.fieldGroupForm = this.formBuilder.group({
-      fields: ['', [Validators.required]]
+      fields: ['', [Validators.required]],
+      rotationType: ['', [Validators.required]]
     });
   }
 

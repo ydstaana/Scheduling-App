@@ -28,6 +28,23 @@
             </ion-item>
           </ion-col>
         </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Rotation Type</ion-label>
+              <ion-select 
+                interface="popover" 
+                placeholder="Select Rotation Type"
+                [value]="rotationType"
+                [(ngModel)]="rotationType"
+                formControlName="rotationType">
+                <ion-select-option [value]="ROTATION_TYPE_VALUES[u]" *ngFor="let u of ROTATION_TYPE_KEYS">
+                  {{ ROTATION_TYPE_VALUES[u] }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
         <ion-row text-right>
           <ion-col size="12">
             <ion-button color="light" (click)="dismiss()">

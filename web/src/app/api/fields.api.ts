@@ -81,6 +81,41 @@ export class FieldsApi extends Api {
             isActive: true
           }
         ],
+        rotationType: 'Multiple',
+        isActive: true
+      },
+      {
+        id: 2,
+        name: 'Radio Ewan, Derma',
+        fields: [
+          {
+            id: 1,
+            name: 'Radio Ewan',
+            address: 'Pateros',
+            admin: {
+                id: 1,
+                firstName: 'Gregorio',
+                middleName: 'Del',
+                lastName: 'Pilar'
+                // other fields
+            },
+            isActive: true
+          },
+          {
+            id: 2,
+            name: 'Derma',
+            address: 'Pateros',
+            admin: {
+                id: 2,
+                firstName: 'Marcel',
+                middleName: 'Del',
+                lastName: 'Pilar'
+                // other fields
+            },
+            isActive: true
+          }
+        ],
+        rotationType: 'Elective',
         isActive: true
       }
     ]);
