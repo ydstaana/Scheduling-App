@@ -54,10 +54,7 @@ export class AccountsUpdatePage implements OnInit {
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       ]],
-      mobile: [this.user.mobileNumber, [
-        Validators.required,
-        Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-      ]]
+      isActive: [this.user.isActive, []]
     });
   }
 

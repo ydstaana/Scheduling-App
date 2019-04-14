@@ -29,7 +29,8 @@ export class SchedulesUpdatePage implements OnInit {
       startDate: [this.schedule.startDate, [Validators.required]],
       endDate: [this.schedule.endDate, [
         Validators.required
-      ]]
+      ]],
+      isActive: [this.schedule.isActive, []]
     });
   }
 
