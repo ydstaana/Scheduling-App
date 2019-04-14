@@ -1,19 +1,19 @@
 var Field = require('../../models/fields/FieldSchema.js');
-var SingleField = require('../../models/fields/SingleFieldSchema.js');
-var MultipleField = require('../../models/fields/MultipleFieldSchema.js');
+var StandardField = require('../../models/fields/StandardFieldSchema.js');
+var MinorField = require('../../models/fields/MinorFieldSchema.js');
 var ElectiveField = require('../../models/fields/ElectiveFieldSchema.js');
 var FieldGroup = require('../../models/fields/FieldGroupSchema.js');
 
 var FieldTypes = {
-  SINGLE : "Single",
-  MULTIPLE : "Multiple",
+  SINGLE : "Standard",
+  MULTIPLE : "Minor",
   ELECTIVE : "Elective"
 }
 
 function createField(req, res) {
   switch(req.body.fieldType) {
     case FieldTypes.SINGLE:
-      SingleField.create(req.body, function (err, field) {
+      StandardField.create(req.body, function (err, field) {
         if (err) {
           res.status(422).json({
             message: err
@@ -25,7 +25,7 @@ function createField(req, res) {
       })
       break;
     case FieldTypes.MULTIPLE:
-      MultipleField.create(req.body, function (err, field) {
+      MinorField.create(req.body, function (err, field) {
         if (err) {
           res.status(422).json({
             message: err

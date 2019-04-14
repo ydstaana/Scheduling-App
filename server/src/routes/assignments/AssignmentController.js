@@ -1,4 +1,5 @@
 var Assignment = require('../../models/assignments/AssignmentSchema.js');
+var Student = require('../../models/users/StudentSchema.js');
 
 function createAssignment(req, res) {
   Assignment.create(req.body, function (err, assignment) {
@@ -29,10 +30,6 @@ function listAssignments(req, res) {
         res.status(200).send(assignments);
       }
   })
-}
-
-function assignToStudent(req, res) {
-  var kaye 
 }
 
 module.exports = {

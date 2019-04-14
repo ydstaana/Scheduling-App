@@ -1,6 +1,6 @@
 var mongoose = require('mongoose');
 
-var Assignment = mongoose.Schema({
+var AssignmentSchema = mongoose.Schema({
   student: {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
@@ -23,5 +23,7 @@ var Assignment = mongoose.Schema({
   isCompleted: Boolean,
   isApproved: Boolean
 })
+
+var Assignment = mongoose.model('Assignment', AssignmentSchema);
 
 module.exports = Assignment;

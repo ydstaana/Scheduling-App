@@ -2,7 +2,7 @@ var mongoose = require('mongoose');
 
 var Field = require('./FieldSchema.js');
 
-var SingleField = Field.discriminator('Single',
+var SingleField = Field.discriminator('Standard',
   new mongoose.Schema()
  );
 

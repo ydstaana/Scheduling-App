@@ -1,7 +1,7 @@
 var Rotation = require('./RotationSchema.js');
 var mongoose = require('mongoose');
 
-var ElectiveRotation = Rotation.discriminator('Elective', 
+var SpecialRotation = Rotation.discriminator('Special', 
   new mongoose.Schema({
     fieldGroup : {
       type: mongoose.Schema.Types.ObjectId,
@@ -10,4 +10,4 @@ var ElectiveRotation = Rotation.discriminator('Elective',
   })
 );
 
-module.exports = ElectiveRotation;
+module.exports = SpecialRotation;
