@@ -2,7 +2,6 @@ var Schedule = require('../../models/schedules/ScheduleSchema.js');
 
 function createSchedule(req, res) {
   Schedule.create(req.body, function (err, sched) {
-    console.log(req.body);
     if (err) {
       res.status(422).json({
         message: err

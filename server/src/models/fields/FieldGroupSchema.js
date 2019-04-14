@@ -7,7 +7,8 @@ var FieldGroupSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Field'
     }
-  ]
+  ],
+  isActive : Boolean
 });
 
 var FieldGroup = mongoose.model('FieldGroup', FieldGroupSchema);

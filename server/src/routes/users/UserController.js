@@ -9,6 +9,25 @@ var UserTypes = {
   UST_MEDICINE_ADMIN: "UST Medicine Admin",
   FIELD_ADMIN: "Field Admin"
 }
+
+function login(req, res) {
+  User.authenticate(req.body.username, req.body.password, function (err, user) {
+    console.log(user)
+    if (err) return next(err);
+
+    else {
+      console.log(user);
+
+      res.status(200).json({
+        id: user._id,
+        name:  user.name,
+        success: true,
+        message: "Login Successful",
+      });
+    }
+  })
+} 
+
 function getStudent(req, res) {
   Student.findById(req.params.id)
   .populate('group')
@@ -181,6 +200,7 @@ async function updateUser(req, res) {
 }
 
 module.exports = {
+  login : login,
   getUser : getUser,
   getStudent : getStudent,
   getFieldAdmin : getFieldAdmin,

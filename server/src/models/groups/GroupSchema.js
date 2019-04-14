@@ -12,9 +12,9 @@ var GroupSchema = new mongoose.Schema({
   rotation : {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Rotation'
-  }
+  },
+  isActive : Boolean
 });
-
 
 var Group = mongoose.model('Group', GroupSchema);
 

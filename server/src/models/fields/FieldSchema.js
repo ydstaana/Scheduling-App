@@ -11,9 +11,9 @@ var FieldSchema = new mongoose.Schema({
     {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
-    }
+    },
+  isActive : Boolean
 }, baseOptions);
-
 
 var Field = mongoose.model('Field', FieldSchema);
 
