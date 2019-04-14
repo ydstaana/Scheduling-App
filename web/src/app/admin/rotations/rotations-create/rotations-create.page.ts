@@ -16,6 +16,7 @@ export class RotationsCreatePage implements OnInit {
   schedules = [];
   fields = [];
   fieldGroups = [];
+  fieldGroupsDisplay = [];
   groups = [];
   rotationForm: FormGroup;
 
@@ -84,6 +85,10 @@ export class RotationsCreatePage implements OnInit {
   resolveRotationType() {
     const fieldId = this.rotationForm.get('fieldId');
     const fieldGroupId = this.rotationForm.get('fieldGroupId');
+    this.fieldGroupsDisplay = this.fieldGroups.filter(fg => {
+      return fg.rotationType === this.rotationType;
+    });
+
     if (this.rotationType === RotationType.Single) {
       fieldId.setValue('');
       fieldGroupId.setValue('dummy');

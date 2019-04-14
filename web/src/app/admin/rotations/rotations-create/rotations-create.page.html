@@ -72,7 +72,7 @@
                 interface="popover" 
                 placeholder="Select Field Group"
                 formControlName="fieldGroupId">
-                <ion-select-option [value]="fg.id" *ngFor="let fg of fieldGroups">
+                <ion-select-option [value]="fg.id" *ngFor="let fg of fieldGroupsDisplay">
                   {{ fg.name }}
                 </ion-select-option>
               </ion-select>
