@@ -19,8 +19,8 @@ export class User extends Model {
     return this.api().users().listUserGroups();
   }
 
-  static login(username: string, password: string) {
-    return this.api().users().login(username, password);
+  static login(email: string, password: string) {
+    return this.api().users().login(email, password);
   }
 
   static update(user: any) {
