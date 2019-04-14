@@ -47,17 +47,12 @@ export class AccountsCreatePage implements OnInit {
       email: ['', [
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
-      ]],
-      mobile: ['', [
-        Validators.required,
-        Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
-      ]],
-      username: ['', [
-        Validators.required
-      ]],
-      password: ['', [
-        Validators.required
       ]]
+      // TODO: Move to students page
+      // mobile: ['', [
+      //   Validators.required,
+      //   Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+      // ]]
     });
   }
 

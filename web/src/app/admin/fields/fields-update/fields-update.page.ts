@@ -37,7 +37,8 @@ export class FieldsUpdatePage implements OnInit {
       ]],
       adminId: [this.field.admin.id, [
         Validators.required
-      ]]
+      ]],
+      isActive: [this.field.isActive, []]
     });
   }
 
