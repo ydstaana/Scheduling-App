@@ -124,8 +124,8 @@ export class UsersApi extends Api {
     ]);
   }
 
-  login(username: string, password) {
-    if (username === 'u' && password === 'p') {
+  login(email: string, password) {
+    if (email === 'u' && password === 'p') {
       console.log(this.baseUrl);
       return Promise.resolve({
         id: '123',

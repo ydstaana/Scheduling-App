@@ -20,8 +20,8 @@ export class UserService {
     return User.listUserGroups();
   }
 
-  login(username: string, password: string) {
-    return User.login(username, password);
+  login(email: string, password: string) {
+    return User.login(email, password);
   }
 
   update(user: any) {

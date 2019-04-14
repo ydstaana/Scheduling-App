@@ -1,21 +1,25 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>login</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content padding>
   <ion-grid fixed class="h-100">
     <form [formGroup]="loginForm" (keyup.enter)="login()">
+      <ion-row align-items-center>
+        <ion-col size="4" offset="4" text-center>
+          <img class="logo" src="./../../../../../assets/images/logo.png">
+        </ion-col>
+      </ion-row>
+      <ion-row align-items-center>
+        <ion-col size="4" offset="4" text-center>
+          <h2 class="m-t-0">Track Me</h2>
+        </ion-col>
+      </ion-row>
       <ion-row align-items-center class="h-100">
-        <ion-col size="4" offset="4">
+        <ion-col size="4" offset="4" class="border">
           <ion-list>
             <ion-grid fixed class="form-container">
               <ion-row>
                 <ion-col>
                   <ion-item>
-                    <ion-label position="floating">Username</ion-label>
-                    <ion-input formControlName="username"></ion-input>
+                    <ion-label position="floating">Email</ion-label>
+                    <ion-input formControlName="email"></ion-input>
                   </ion-item>
                 </ion-col>
               </ion-row>

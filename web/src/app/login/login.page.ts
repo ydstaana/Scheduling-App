@@ -25,7 +25,7 @@ export class LoginPage implements OnInit {
 
   buildForm() {
     this.loginForm = this.formBuilder.group({
-      username: ['', [
+      email: ['', [
         Validators.required
       ]],
       password: ['', [
@@ -35,10 +35,10 @@ export class LoginPage implements OnInit {
   }
 
   login() {
-    if (!this.loginForm.invalid && this.loginForm.value['username'] && this.loginForm.value['password']) {
+    if (!this.loginForm.invalid && this.loginForm.value['email'] && this.loginForm.value['password']) {
       this.callInProgress = true;
 
-      this.userService.login(this.loginForm.value['username'], this.loginForm.value['password']).then((data) => {
+      this.userService.login(this.loginForm.value['email'], this.loginForm.value['password']).then((data) => {
         // this.storageService.setItem(Storage.ACCESS_TOKEN, data.accessToken);
 
         this.isUnauthorized = false;
