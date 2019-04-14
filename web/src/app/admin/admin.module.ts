@@ -26,6 +26,7 @@ import { FieldsUpdatePage } from './fields/fields-update/fields-update.page';
 import { FieldsViewPage } from './fields/fields-view/fields-view.page';
 import { FieldService } from '../services/field.service';
 import { SchedulesOverviewPage } from './schedules-overview/schedules-overview.page';
+import { GroupAssignmentsPage } from './group-assignments/group-assignments.page';
 
 const routes: Routes = [
   {
@@ -56,6 +57,10 @@ const routes: Routes = [
       {
         path: 'schedules-overview',
         component: SchedulesOverviewPage
+      },
+      {
+        path: 'group-assignments',
+        component: GroupAssignmentsPage
       }
     ]
   }
@@ -87,7 +92,8 @@ const routes: Routes = [
     SchedulesCreatePage,
     SchedulesUpdatePage,
     SchedulesViewPage,
-    SchedulesOverviewPage
+    SchedulesOverviewPage,
+    GroupAssignmentsPage
   ],
   providers: [
     FieldService,

@@ -15,11 +15,19 @@ export class User extends Model {
     return this.api().users().list();
   }
 
+  static listUserGroups() {
+    return this.api().users().listUserGroups();
+  }
+
   static login(username: string, password: string) {
     return this.api().users().login(username, password);
   }
 
   static update(user: any) {
     return this.api().users().update(user);
+  }
+
+  static updateUserGroups(userGroup: any) {
+    return this.api().users().updateUserGroups(userGroup);
   }
 }
