@@ -16,15 +16,14 @@ var UserSchema = new mongoose.Schema({
   contactPersonName: String,
   contactPersonNumber: String,
   email: String,
-  username: String,
   password: String,
   status: String,
   dateCreated : { type: Date, default : new Date() },
   lastModified: { type: Date, default : new Date() }
 }, baseOptions);
 
-UserSchema.statics.authenticate = function (username, password, callback) {
-  this.findOne({ username: username })
+UserSchema.statics.authenticate = function (email, password, callback) {
+  this.findOne({ email: email })
     .exec(function (err, user) {
       if (err) {
         return callback(err)
@@ -37,7 +36,7 @@ UserSchema.statics.authenticate = function (username, password, callback) {
       if(user.password == password){
       	return callback(null, user);
       } else{
-      	var err = new Error('Incorrect username/password');
+      	var err = new Error('Incorrect email/password');
         err.status = 401;
         return callback(err);
       }

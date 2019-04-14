@@ -31,6 +31,10 @@ function listAssignments(req, res) {
   })
 }
 
+function assignToStudent(req, res) {
+  var kaye 
+}
+
 module.exports = {
   createAssignment : createAssignment,
   listAssignments : listAssignments

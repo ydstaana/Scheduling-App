@@ -11,10 +11,14 @@ var UserTypes = {
 }
 
 function login(req, res) {
-  User.authenticate(req.body.username, req.body.password, function (err, user) {
-    console.log(user)
-    if (err) return next(err);
-
+  User.authenticate(req.body.email, req.body.password, function (err, user) {
+    if (err) {
+      res.status(403).json({
+        success: false,
+        message: err.message,
+      });
+    }
+      
     else {
       console.log(user);
 
