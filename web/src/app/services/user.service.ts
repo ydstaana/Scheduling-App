@@ -16,11 +16,19 @@ export class UserService {
     return User.list();
   }
 
+  listUserGroups() {
+    return User.listUserGroups();
+  }
+
   login(username: string, password: string) {
     return User.login(username, password);
   }
 
   update(user: any) {
     return User.update(user);
+  }
+
+  updateUserGroups(userGroup: any) {
+    return User.updateUserGroups(userGroup);
   }
 }
