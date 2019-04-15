@@ -21,9 +21,6 @@ router.get('/users/:id', userController.getUser);
 router.put('/users/:id', userController.updateUser);
 
 router.post('/users', userController.createUser);
-router.post('/users/med-admins', userController.createMedAdmin);
-router.post('/users/field-admins', userController.createFieldAdmin);
-router.post('/users/students', userController.createStudent);
 
 //Groups
 router.get('/groups', groupController.listGroups);

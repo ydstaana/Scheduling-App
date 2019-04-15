@@ -99,59 +99,47 @@ function getUser(req, res) {
 }
 
 function createUser(req, res) {
-  User.create(req.body, function (err, user) {
-    console.log(req.body);
-    if (err) {
-      res.status(422).json({
-        message: err
+  switch(req.body.userType) {
+    case UserTypes.STUDENT : 
+      Student.create(req.body, function (err, user) {
+        console.log(req.body);
+        if (err) {
+          res.status(422).json({
+            message: err
+          });
+        }
+          else{
+            res.status(200).send(user);
+          }
       });
-    }
-      else{
-        res.status(200).send(user);
-      }
-  });
-};
-
-function createMedAdmin(req, res) {
-  MedAdmin.create(req.body, function (err, user) {
-    console.log(req.body);
-    if (err) {
-      res.status(422).json({
-        message: err
+      break;
+    case UserTypes.UST_MEDICINE_ADMIN :
+      MedAdmin.create(req.body, function (err, user) {
+        console.log(req.body);
+        if (err) {
+          res.status(422).json({
+            message: err
+          });
+        }
+          else{
+            res.status(200).send(user);
+          }
       });
-    }
-      else{
-        res.status(200).send(user);
-      }
-  });
-};
-
-function createStudent(req, res) {
-  Student.create(req.body, function (err, user) {
-    console.log(req.body);
-    if (err) {
-      res.status(422).json({
-        message: err
+      break;
+    case UserTypes.FIELD_ADMIN :
+      FieldAdmin.create(req.body, function (err, user) {
+        console.log(req.body);
+        if (err) {
+          res.status(422).json({
+            message: err
+          });
+        }
+          else{
+            res.status(200).send(user);
+          }
       });
-    }
-      else{
-        res.status(200).send(user);
-      }
-  });
-};
-
-function createFieldAdmin(req, res) {
-  FieldAdmin.create(req.body, function (err, user) {
-    console.log(req.body);
-    if (err) {
-      res.status(422).json({
-        message: err
-      });
-    }
-      else{
-        res.status(200).send(user);
-      }
-  });
+      break;
+  }
 };
 
 function listUsers(req, res) {
@@ -217,9 +205,6 @@ module.exports = {
   getFieldAdmin : getFieldAdmin,
   getMedAdmin : getMedAdmin,
   createUser: createUser,
-  createMedAdmin: createMedAdmin,
-  createStudent: createStudent,
-  createFieldAdmin: createFieldAdmin,
   listUsers: listUsers,
   listMedAdmins : listMedAdmins,
   listFieldAdmins : listFieldAdmins,
