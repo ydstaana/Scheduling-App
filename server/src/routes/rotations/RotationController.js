@@ -27,6 +27,7 @@ function createRotation(req, res) {
           // Create default Assignments
           var group = await Group.findById(rotation.group)
           for(i = 0; i < group.students.length; i++) {
+            console.log(group.students)
             new Assignment({
               student : group.students[i],
               rotation : rotation._id,

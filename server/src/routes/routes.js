@@ -30,10 +30,11 @@ router.post('/groups/addStudent', groupController.addStudentToGroup);
 //Fields
 router.get('/fields', fieldController.listFields);
 router.post('/fields', fieldController.createField);
+router.put('/fields/:id', fieldController.updateField);
 
 //FieldGroups
-router.get('/fields', fieldController.listFieldGroups);
-router.post('/fields', fieldController.createFieldGroup);
+router.get('/field-groups', fieldController.listFieldGroups);
+router.post('/field-groups', fieldController.createFieldGroup);
 
 //Schedules
 router.get('/schedules', scheduleController.listSchedules);

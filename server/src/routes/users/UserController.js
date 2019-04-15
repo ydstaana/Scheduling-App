@@ -143,8 +143,11 @@ function createUser(req, res) {
 };
 
 function listUsers(req, res) {
-  User.find({}, function(err, users) {
-		if(err) res.status(422).json({code:'422',message:err});
+  User.find({})
+  .populate('field')
+  .exec(function(err, users) {
+    if(err) res.status(422).json({code:'422',message:err});
+    
 		else{
 			res.status(200).send(users);
 		}

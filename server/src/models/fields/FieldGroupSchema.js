@@ -1,5 +1,6 @@
 var mongoose = require('mongoose');
 
+
 var FieldGroupSchema = new mongoose.Schema({
   name: String,
   fields : [
@@ -9,6 +10,8 @@ var FieldGroupSchema = new mongoose.Schema({
     }
   ],
   isActive : Boolean
+}, {
+  discriminatorKey : 'fieldGroupType'
 });
 
 var FieldGroup = mongoose.model('FieldGroup', FieldGroupSchema);

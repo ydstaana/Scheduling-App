@@ -1,18 +1,28 @@
 var Field = require('../../models/fields/FieldSchema.js');
+var User = require('../../models/users/UserSchema.js');
 var StandardField = require('../../models/fields/StandardFieldSchema.js');
 var MinorField = require('../../models/fields/MinorFieldSchema.js');
 var ElectiveField = require('../../models/fields/ElectiveFieldSchema.js');
 var FieldGroup = require('../../models/fields/FieldGroupSchema.js');
+var StandardFieldGroup = require('../../models/fields/StandardFieldGroupSchema.js');
+var MinorFieldGroup = require('../../models/fields/MinorFieldGroupSchema.js');
+var ElectiveFieldGroup = require('../../models/fields/ElectiveFieldGroupSchema.js');
 
 var FieldTypes = {
-  SINGLE : "Standard",
-  MULTIPLE : "Minor",
+  STANDARD : "Standard",
+  MINOR : "Minor",
   ELECTIVE : "Elective"
+}
+
+var FieldGroupTypes = {
+  STANDARD : "StandardGroup",
+  MINOR : "MinorGroup",
+  ELECTIVE : "ElectiveGroup"
 }
 
 function createField(req, res) {
   switch(req.body.fieldType) {
-    case FieldTypes.SINGLE:
+    case FieldTypes.STANDARD:
       StandardField.create(req.body, function (err, field) {
         if (err) {
           res.status(422).json({
@@ -24,7 +34,7 @@ function createField(req, res) {
           }
       })
       break;
-    case FieldTypes.MULTIPLE:
+    case FieldTypes.MINOR:
       MinorField.create(req.body, function (err, field) {
         if (err) {
           res.status(422).json({
@@ -52,16 +62,45 @@ function createField(req, res) {
 }
 
 function createFieldGroup(req, res) {
-  FieldGroup.create(req.body, function (err, field) {
-    if (err) {
-      res.status(422).json({
-        message: err
-      });
-    }
-      else{
-        res.status(200).send(field);
-      }
-  })
+  switch(req.body.fieldGroupType) {
+    case FieldGroupTypes.STANDARD:
+      StandardFieldGroup.create(req.body, function (err, group) {
+        if (err) {
+          res.status(422).json({
+            message: err
+          });
+        }
+          else{
+            res.status(200).send(group);
+          }
+      })
+      break; 
+    case FieldGroupTypes.MINOR:
+      MinorFieldGroup.create(req.body, function (err, group) {
+        if (err) {
+          res.status(422).json({
+            message: err
+          });
+        }
+          else{
+            res.status(200).send(group);
+          }
+      })
+      break; 
+    case FieldGroupTypes.ELECTIVE:
+      ElectiveFieldGroup.create(req.body, function (err, group) {
+        if (err) {
+          res.status(422).json({
+            message: err
+          });
+        }
+          else{
+            res.status(200).send(group);
+          }
+      })
+      break;
+  }
+  
 }
 
 function listFields(req, res) {
@@ -94,9 +133,30 @@ function listFieldGroups(req, res) {
   })
 }
 
+async function updateField(req, res) {
+  const doc = await Field.findById(req.params.id);
+
+  doc.set(req.body)
+
+  doc.save().then(async function(err) {
+    var admin = await User.findById(doc.admin)
+
+    admin.field = doc.id
+
+    await admin.save();
+
+		res.status(200).send(doc);
+  })
+  .catch(err => {
+    console.log(err)
+    res.status(422).json({code:'422',message:err});
+  })
+}
+
 module.exports = {
   createField : createField,
   listFields: listFields,
   listFieldGroups : listFieldGroups,
-  createFieldGroup : createFieldGroup
+  createFieldGroup : createFieldGroup,
+  updateField : updateField
 }
