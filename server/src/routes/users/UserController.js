@@ -20,13 +20,19 @@ function login(req, res) {
     }
       
     else {
-      console.log(user);
-
       res.status(200).json({
-        id: user._id,
-        name:  user.name,
-        success: true,
-        message: "Login Successful",
+        firstName: user.firstName,
+        middleName: user.middleName,
+        lastName: user.lastName,
+        address: user.address,
+        mobileNumber: user.mobileNumber,
+        isActive:  user.isActive,
+        contactPersonName: user.contactPersonName,
+        contactPersonNumber: user.contactPersonNumber,
+        email: user.email,
+        status: user.status,
+        dateCreated : user.dateCreated,
+        lastModified: user.lastModified
       });
     }
   })
