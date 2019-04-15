@@ -100,10 +100,18 @@ function getUser(req, res) {
 }
 
 function createUser(req, res) {
-  switch(req.body.userType) {
+  // TODO: Improve setting default password
+  const defaultPassword = 'user123';
+  const reqBody = {
+    ...req.body,
+    password: defaultPassword,
+    isActive: true // default to true
+  };
+
+  switch(reqBody.userType) {
     case UserTypes.STUDENT : 
-      Student.create(req.body, function (err, user) {
-        console.log(req.body);
+      Student.create(reqBody, function (err, user) {
+        console.log(reqBody);
         if (err) {
           res.status(422).json({
             message: err
@@ -115,8 +123,8 @@ function createUser(req, res) {
       });
       break;
     case UserTypes.UST_MEDICINE_ADMIN :
-      MedAdmin.create(req.body, function (err, user) {
-        console.log(req.body);
+      MedAdmin.create(reqBody, function (err, user) {
+        console.log(reqBody);
         if (err) {
           res.status(422).json({
             message: err
@@ -128,8 +136,8 @@ function createUser(req, res) {
       });
       break;
     case UserTypes.FIELD_ADMIN :
-      FieldAdmin.create(req.body, function (err, user) {
-        console.log(req.body);
+      FieldAdmin.create(reqBody, function (err, user) {
+        console.log(reqBody);
         if (err) {
           res.status(422).json({
             message: err
