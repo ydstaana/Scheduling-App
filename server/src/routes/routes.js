@@ -25,6 +25,7 @@ router.post('/users', userController.createUser);
 
 //Groups
 router.get('/groups', groupController.listGroups);
+router.get('/groups/:id', groupController.getGroup);
 router.post('/groups', groupController.createGroup);
 router.post('/groups/addStudent', groupController.addStudentToGroup);
 
@@ -53,6 +54,8 @@ router.get('/assignments', assignmentController.listAssignments);
 router.post('/assignments', assignmentController.createAssignment);
 router.put('/assignments/:id', assignmentController.updateAssignment);
 router.put('/assignments/:id/accept', assignmentController.acceptAssignment);
+router.get('/assignments/students/:id', assignmentController.listAssignmentsByStudent);
+router.get('/assignments/rotations/:id', assignmentController.listAssignmentsByRotation);
 
 //Requests
 router.post('/requests', requestController.createRequest);

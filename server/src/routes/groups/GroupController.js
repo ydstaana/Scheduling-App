@@ -8,10 +8,26 @@ function createGroup(req, res) {
         message: err
       });
     }
-      else{
-        res.status(200).send(group);
-      }
+    else{
+      res.status(200).send(group);
+    }
   });
+}
+
+function getGroup(req, res) {
+  Group.findById(req.params.id)
+  .populate('students')
+  .populate('rotation')
+  .exec(function(err, group) {
+    if (err) {
+      res.status(422).json({
+        message: err
+      });
+    }
+    else{
+      res.status(200).send(group);
+    }
+  })
 }
 
 function listGroups(req, res) {
@@ -41,5 +57,6 @@ async function addStudentToGroup(req, res) {
 module.exports = {
   createGroup : createGroup,
   listGroups : listGroups,
-  addStudentToGroup : addStudentToGroup
+  addStudentToGroup : addStudentToGroup,
+  getGroup : getGroup
 }

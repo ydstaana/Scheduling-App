@@ -26,6 +26,22 @@ function createRequest(req, res) {
   }
 }
 
+function listSwitchRequests(req, res) {
+  SwitchRequest.find({})
+  .populate('student')
+  .populate('admin')
+  .populate('oldRotation')
+  .populate('newRotation')
+  .exec(function(err, requests) {
+    if(err)
+      res.status(422).json({code:'422',message:err});
+    else
+      res.status(200).send(requests);
+  })
+
+}
+
 module.exports = {
-  createRequest : createRequest
+  createRequest : createRequest,
+  listSwitchRequests : listSwitchRequests
 }

@@ -11,7 +11,9 @@ var RequestSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  isApproved: Boolean
+  isApproved: Boolean,
+  message : String,
+  acknowledgementMessage : String
 }, {
   discriminatorKey : "requestType"
 })

@@ -62,9 +62,53 @@ function listAssignments(req, res) {
   })
 }
 
+function listAssignmentsByStudent(req ,res) {
+  Assignment.find({
+    student : req.params.id
+  })
+  .populate('student')
+  .populate('rotation')
+  .populate('group')
+  .populate('admin')
+  .exec(function (err, assignments) {
+    if (err) {
+      res.status(422).json({
+        message: err
+      });
+    }
+    else{
+      res.status(200).send(assignments);
+    }
+  })
+}
+
+function listAssignmentsByRotation(req ,res) {
+  // TO DO -> Filter by isChanged
+  Assignment.find({
+    rotation : req.params.id
+  })
+  .populate('student')
+  .populate('rotation')
+  .populate('group')
+  .populate('admin')
+  .exec(function (err, assignments) {
+    if (err) {
+      res.status(422).json({
+        message: err
+      });
+    }
+    else{
+      assignments = assignments.filter(assign => assign.fields)
+      res.status(200).send(assignments);
+    }
+  })
+}
+
 module.exports = {
   createAssignment : createAssignment,
   listAssignments : listAssignments,
   updateAssignment : updateAssignment,
-  acceptAssignment : acceptAssignment
+  acceptAssignment : acceptAssignment,
+  listAssignmentsByStudent : listAssignmentsByStudent,
+  listAssignmentsByRotation : listAssignmentsByRotation
 }

@@ -164,10 +164,7 @@ function listUsers(req, res) {
 }
 
 function listMedAdmins(req, res) {
-  User.find(
-    {
-      userType : UserTypes.UST_MEDICINE_ADMIN
-    }, function(err, users) {
+  MedAdmin.find({}, function(err, users) {
 		if(err) res.status(422).json({code:'422',message:err});
 		else{
 			res.status(200).send(users);
@@ -176,10 +173,7 @@ function listMedAdmins(req, res) {
 }
 
 function listFieldAdmins(req, res) {
-  User.find(
-    {
-      userType : UserTypes.FIELD_ADMIN
-    }, function(err, users) {
+  FieldAdmin.find({}, function(err, users) {
 		if(err) res.status(422).json({code:'422',message:err});
 		else{
 			res.status(200).send(users);
@@ -187,10 +181,7 @@ function listFieldAdmins(req, res) {
 	})
 }
 function listStudents(req, res) {
-  User.find(
-    {
-      userType : UserTypes.STUDENT
-    }, function(err, users) {
+  Student.find({}, function(err, users) {
 		if(err) res.status(422).json({code:'422',message:err});
 		else{
 			res.status(200).send(users);
