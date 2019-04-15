@@ -120,7 +120,7 @@ function listFields(req, res) {
 
 function listFieldGroups(req, res) {
   FieldGroup.find({})
-  .populate('admin')
+  .populate('fields')
   .exec(function(err, fields) {
     if (err) {
       res.status(422).json({
@@ -153,10 +153,24 @@ async function updateField(req, res) {
   })
 }
 
+async function updateFieldGroup(req, res) {
+  const doc = await FieldGroup.findById(req.params.id);
+
+  doc.set(req.body)
+
+  doc.save().then(function(err) {
+		res.status(200).send(doc);
+  })
+  .catch(err => {
+    res.status(422).json({code:'422',message:err});
+  })
+}
+
 module.exports = {
   createField : createField,
   listFields: listFields,
   listFieldGroups : listFieldGroups,
   createFieldGroup : createFieldGroup,
-  updateField : updateField
+  updateField : updateField,
+  updateFieldGroup : updateFieldGroup
 }
