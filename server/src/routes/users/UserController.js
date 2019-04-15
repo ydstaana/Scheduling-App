@@ -21,6 +21,7 @@ function login(req, res) {
       
     else {
       res.status(200).json({
+        userType : user.userType,
         firstName: user.firstName,
         middleName: user.middleName,
         lastName: user.lastName,
