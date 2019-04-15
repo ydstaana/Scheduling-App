@@ -47,5 +47,7 @@ router.get('/rotations', rotationController.listRotations);
 //Assignments
 router.get('/assignments', assignmentController.listAssignments);
 router.post('/assignments', assignmentController.createAssignment);
+router.put('/assignments/:id', assignmentController.updateAssignment);
+router.put('/assignments/:id/accept', assignmentController.acceptAssignment);
 
 module.exports = router;

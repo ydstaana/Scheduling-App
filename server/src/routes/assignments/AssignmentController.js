@@ -14,6 +14,36 @@ function createAssignment(req, res) {
   });
 }
 
+async function acceptAssignment(req, res) {
+  var assign = await Assignment.findById(req.params.id)
+
+  assign.isAccepted = true;
+
+  assign.save().then(() => {
+    res.status(200).send(assign);
+  })
+  .catch(err => {
+    res.status(422).json({
+      message: err
+    });
+  }) 
+}
+
+async function updateAssignment(req, res) {
+  var assign = await Assignment.findById(req.params.id)
+
+  assign.set(req.body); 
+
+  assign.save().then(() => {
+    res.status(200).send(assign);
+  })
+  .catch(err => {
+    res.status(422).json({
+      message: err
+    });
+  }) 
+}
+
 function listAssignments(req, res) {
   Assignment.find({})
   .populate('student')
@@ -34,5 +64,7 @@ function listAssignments(req, res) {
 
 module.exports = {
   createAssignment : createAssignment,
-  listAssignments : listAssignments
+  listAssignments : listAssignments,
+  acceptAssignment : acceptAssignment,
+  updateAssignment : updateAssignment
 }

@@ -26,42 +26,84 @@ function createRotation(req, res) {
         else {
           // Create default Assignments
           var group = await Group.findById(rotation.group)
-          for(i = 0; i < group.students.length; i++) {
-            console.log(group.students)
-            new Assignment({
-              student : group.students[i],
-              rotation : rotation._id,
-              group : group._id
-            })
-            .save();
+          try {
+            if(group.students.length != 0) {
+              for(i = 0; i < group.students.length; i++) {
+                new Assignment({
+                  student : group.students[i],
+                  rotation : rotation._id,
+                  group : group._id
+                })
+                .save();
+              }
+            }
+            res.status(200).send(rotation);
           }
-          res.status(200).send(rotation);
+          catch(err) {
+            res.status(422).json({
+              message: err
+            });
+          } 
         }
       });
       break;
       case RotationType.SINGLE :
-        MultipleRotation.create(req.body, function (err, rotation) {
+        MultipleRotation.create(req.body, async function (err, rotation) {
           if (err) {
             res.status(422).json({
               message: err
             });
           }
-          else{
-            console.log(rotation);
-            res.status(200).send(rotation);
+          else {
+            // Create default Assignments
+            try {
+              if(group.students.length != 0) {
+                for(i = 0; i < group.students.length; i++) {
+                  new Assignment({
+                    student : group.students[i],
+                    rotation : rotation._id,
+                    group : group._id
+                  })
+                  .save();
+                }
+              }
+              res.status(200).send(rotation);
+            }
+            catch(err) {
+              res.status(422).json({
+                message: err
+              });
+            }
           }
         });
         break;
       case RotationType.ELECTIVE :
-        SpecialRotation.create(req.body, function (err, rotation) {
+        SpecialRotation.create(req.body, async function (err, rotation) {
           if (err) {
             res.status(422).json({
               message: err
             });
           }
-          else{
-            console.log(rotation);
-            res.status(200).send(rotation);
+          else {
+            // Create default Assignments
+            try {
+              if(group.students.length != 0) {
+                for(i = 0; i < group.students.length; i++) {
+                  new Assignment({
+                    student : group.students[i],
+                    rotation : rotation._id,
+                    group : group._id
+                  })
+                  .save();
+                }
+              }
+              res.status(200).send(rotation);
+            }
+            catch(err) {
+              res.status(422).json({
+                message: err
+              });
+            }
           }
         });
         break;
