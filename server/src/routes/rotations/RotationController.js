@@ -110,6 +110,22 @@ function createRotation(req, res) {
   }
 }
 
+function getRotation(req, res) {
+  Rotation.findById(req.params.id)
+  .populate('schedule')
+  .populate ('group')
+  .exec(function(err, rotation) {
+    if(err) {
+      res.status(422).json({
+        message: err
+      });
+    }
+    else {
+      res.status(200).send(rotations);
+    }
+  })
+}
+
 function listRotations(req, res) {
   Rotation.find({})
   .populate('schedule')
@@ -126,7 +142,27 @@ function listRotations(req, res) {
   })
 }
 
+function rotationLookup(req, res) {
+  Rotation.findOne({
+    schedule : req.body.schedule
+  })
+  .populate('schedule')
+  .populate ('group')
+  .exec(function(err, rotation) {
+    if(err) {
+      res.status(422).json({
+        message: err
+      });
+    }
+    else {
+      res.status(200).send(rotation);
+    }
+  })
+}
+
 module.exports = {
   createRotation : createRotation,
-  listRotations : listRotations
+  listRotations : listRotations,
+  rotationLookup : rotationLookup,
+  getRotation : getRotation
 }

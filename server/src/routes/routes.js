@@ -7,6 +7,7 @@ const fieldController = require('./fields/FieldController')
 const scheduleController = require('./schedules/ScheduleController')
 const rotationController = require('./rotations/RotationController')
 const assignmentController = require('./assignments/AssignmentController')
+const requestController = require('./requests/RequestController')
 
 router.post('/login', userController.login);
 
@@ -44,11 +45,16 @@ router.post('/schedules', scheduleController.createSchedule);
 //Rotations
 router.post('/rotations', rotationController.createRotation);
 router.get('/rotations', rotationController.listRotations);
+router.get('/rotations/:id', rotationController.getRotation);
+router.post('/rotations/lookup', rotationController.rotationLookup);
 
 //Assignments
 router.get('/assignments', assignmentController.listAssignments);
 router.post('/assignments', assignmentController.createAssignment);
 router.put('/assignments/:id', assignmentController.updateAssignment);
 router.put('/assignments/:id/accept', assignmentController.acceptAssignment);
+
+//Requests
+router.post('/requests', requestController.createRequest);
 
 module.exports = router;
