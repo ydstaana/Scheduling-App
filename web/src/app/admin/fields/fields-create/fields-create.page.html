@@ -31,12 +31,29 @@
         <ion-row>
           <ion-col>
             <ion-item>
+              <ion-label position="floating">Field Type</ion-label>
+              <ion-select 
+                interface="popover" 
+                placeholder="Select Field Type"
+                [value]="fieldType"
+                [(ngModel)]="fieldType"
+                formControlName="fieldType">
+                <ion-select-option [value]="FIELD_TYPE_VALUES[u]" *ngFor="let u of FIELD_TYPE_KEYS">
+                  {{ FIELD_TYPE_VALUES[u] }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
               <ion-label position="floating">Field Admin</ion-label>
               <ion-select 
                 interface="popover" 
                 placeholder="Select Field Admin"
-                formControlName="adminId">
-                <ion-select-option [value]="admin.id" *ngFor="let admin of admins">
+                formControlName="admin">
+                <ion-select-option [value]="admin._id" *ngFor="let admin of admins">
                   {{ admin.firstName + ' ' + admin.lastName }}
                 </ion-select-option>
               </ion-select>

@@ -22,7 +22,8 @@ export class FieldsPage implements OnInit {
   }
 
   listFields() {
-    this.fieldService.list().then(data => {
+    this.fieldService.list().then((data: any) => {
+      console.log(data);
       this.fields = data;
     });
   }

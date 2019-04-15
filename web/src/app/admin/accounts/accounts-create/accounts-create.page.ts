@@ -31,8 +31,8 @@ export class AccountsCreatePage implements OnInit {
 
   buildForm() {
     this.accountForm = this.formBuilder.group({
-      studentNumber: ['', [Validators.required]],
-      accountType: ['', [
+      studentId: ['', [Validators.required]],
+      userType: ['', [
         Validators.required
       ]],
       firstName: ['', [
@@ -73,7 +73,7 @@ export class AccountsCreatePage implements OnInit {
   }
 
   resolveAccountType() {
-    const studentNumberCtrl = this.accountForm.get('studentNumber');
+    const studentNumberCtrl = this.accountForm.get('studentId');
     if (this.userType === UserType.STUDENT) {
       studentNumberCtrl.setValue('');
     } else {

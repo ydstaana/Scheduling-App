@@ -29,7 +29,7 @@ export class FieldGroupsCreatePage implements OnInit {
   ngOnInit() {
     this.buildForm();
 
-    this.fieldService.list().then(data => {
+    this.fieldService.list().then((data: any) => {
       this.fields = data;
     });
   }

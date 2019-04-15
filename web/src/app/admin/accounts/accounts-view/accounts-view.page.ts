@@ -1,6 +1,7 @@
 import { AccountsUpdatePage } from './../accounts-update/accounts-update.page';
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
+import { UserType } from 'src/app/models/user.model';
 
 @Component({
   selector: 'app-accounts-view',
@@ -10,7 +11,7 @@ import { PopoverController } from '@ionic/angular';
 export class AccountsViewPage implements OnInit {
   user: any;
   currentTab = 'PERSONAL_INFORMATION';
-  isEdit = false;
+  UserType = UserType;
 
   constructor(
     private popoverCtrl: PopoverController

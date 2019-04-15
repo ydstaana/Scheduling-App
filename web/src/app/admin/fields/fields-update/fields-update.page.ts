@@ -24,7 +24,7 @@ export class FieldsUpdatePage implements OnInit {
   ngOnInit() {
     this.buildForm();
 
-    this.fieldService.listAdmins().then(data => {
+    this.fieldService.listAdmins().then((data: any) => {
       this.admins = data;
     });
   }

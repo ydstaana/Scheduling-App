@@ -1,16 +1,26 @@
 import { Api } from './api';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class FieldsApi extends Api {
   constructor(
-    http: HttpClient,
+    private http: HttpClient,
     baseUrl: string
   ) {
     super(baseUrl);
   }
 
   create(field: any) {
-    return Promise.resolve(field);
+    // console.log(field);
+    // return Promise.resolve(field);
+
+    return this.http.post(
+      `${this.baseUrl}/fields`,
+      {
+        ...field,
+        isActive: true
+      },
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
   }
 
   createGroup(field: any) {
@@ -18,34 +28,7 @@ export class FieldsApi extends Api {
   }
 
   list() {
-    return Promise.resolve([
-      {
-        id: 1,
-        name: 'Com-Med',
-        address: 'Pateros',
-        admin: {
-            id: 1,
-            firstName: 'Gregorio',
-            middleName: 'Del',
-            lastName: 'Pilar'
-            // other fields
-        },
-        isActive: true
-      },
-      {
-        id: 2,
-        name: 'Derma',
-        address: 'Pateros',
-        admin: {
-            id: 2,
-            firstName: 'Marcel',
-            middleName: 'Del',
-            lastName: 'Pilar'
-            // other fields
-        },
-        isActive: true
-      }
-    ]);
+    return this.http.get(`${this.baseUrl}/fields`).toPromise();
   }
 
   listFieldGroups() {
@@ -122,22 +105,7 @@ export class FieldsApi extends Api {
   }
 
   listAdmins() {
-    return Promise.resolve([
-      {
-          id: 1,
-          firstName: 'Gregorio',
-          middleName: 'Del',
-          lastName: 'Pilar'
-          // other fields
-      },
-      {
-          id: 2,
-          firstName: 'Marcel',
-          middleName: 'Del',
-          lastName: 'Pilar'
-          // other fields
-      }
-    ]);
+    return this.http.get(`${this.baseUrl}/users/field-admins`).toPromise();
   }
 
   update(field: any) {

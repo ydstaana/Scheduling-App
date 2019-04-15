@@ -1,5 +1,17 @@
 import { Model } from './model';
 
+export enum FieldType {
+    STANDARD = 'Standard',
+    MINOR = 'Minor',
+    ELECTIVE = 'Elective'
+}
+
+export enum FieldGroupType {
+    STANDARD = 'StandardGroup',
+    MINOR = 'MinorGroup',
+    ELECTIVE = 'ElectiveGroup'
+}
+
 export class Field extends Model {
     static create(field: any) {
         return this.api().fields().create(field);

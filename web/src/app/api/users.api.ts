@@ -11,12 +11,11 @@ export class UsersApi extends Api {
   }
 
   create(user: any) {
-    const u = {
-      ...user,
-      accountType: Object.keys(UserType).find(key => UserType[key] === user.accountType)
-    };
-
-    return Promise.resolve(u);
+    return this.http.post(
+      `${this.baseUrl}/users`,
+      user,
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
   }
 
   list() {
@@ -95,7 +94,11 @@ export class UsersApi extends Api {
   }
 
   update(user: any) {
-    return Promise.resolve(user);
+    return this.http.put(
+      `${this.baseUrl}/users/${user._id}`,
+      user,
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
   }
 
   updateUserGroups(userGroup: any) {

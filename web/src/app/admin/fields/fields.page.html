@@ -11,13 +11,16 @@
       <ion-col size="3">
         <b>Field</b>
       </ion-col>
+      <ion-col size="2">
+        <b>Field Type</b>
+      </ion-col>
       <ion-col size="3">
         <b>Field Admin</b>
       </ion-col>
-      <ion-col size="3">
+      <ion-col size="2">
         <b>Address</b>
       </ion-col>
-      <ion-col size="3">
+      <ion-col size="2">
         <b>Status</b>
       </ion-col>
     </ion-row>
@@ -28,16 +31,19 @@
       <ion-col size="3">
         {{ field.name }}
       </ion-col>
+      <ion-col size="2">
+        {{ field.fieldType }}
+      </ion-col>
       <ion-col size="3">
         {{ field.admin.firstName + ' ' + field.admin.lastName }}
       </ion-col>
-      <ion-col size="3">
+      <ion-col size="2">
         {{ field.address }}
       </ion-col>
-      <ion-col size="3" *ngIf="field.isActive">
+      <ion-col size="2" *ngIf="field.isActive">
         Active
       </ion-col>
-      <ion-col size="3" *ngIf="!field.isActive">
+      <ion-col size="2" *ngIf="!field.isActive">
         Inactive
       </ion-col>
     </ion-row>

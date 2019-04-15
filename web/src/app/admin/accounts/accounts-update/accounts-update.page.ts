@@ -28,7 +28,7 @@ export class AccountsUpdatePage implements OnInit {
   ngOnInit() {
     this.buildForm();
 
-    this.userType = this.user.role;
+    this.userType = this.user.userType;
   }
 
   dismiss() {
@@ -37,8 +37,8 @@ export class AccountsUpdatePage implements OnInit {
 
   buildForm() {
     this.accountForm = this.formBuilder.group({
-      studentNumber: [this.user.id, [Validators.required]],
-      accountType: ['', [
+      studentId: [this.user.id ? this.user.id : 'dummy', [Validators.required]],
+      userType: ['', [
         Validators.required
       ]],
       firstName: [this.user.firstName, [
@@ -59,7 +59,7 @@ export class AccountsUpdatePage implements OnInit {
   }
 
   resolveAccountType() {
-    const studentNumberCtrl = this.accountForm.get('studentNumber');
+    const studentNumberCtrl = this.accountForm.get('studentId');
     if (this.userType === UserType.STUDENT) {
       studentNumberCtrl.setValue('');
     } else {

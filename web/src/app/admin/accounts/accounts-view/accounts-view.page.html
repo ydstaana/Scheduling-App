@@ -25,13 +25,13 @@
           (click)="toggleView('ROTATIONS')" 
           fill="clear" 
           color="medium"
-          *ngIf="currentTab !== 'ROTATIONS'">
+          *ngIf="currentTab !== 'ROTATIONS' && user.userType === UserType.STUDENT">
           Rotations
         </ion-button>
         <ion-button 
           (click)="toggleView('ROTATIONS')" 
           fill="clear"
-          *ngIf="currentTab === 'ROTATIONS'">
+          *ngIf="currentTab === 'ROTATIONS' && user.userType === UserType.STUDENT">
           Rotations
         </ion-button>
       </ion-col>
@@ -43,7 +43,7 @@
     </ion-row>
   </ion-grid>
   <!-- START OF PERSONAL INFORMATION TAB (VIEW ONLY) -->
-  <ion-grid padding fixed *ngIf="currentTab === 'PERSONAL_INFORMATION' && !isEdit">
+  <ion-grid padding fixed *ngIf="currentTab === 'PERSONAL_INFORMATION'">
     <ion-row>
       <ion-col size="4">
         <ion-label>
@@ -81,7 +81,7 @@
         </ion-label>
       </ion-col>
       <ion-col size="8">
-        <ion-label>{{ user.mobileNumber }}</ion-label>
+        <ion-label>{{ user.mobileNumber ? user.mobileNumber : ' -- ' }}</ion-label>
       </ion-col>
     </ion-row>
     <ion-row>
@@ -99,7 +99,8 @@
       <ion-row class="p-t-10">
         <ion-col>
           <ion-label>
-            <b>Person to contact in case of emergency</b>
+            <b *ngIf="user.userType === UserType.STUDENT">Person to contact in case of emergency</b>
+            <b *ngIf="user.userType !== UserType.STUDENT">Other person in charge</b>
           </ion-label>
         </ion-col>
       </ion-row>
@@ -110,7 +111,7 @@
           </ion-label>
         </ion-col>
         <ion-col size="8">
-          <ion-label>{{ user.contactPersonName ? user.contactPersonName : 'N/A' }}</ion-label>
+          <ion-label>{{ user.contactPersonName ? user.contactPersonName : ' -- ' }}</ion-label>
         </ion-col>
       </ion-row>
       <ion-row>
@@ -120,7 +121,7 @@
           </ion-label>
         </ion-col>
         <ion-col size="8">
-          <ion-label>{{ user.contactPersonNumber ? user.contactPersonNumber : 'N/A' }}</ion-label>
+          <ion-label>{{ user.contactPersonNumber ? user.contactPersonNumber : ' -- ' }}</ion-label>
         </ion-col>
       </ion-row>
     </ng-container>

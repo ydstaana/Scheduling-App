@@ -21,7 +21,7 @@
                 placeholder="Select Account Type"
                 [value]="userType"
                 [(ngModel)]="userType"
-                formControlName="accountType"
+                formControlName="userType"
                 (ionChange)="resolveAccountType()">
                 <ion-select-option [value]="USER_TYPE_VALUES[u]" *ngFor="let u of USER_TYPE_KEYS">
                   {{ USER_TYPE_VALUES[u] }}
@@ -33,8 +33,8 @@
         <ion-row class="student-number-input" [ngClass]="{'input-hidden': userType !== USER_TYPE_VALUES.STUDENT}">
           <ion-col>
             <ion-item>
-              <ion-label position="floating">Student Number</ion-label>
-              <ion-input formControlName="studentNumber" type="number"></ion-input>
+              <ion-label position="floating">Student ID</ion-label>
+              <ion-input formControlName="studentId" type="number"></ion-input>
             </ion-item>
           </ion-col>
         </ion-row>

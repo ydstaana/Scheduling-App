@@ -12,7 +12,8 @@ var FieldSchema = new mongoose.Schema({
       type: mongoose.Schema.Types.ObjectId,
       ref: 'User'
     },
-  isActive : Boolean
+  isActive : Boolean,
+  address: String
 }, baseOptions);
 
 var Field = mongoose.model('Field', FieldSchema);

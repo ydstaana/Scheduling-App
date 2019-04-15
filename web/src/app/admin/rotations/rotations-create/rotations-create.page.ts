@@ -40,7 +40,7 @@ export class RotationsCreatePage implements OnInit {
       this.schedules = data;
     });
 
-    this.fieldService.list().then(data => {
+    this.fieldService.list().then((data: any) => {
       this.fields = data;
     });
 

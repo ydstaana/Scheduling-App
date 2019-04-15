@@ -33,7 +33,7 @@ UserSchema.statics.authenticate = function (email, password, callback) {
         return callback(err);
       }
 
-      if(user.password == password){
+      if(user.isActive && user.password == password){
       	return callback(null, user);
       } else{
       	var err = new Error('Incorrect email/password');
