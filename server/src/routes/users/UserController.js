@@ -21,20 +21,21 @@ function login(req, res) {
       
     else {
       res.status(200).json({
-        userType : user.userType,
-        firstName: user.firstName,
-        middleName: user.middleName,
-        lastName: user.lastName,
-        address: user.address,
-        mobileNumber: user.mobileNumber,
-        isActive:  user.isActive,
-        contactPersonName: user.contactPersonName,
-        contactPersonNumber: user.contactPersonNumber,
-        email: user.email,
-        status: user.status,
-        dateCreated : user.dateCreated,
-        lastModified: user.lastModified
-      });
+       id: user._id,
+       userType : user.userType,
+       firstName: user.firstName,
+       middleName: user.middleName,
+       lastName: user.lastName,
+       address: user.address,
+       mobileNumber: user.mobileNumber,
+       isActive:  user.isActive,
+       contactPersonName: user.contactPersonName,
+       contactPersonNumber: user.contactPersonNumber,
+       email: user.email,
+       status: user.status,
+       dateCreated : user.dateCreated,
+       lastModified: user.lastModified
+     });
     }
   })
 } 

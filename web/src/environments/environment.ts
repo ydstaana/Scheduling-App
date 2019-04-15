@@ -4,7 +4,7 @@
 
 export const environment = {
   production: false,
-  configUrl: '/config.json' // change to url
+  configUrl: 'http://10.10.0.221:5000' // change to url
 };
 
 /*

@@ -25,7 +25,8 @@ export class AccountsPage implements OnInit {
   }
 
   listUsers() {
-    this.userService.listUsers().then(data => {
+    this.userService.listUsers().then((data: any) => {
+      console.log(data);
       this.users = data;
     });
   }

@@ -8,7 +8,7 @@ const scheduleController = require('./schedules/ScheduleController')
 const rotationController = require('./rotations/RotationController')
 const assignmentController = require('./assignments/AssignmentController')
 
-router.get('/login', userController.login);
+router.post('/login', userController.login);
 
 //Users
 router.get('/users', userController.listUsers);

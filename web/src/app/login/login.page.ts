@@ -65,6 +65,7 @@ export class LoginPage implements OnInit {
         //   }
         // });
       }).catch(error => {
+        console.log(error);
         this.callInProgress = false;
         this.isUnauthorized = true;
       });
