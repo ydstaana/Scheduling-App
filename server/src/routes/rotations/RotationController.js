@@ -24,26 +24,17 @@ function createRotation(req, res) {
           });
         }
         else {
-          // Create default Assignments
+          // Associate group to rotation
           var group = await Group.findById(rotation.group)
-          try {
-            if(group.students.length != 0) {
-              for(i = 0; i < group.students.length; i++) {
-                new Assignment({
-                  student : group.students[i],
-                  rotation : rotation._id,
-                  group : group._id
-                })
-                .save();
-              }
-            }
+          group.rotations.push(rotation.id)
+          group.save().then(() => {
             res.status(200).send(rotation);
-          }
-          catch(err) {
+          })
+          .catch(err => {
             res.status(422).json({
-              message: err
-            });
-          } 
+              message : err
+            })
+          })
         }
       });
       break;
@@ -55,25 +46,17 @@ function createRotation(req, res) {
             });
           }
           else {
-            // Create default Assignments
-            try {
-              if(group.students.length != 0) {
-                for(i = 0; i < group.students.length; i++) {
-                  new Assignment({
-                    student : group.students[i],
-                    rotation : rotation._id,
-                    group : group._id
-                  })
-                  .save();
-                }
-              }
+            // Associate group to rotation
+            var group = await Group.findById(rotation.group)
+            group.rotations.push(rotation.id)
+            group.save().then(() => {
               res.status(200).send(rotation);
-            }
-            catch(err) {
+            })
+            .catch(err => {
               res.status(422).json({
-                message: err
-              });
-            }
+                message : err
+              })
+            })
           }
         });
         break;
@@ -85,25 +68,17 @@ function createRotation(req, res) {
             });
           }
           else {
-            // Create default Assignments
-            try {
-              if(group.students.length != 0) {
-                for(i = 0; i < group.students.length; i++) {
-                  new Assignment({
-                    student : group.students[i],
-                    rotation : rotation._id,
-                    group : group._id
-                  })
-                  .save();
-                }
-              }
+            // Associate group to rotation
+            var group = await Group.findById(rotation.group)
+            group.rotations.push(rotation.id)
+            group.save().then(() => {
               res.status(200).send(rotation);
-            }
-            catch(err) {
+            })
+            .catch(err => {
               res.status(422).json({
-                message: err
-              });
-            }
+                message : err
+              })
+            })
           }
         });
         break;

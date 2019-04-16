@@ -12,7 +12,13 @@ var Student = User.discriminator('Student',
     field: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Field'
-    }
+    },
+    assignments : [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Assignment'
+      }
+    ]
   })
  );
 

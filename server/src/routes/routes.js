@@ -16,6 +16,7 @@ router.get('/users', userController.listUsers);
 router.get('/users/med-admins', userController.listMedAdmins);
 router.get('/users/field-admins', userController.listFieldAdmins);
 router.get('/users/students', userController.listStudents);
+router.get('/users/students/unassigned', userController.listUnassignedStudents);
 router.get('/users/med-admins', userController.listMedAdmins);
 router.get('/users/:id', userController.getUser);
 
@@ -54,7 +55,6 @@ router.post('/rotations/lookup', rotationController.rotationLookup);
 router.get('/assignments', assignmentController.listAssignments);
 router.post('/assignments', assignmentController.createAssignment);
 router.put('/assignments/:id', assignmentController.updateAssignment);
-router.put('/assignments/:id/accept', assignmentController.acceptAssignment);
 router.get('/assignments/students/:id', assignmentController.listAssignmentsByStudent);
 router.get('/assignments/rotations/:id', assignmentController.listAssignmentsByRotation);
 

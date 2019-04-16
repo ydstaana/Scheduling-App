@@ -3,6 +3,7 @@ var MedAdmin = require('../../models/users/MedAdminSchema.js');
 var Student = require('../../models/users/StudentSchema.js');
 var FieldAdmin = require('../../models/users/FieldAdminSchema.js');
 var Group = require('../../models/groups/GroupSchema.js');
+var Assignment = require('../../models/assignments/AssignmentSchema.js');
 var mongoose = require('mongoose');
 
 var UserTypes = {
@@ -103,49 +104,23 @@ function getUser(req, res) {
 async function createUser(req, res) {
   // TODO: Improve setting default password
   const defaultPassword = 'user123';
-  const reqBody = {
-    ...req.body,
-    password: defaultPassword,
-    isActive: true // default to true
-  };
+  req.body.password = defaultPassword;
 
-  switch(reqBody.userType) {
+  switch(req.body.userType) {
     case UserTypes.STUDENT: 
-      const groups = await Group.find({name: 'Unassigned'});
-
-      if (groups.length > 0) {
-        const defaultGroup = groups[0];
-        Student.create({
-          ...reqBody,
-          group: defaultGroup._id
-        }, function (err, user) {
-          if (err) {
-            res.status(422).json({
-              message: err
-            });
-          } else {
-            // push student to group
-            defaultGroup.students.push(user._id);
-            defaultGroup.save().then(group => 
-              res.status(200).send(user)
-            )
-            .catch(err => {
-              res.status(422).json({code:'422',message:err});
-            });
+      Student.create(req.body, function (err, user) {
+        if (err) {
+          res.status(422).json({
+            message: err
+          });
+        }
+          else{
+            res.status(200).send(user);
           }
-        });
-      } else {
-        // throw error when default group (unassigned is not yet created)
-        res.status(422).json({
-          message: 'Default group not found'
-        });
-      }
-
-      
+      });
       break;
     case UserTypes.UST_MEDICINE_ADMIN :
-      MedAdmin.create(reqBody, function (err, user) {
-        console.log(reqBody);
+      MedAdmin.create(req.body, function (err, user) {
         if (err) {
           res.status(422).json({
             message: err
@@ -157,8 +132,8 @@ async function createUser(req, res) {
       });
       break;
     case UserTypes.FIELD_ADMIN :
-      FieldAdmin.create(reqBody, function (err, user) {
-        console.log(reqBody);
+      FieldAdmin.create(req.body, function (err, user) {
+        console.log(req.body);
         if (err) {
           res.status(422).json({
             message: err
@@ -210,16 +185,70 @@ function listStudents(req, res) {
 	})
 }
 
+function listUnassignedStudents(req, res) {
+  Student.find({
+    group : null
+  }, function(err, users) {
+		if(err) res.status(422).json({code:'422',message:err});
+		else{
+			res.status(200).send(users);
+		}
+	})
+}
+
+function createNewAssignment(group, student, rotation) {
+  return new Promise(function(resolve, reject) {
+    console.log("Creating a new doc...");
+    new Assignment({
+      student : student.id,
+      rotation : rotation,
+      group : group
+    })
+    .save().then(async assign => {
+      console.log("Creating a new doc finished executing...");
+      resolve(assign._id)
+    })
+    .catch(err => {
+      reject(err);
+    })
+  })
+}
+
 async function updateUser(req, res) {
   const doc = await User.findById(req.params.id);
-  doc.set(req.body)
 
-  doc.save().then(() => {
-		res.status(200).send(doc);
-  })
-  .catch(err => {
-    res.status(422).json({code:'422',message:err});
-  })
+  if(doc.group != req.body.group) {
+    const newGroup = await Group.findById(req.body.group);
+    var counter = 0;
+    newGroup.rotations.forEach(rotation => {
+      createNewAssignment(newGroup, doc, rotation)
+      .then(result => {
+        counter++;
+        doc.assignments.push(result);
+        if(counter == newGroup.rotations.length) {
+          newGroup.students.push(doc.id);
+          newGroup.save();
+          doc.set(req.body);
+          doc.save().then(() => {
+            res.status(200).send(doc);
+          })
+          .catch(err => {
+            return res.status(422).json({code:'422', message: err});
+          }) 
+        }
+      })
+    }) 
+  }
+  else {
+    doc.set(req.body)
+
+    doc.save().then(() => {
+      res.status(200).send(doc);
+    })
+    .catch(err => {
+      res.status(422).json({code:'422',message:err});
+    })
+  }
 }
 
 module.exports = {
@@ -233,5 +262,6 @@ module.exports = {
   listMedAdmins : listMedAdmins,
   listFieldAdmins : listFieldAdmins,
   listStudents : listStudents,
+  listUnassignedStudents : listUnassignedStudents,
   updateUser : updateUser
 }

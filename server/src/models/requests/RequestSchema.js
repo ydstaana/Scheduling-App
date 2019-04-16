@@ -12,6 +12,7 @@ var RequestSchema = mongoose.Schema({
     ref: 'User'
   },
   isApproved: Boolean,
+  isPending: Boolean,
   message : String,
   acknowledgementMessage : String
 }, {

@@ -9,10 +9,12 @@ var GroupSchema = new mongoose.Schema({
       ref: 'User'
     }
   ],
-  rotation : {
+  rotations : [
+    {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Rotation'
-  },
+    }
+  ],
   isActive : Boolean
 });
 

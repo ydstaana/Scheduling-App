@@ -2,31 +2,18 @@ var Assignment = require('../../models/assignments/AssignmentSchema.js');
 var Student = require('../../models/users/StudentSchema.js');
 
 function createAssignment(req, res) {
-  Assignment.create(req.body, function (err, assignment) {
+  Assignment.create(req.body, async function (err, assignment) {
     if (err) {
       res.status(422).json({
         message: err
       });
     }
-      else{
-        res.status(200).send(assignment);
-      }
+    else {
+      var student = await Student.findById(assignment.student)
+      student.assignments.push(assignment.id)
+      student.save().then(() => res.status(200).send(assignment));
+    }
   });
-}
-
-async function acceptAssignment(req, res) {
-  var assign = await Assignment.findById(req.params.id)
-
-  assign.isAccepted = true;
-
-  assign.save().then(() => {
-    res.status(200).send(assign);
-  })
-  .catch(err => {
-    res.status(422).json({
-      message: err
-    });
-  }) 
 }
 
 async function updateAssignment(req, res) {
@@ -108,7 +95,6 @@ module.exports = {
   createAssignment : createAssignment,
   listAssignments : listAssignments,
   updateAssignment : updateAssignment,
-  acceptAssignment : acceptAssignment,
   listAssignmentsByStudent : listAssignmentsByStudent,
   listAssignmentsByRotation : listAssignmentsByRotation
-}
+} 
