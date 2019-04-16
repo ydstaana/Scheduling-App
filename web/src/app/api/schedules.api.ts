@@ -1,5 +1,5 @@
 import { Api } from './api';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class SchedulesApi extends Api {
   constructor(
@@ -10,28 +10,25 @@ export class SchedulesApi extends Api {
   }
 
   create(schedule: any) {
-    return Promise.resolve(schedule);
+    return this.http.post(
+      `${this.baseUrl}/schedules`,
+      {
+        ...schedule,
+        isActive: true
+      },
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
   }
 
   list() {
     return this.http.get(`${this.baseUrl}/schedules`).toPromise();
-    // return Promise.resolve([
-    //   {
-    //     id: 1,
-    //     startDate: '04/02/19',
-    //     endDate: '04/03/19',
-    //     isActive: true
-    //   },
-    //   {
-    //     id: 2,
-    //     startDate: '04/04/19',
-    //     endDate: '04/05/19',
-    //     isActive: true
-    //   },
-    // ]);
   }
 
   update(schedules: any) {
-    return Promise.resolve(schedules);
+    return this.http.put(
+      `${this.baseUrl}/schedules/${schedules._id}`,
+      schedules,
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
   }
 }

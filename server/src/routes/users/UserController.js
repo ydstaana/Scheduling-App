@@ -2,6 +2,7 @@ var User = require('../../models/users/UserSchema.js');
 var MedAdmin = require('../../models/users/MedAdminSchema.js');
 var Student = require('../../models/users/StudentSchema.js');
 var FieldAdmin = require('../../models/users/FieldAdminSchema.js');
+var Group = require('../../models/groups/GroupSchema.js');
 var mongoose = require('mongoose');
 
 var UserTypes = {
@@ -99,7 +100,7 @@ function getUser(req, res) {
   })
 }
 
-function createUser(req, res) {
+async function createUser(req, res) {
   // TODO: Improve setting default password
   const defaultPassword = 'user123';
   const reqBody = {
@@ -109,18 +110,38 @@ function createUser(req, res) {
   };
 
   switch(reqBody.userType) {
-    case UserTypes.STUDENT : 
-      Student.create(reqBody, function (err, user) {
-        console.log(reqBody);
-        if (err) {
-          res.status(422).json({
-            message: err
-          });
-        }
-          else{
-            res.status(200).send(user);
+    case UserTypes.STUDENT: 
+      const groups = await Group.find({name: 'Unassigned'});
+
+      if (groups.length > 0) {
+        const defaultGroup = groups[0];
+        Student.create({
+          ...reqBody,
+          group: defaultGroup._id
+        }, function (err, user) {
+          if (err) {
+            res.status(422).json({
+              message: err
+            });
+          } else {
+            // push student to group
+            defaultGroup.students.push(user._id);
+            defaultGroup.save().then(group => 
+              res.status(200).send(user)
+            )
+            .catch(err => {
+              res.status(422).json({code:'422',message:err});
+            });
           }
-      });
+        });
+      } else {
+        // throw error when default group (unassigned is not yet created)
+        res.status(422).json({
+          message: 'Default group not found'
+        });
+      }
+
+      
       break;
     case UserTypes.UST_MEDICINE_ADMIN :
       MedAdmin.create(reqBody, function (err, user) {

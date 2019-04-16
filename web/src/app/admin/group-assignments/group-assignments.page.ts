@@ -10,7 +10,7 @@ import { ToastController } from '@ionic/angular';
 export class GroupAssignmentsPage implements OnInit {
   groups = [];
   currentGroup: any;
-  currentUsers = [];
+  currentStudents = [];
 
   constructor(
     private userService: UserService,
@@ -18,15 +18,20 @@ export class GroupAssignmentsPage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.userService.listUserGroups().then(data => {
+    this.listUserGroups();
+  }
+
+  listUserGroups() {
+    this.userService.listUserGroups().then((data: any) => {
       this.groups = data;
+      console.log(this.groups);
       this.currentGroup = this.groups[0];
 
-      if (this.currentGroup.users) {
-        this.currentGroup.users.forEach(user => {
-          this.currentUsers.push({
-            userId: user.id,
-            groupId: this.currentGroup.id
+      if (this.currentGroup.students) {
+        this.currentGroup.students.forEach(student => {
+          this.currentStudents.push({
+            studentId: student._id,
+            groupId: this.currentGroup._id
           });
         });
       }
@@ -35,43 +40,44 @@ export class GroupAssignmentsPage implements OnInit {
 
   resolveGroup() {
     if (this.currentGroup.users) {
-      this.currentUsers = [];
-      this.currentGroup.users.forEach(user => {
-        this.currentUsers.push({
-          userId: user.id,
-          groupId: this.currentGroup.id
+      this.currentStudents = [];
+      this.currentGroup.users.forEach(student => {
+        this.currentStudents.push({
+          userId: student._id,
+          groupId: this.currentGroup._id
         });
       });
-      console.log(this.currentUsers);
+      console.log(this.currentStudents);
     }
   }
 
-  setGroup(user, event) {
+  setGroup(student, event) {
     const selectedGroup = event.detail.value;
-    const index = this.currentUsers.findIndex(i => {
-      return i.userId === user.id;
+    const index = this.currentStudents.findIndex(i => {
+      return i.studentId === student.id;
     });
-    this.currentUsers[index] = {
-      userId: user.id,
-      groupId: selectedGroup.id
+    this.currentStudents[index] = {
+      studentId: student._id,
+      groupId: selectedGroup._id
     };
   }
 
   updateGroups() {
-    console.log(this.currentUsers);
-    this.userService.updateUserGroups(this.currentUsers).then(data => {
-      this.groups = data;
-      this.currentGroup = this.groups[0];
+    console.log(this.currentStudents);
+    this.userService.updateUserGroups(this.currentStudents).then(data => {
+      // this.groups = data;
+      // this.currentGroup = this.groups[0];
 
-      this.currentUsers = [];
-      if (this.currentGroup.users) {
-        this.currentGroup.users.forEach(user => {
-          this.currentUsers.push({
-            userId: user.id,
-            groupId: this.currentGroup.id
-          });
-        });
-      }
+      // this.currentStudents = [];
+      // if (this.currentGroup.students) {
+      //   this.currentGroup.users.forEach(student => {
+      //     this.currentStudents.push({
+      //       studentId: user.id,
+      //       groupId: this.currentGroup.id
+      //     });
+      //   });
+      // }
+      this.listUserGroups();
 
       this.success('Successfully updated group assigments.');
     }, error => {

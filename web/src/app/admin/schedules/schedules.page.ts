@@ -24,7 +24,6 @@ export class SchedulesPage implements OnInit {
   listSchedules() {
     this.scheduleService.list().then((data: any) => {
       this.schedules = data;
-      console.log(this.schedules);
     });
   }
 

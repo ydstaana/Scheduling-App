@@ -35,9 +35,8 @@ export class SchedulesUpdatePage implements OnInit {
   }
 
   updateSchedule() {
-    console.log(this.scheduleForm.value);
     if (this.scheduleForm.valid) {
-      this.scheduleService.create(this.scheduleForm.value).then(data => {
+      this.scheduleService.update(this.scheduleForm.value).then(data => {
         console.log(data);
         this.popoverCtrl.dismiss();
         this.success('Successfully updated a schedule');

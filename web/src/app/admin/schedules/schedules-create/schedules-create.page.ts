@@ -33,7 +33,6 @@ export class SchedulesCreatePage implements OnInit {
   }
 
   createSchedule() {
-    console.log(this.scheduleForm.value);
     if (this.scheduleForm.valid) {
       this.scheduleService.create(this.scheduleForm.value).then(data => {
         console.log(data);
