@@ -3,7 +3,7 @@ import { HttpClient } from '@angular/common/http';
 
 export class SchedulesApi extends Api {
   constructor(
-    http: HttpClient,
+    private http: HttpClient,
     baseUrl: string
   ) {
     super(baseUrl);
@@ -14,20 +14,21 @@ export class SchedulesApi extends Api {
   }
 
   list() {
-    return Promise.resolve([
-      {
-        id: 1,
-        startDate: '04/02/19',
-        endDate: '04/03/19',
-        isActive: true
-      },
-      {
-        id: 2,
-        startDate: '04/04/19',
-        endDate: '04/05/19',
-        isActive: true
-      },
-    ]);
+    return this.http.get(`${this.baseUrl}/schedules`).toPromise();
+    // return Promise.resolve([
+    //   {
+    //     id: 1,
+    //     startDate: '04/02/19',
+    //     endDate: '04/03/19',
+    //     isActive: true
+    //   },
+    //   {
+    //     id: 2,
+    //     startDate: '04/04/19',
+    //     endDate: '04/05/19',
+    //     isActive: true
+    //   },
+    // ]);
   }
 
   update(schedules: any) {
