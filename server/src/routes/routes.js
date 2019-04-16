@@ -28,6 +28,7 @@ router.get('/groups', groupController.listGroups);
 router.get('/groups/:id', groupController.getGroup);
 router.post('/groups', groupController.createGroup);
 router.post('/groups/addStudent', groupController.addStudentToGroup);
+router.post('/groups/default/create', groupController.createDefaultGroups);
 
 //Fields
 router.get('/fields', fieldController.listFields);

@@ -22,9 +22,15 @@ export class GroupAssignmentsPage implements OnInit {
   }
 
   listUserGroups() {
+    this.currentStudents = [];
     this.userService.listUserGroups().then((data: any) => {
-      this.groups = data;
-      console.log(this.groups);
+      this.groups = data.map(group => {
+        return {
+          ...group,
+          order: group.name === 'Unassigned' ? 0 : +group.name.split(' ')[1]
+        };
+      })
+      .sort((a, b) => ((a.order === b.order) ? 0 : ((a.order > b.order) ? 1 : -1)) );
       this.currentGroup = this.groups[0];
 
       if (this.currentGroup.students) {
@@ -35,48 +41,45 @@ export class GroupAssignmentsPage implements OnInit {
           });
         });
       }
+
+      console.log(this.groups);
     });
   }
 
   resolveGroup() {
-    if (this.currentGroup.users) {
+    if (this.currentGroup.students) {
       this.currentStudents = [];
-      this.currentGroup.users.forEach(student => {
+      this.currentGroup.students.forEach(student => {
         this.currentStudents.push({
-          userId: student._id,
+          studentId: student._id,
           groupId: this.currentGroup._id
         });
       });
-      console.log(this.currentStudents);
     }
   }
 
   setGroup(student, event) {
     const selectedGroup = event.detail.value;
     const index = this.currentStudents.findIndex(i => {
-      return i.studentId === student.id;
+      return i.studentId === student._id;
     });
-    this.currentStudents[index] = {
-      studentId: student._id,
-      groupId: selectedGroup._id
-    };
+
+    if (index > -1) {
+      this.currentStudents = [
+        ...this.currentStudents.filter(stud => stud.studentId !== student._id),
+        {
+          studentId: student._id,
+          groupId: selectedGroup._id
+        }
+      ];
+    }
+
+    console.log(this.currentStudents);
   }
 
   updateGroups() {
     console.log(this.currentStudents);
     this.userService.updateUserGroups(this.currentStudents).then(data => {
-      // this.groups = data;
-      // this.currentGroup = this.groups[0];
-
-      // this.currentStudents = [];
-      // if (this.currentGroup.students) {
-      //   this.currentGroup.users.forEach(student => {
-      //     this.currentStudents.push({
-      //       studentId: user.id,
-      //       groupId: this.currentGroup.id
-      //     });
-      //   });
-      // }
       this.listUserGroups();
 
       this.success('Successfully updated group assigments.');

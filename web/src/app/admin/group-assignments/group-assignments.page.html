@@ -61,7 +61,7 @@
               <ion-select 
                 interface="popover"
                 (ionChange)="setGroup(student, $event)">
-                <ion-select-option [selected]="g.id === currentGroup.id" [value]="g" *ngFor="let g of groups">
+                <ion-select-option [selected]="g._id === currentGroup._id" [value]="g" *ngFor="let g of groups">
                   {{ g.name }}
                 </ion-select-option>
               </ion-select>
