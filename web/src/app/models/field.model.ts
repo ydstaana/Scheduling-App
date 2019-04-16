@@ -7,9 +7,9 @@ export enum FieldType {
 }
 
 export enum FieldGroupType {
-    STANDARD = 'StandardGroup',
-    MINOR = 'MinorGroup',
-    ELECTIVE = 'ElectiveGroup'
+    STANDARD = 'Standard Group',
+    MINOR = 'Minor Group',
+    ELECTIVE = 'Elective Group'
 }
 
 export class Field extends Model {

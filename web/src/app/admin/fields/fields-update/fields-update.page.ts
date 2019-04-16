@@ -1,3 +1,4 @@
+import { FieldType } from './../../../models/field.model';
 import { FieldService } from './../../../services/field.service';
 import { ToastController, PopoverController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -14,6 +15,11 @@ export class FieldsUpdatePage implements OnInit {
   fieldForm: FormGroup;
   admins = [];
 
+  // field type variables
+  fieldType: string;
+  FIELD_TYPE_VALUES = FieldType;
+  FIELD_TYPE_KEYS = Object.keys(FieldType);
+
   constructor(
     private formBuilder: FormBuilder,
     private popoverCtrl: PopoverController,
@@ -22,6 +28,7 @@ export class FieldsUpdatePage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.fieldType = this.field.fieldType;
     this.buildForm();
 
     this.fieldService.listAdmins().then((data: any) => {
@@ -31,11 +38,12 @@ export class FieldsUpdatePage implements OnInit {
 
   buildForm() {
     this.fieldForm = this.formBuilder.group({
+      fieldType: [this.field.fieldType, [Validators.required]],
       name: [this.field.name, [Validators.required]],
       address: [this.field.address, [
         Validators.required
       ]],
-      adminId: [this.field.admin.id, [
+      admin: [this.field.admin._id, [
         Validators.required
       ]],
       isActive: [this.field.isActive, []]

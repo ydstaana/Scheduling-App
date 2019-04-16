@@ -22,7 +22,8 @@ export class FieldGroupsPage implements OnInit {
   }
 
   listFieldGroups() {
-    this.fieldService.listFieldGroups().then(data => {
+    this.fieldService.listFieldGroups().then((data: any) => {
+      console.log(data);
       this.fieldGroups = data;
     });
   }

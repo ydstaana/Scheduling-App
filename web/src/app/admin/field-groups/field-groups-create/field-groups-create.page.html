@@ -15,14 +15,16 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label position="floating">Fields</ion-label>
+              <ion-label position="floating">Field Group Type</ion-label>
               <ion-select 
                 interface="popover" 
-                placeholder="Select Fields"
-                formControlName="fields"
-                multiple>
-                <ion-select-option [value]="f.id" *ngFor="let f of fields">
-                  {{ f.name }}
+                placeholder="Select Field Group Type"
+                [value]="fieldGroupType"
+                [(ngModel)]="fieldGroupType"
+                formControlName="fieldGroupType"
+                (ionChange)="resolveFieldGroupType()">
+                <ion-select-option [value]="FIELD_GROUP_TYPE_VALUES[u]" *ngFor="let u of FIELD_GROUP_TYPE_KEYS">
+                  {{ FIELD_GROUP_TYPE_VALUES[u] }}
                 </ion-select-option>
               </ion-select>
             </ion-item>
@@ -31,15 +33,14 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label position="floating">Rotation Type</ion-label>
+              <ion-label position="floating">Fields</ion-label>
               <ion-select 
-                interface="popover" 
-                placeholder="Select Rotation Type"
-                [value]="rotationType"
-                [(ngModel)]="rotationType"
-                formControlName="rotationType">
-                <ion-select-option [value]="ROTATION_TYPE_VALUES[u]" *ngFor="let u of ROTATION_TYPE_KEYS">
-                  {{ ROTATION_TYPE_VALUES[u] }}
+                interface="alert" 
+                placeholder="Select Fields"
+                formControlName="fields"
+                multiple>
+                <ion-select-option [value]="f.id" *ngFor="let f of fieldsToDisplay">
+                  {{ f.name }}
                 </ion-select-option>
               </ion-select>
             </ion-item>

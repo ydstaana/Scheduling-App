@@ -36,7 +36,7 @@ export class RotationsCreatePage implements OnInit {
   ) { }
 
   ngOnInit() {
-    this.scheduleService.list().then(data => {
+    this.scheduleService.list().then((data: any) => {
       this.schedules = data;
     });
 
@@ -44,7 +44,7 @@ export class RotationsCreatePage implements OnInit {
       this.fields = data;
     });
 
-    this.fieldService.listFieldGroups().then(data => {
+    this.fieldService.listFieldGroups().then((data: any) => {
       this.fieldGroups = data;
     });
 

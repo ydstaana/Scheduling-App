@@ -1,8 +1,8 @@
+import { FieldGroupType, FieldType } from './../../../models/field.model';
 import { FieldService } from './../../../services/field.service';
 import { PopoverController, ToastController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
-import { RotationType } from 'src/app/models/rotation.model';
 
 @Component({
   selector: 'app-field-groups-create',
@@ -13,11 +13,12 @@ export class FieldGroupsCreatePage implements OnInit {
   callInProgress = false;
   fieldGroupForm: FormGroup;
   fields = [];
+  fieldsToDisplay = [];
 
   // rotation type variables
-  rotationType: string = RotationType.Single;
-  ROTATION_TYPE_VALUES = RotationType;
-  ROTATION_TYPE_KEYS = Object.keys(RotationType);
+  fieldGroupType: string = FieldGroupType.STANDARD;
+  FIELD_GROUP_TYPE_VALUES = FieldGroupType;
+  FIELD_GROUP_TYPE_KEYS = Object.keys(FieldGroupType);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,13 +32,19 @@ export class FieldGroupsCreatePage implements OnInit {
 
     this.fieldService.list().then((data: any) => {
       this.fields = data;
+
+      this.fieldsToDisplay = this.fields.filter(f => {
+        return this.fieldGroupType === FieldGroupType.STANDARD && f.fieldType === FieldType.STANDARD
+          || this.fieldGroupType === FieldGroupType.MINOR && f.fieldType === FieldType.MINOR
+          || this.fieldGroupType === FieldGroupType.ELECTIVE && f.fieldType === FieldType.ELECTIVE;
+      });
     });
   }
 
   buildForm() {
     this.fieldGroupForm = this.formBuilder.group({
       fields: ['', [Validators.required]],
-      rotationType: ['', [Validators.required]]
+      fieldGroupType: ['', [Validators.required]]
     });
   }
 
@@ -56,6 +63,16 @@ export class FieldGroupsCreatePage implements OnInit {
 
   dismiss() {
     this.popoverCtrl.dismiss();
+  }
+
+  resolveFieldGroupType() {
+    this.fieldsToDisplay = this.fields.filter(f => {
+      return this.fieldGroupType === FieldGroupType.STANDARD && f.fieldType === FieldType.STANDARD
+        || this.fieldGroupType === FieldGroupType.MINOR && f.fieldType === FieldType.MINOR
+        || this.fieldGroupType === FieldGroupType.ELECTIVE && f.fieldType === FieldType.ELECTIVE;
+    });
+
+    console.log(this.fieldsToDisplay);
   }
 
   async success(message: string) {

@@ -15,9 +15,9 @@ var FieldTypes = {
 }
 
 var FieldGroupTypes = {
-  STANDARD : "StandardGroup",
-  MINOR : "MinorGroup",
-  ELECTIVE : "ElectiveGroup"
+  STANDARD : "Standard Group",
+  MINOR : "Minor Group",
+  ELECTIVE : "Elective Group"
 }
 
 function createField(req, res) {
