@@ -1,3 +1,4 @@
+import { FieldGroupType, FieldType } from './../../../models/field.model';
 import { FieldService } from './../../../services/field.service';
 import { ToastController, PopoverController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -15,11 +16,12 @@ export class FieldGroupsUpdatePage implements OnInit {
   fieldGroupForm: FormGroup;
   fields = [];
   selectedFields = [];
+  fieldsToDisplay = [];
 
   // rotation type variables
-  rotationType: string = RotationType.Single;
-  ROTATION_TYPE_VALUES = RotationType;
-  ROTATION_TYPE_KEYS = Object.keys(RotationType);
+  fieldGroupType: string = FieldGroupType.STANDARD;
+  FIELD_GROUP_TYPE_VALUES = FieldGroupType;
+  FIELD_GROUP_TYPE_KEYS = Object.keys(FieldGroupType);
 
   constructor(
     private formBuilder: FormBuilder,
@@ -31,27 +33,43 @@ export class FieldGroupsUpdatePage implements OnInit {
   ngOnInit() {
     this.buildForm();
 
+    this.fieldGroupType = this.fieldGroup.fieldGroupType;
+
     this.fieldService.list().then((data: any) => {
       this.fields = data;
+
+      this.fieldsToDisplay = this.fields.filter(f => {
+        return this.fieldGroupType === FieldGroupType.STANDARD && f.fieldType === FieldType.STANDARD
+          || this.fieldGroupType === FieldGroupType.MINOR && f.fieldType === FieldType.MINOR
+          || this.fieldGroupType === FieldGroupType.ELECTIVE && f.fieldType === FieldType.ELECTIVE;
+      });
     });
 
-    this.rotationType = this.fieldGroup.rotationType;
-
-    this.selectedFields = this.fieldGroup.fields.map(f => f.id);
-    console.log(this.selectedFields);
+    this.selectedFields = this.fieldGroup.fields.map(f => f._id);
   }
 
   buildForm() {
     this.fieldGroupForm = this.formBuilder.group({
       fields: ['', [Validators.required]],
-      rotationType: ['', [Validators.required]]
+      fieldGroupType: ['', [Validators.required]],
+      isActive: [this.fieldGroup.isActive, []]
     });
   }
 
   updateFieldGroup() {
+    let fieldName = '';
+    this.fields.filter(f => {
+      return (this.fieldGroupForm.get('fields').value as string[]).includes(f._id);
+    }).forEach(f => {
+      if (fieldName !== '') {
+        fieldName += ', ';
+      }
+      fieldName += f.name;
+    });
     const updatedField = {
       ...this.fieldGroup,
-      ...this.fieldGroupForm.value
+      ...this.fieldGroupForm.value,
+      name: fieldName
     };
     console.log(updatedField);
     if (this.fieldGroupForm.valid) {
@@ -67,6 +85,17 @@ export class FieldGroupsUpdatePage implements OnInit {
 
   dismiss() {
     this.popoverCtrl.dismiss();
+  }
+
+  resolveFieldGroupType() {
+    this.fieldsToDisplay = [];
+    this.fieldsToDisplay = [
+      ...this.fields.filter(f => {
+        return this.fieldGroupType === FieldGroupType.STANDARD && f.fieldType === FieldType.STANDARD
+          || this.fieldGroupType === FieldGroupType.MINOR && f.fieldType === FieldType.MINOR
+          || this.fieldGroupType === FieldGroupType.ELECTIVE && f.fieldType === FieldType.ELECTIVE;
+      })
+    ];
   }
 
   async success(message: string) {

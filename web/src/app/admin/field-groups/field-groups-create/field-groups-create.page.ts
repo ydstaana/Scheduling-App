@@ -49,9 +49,21 @@ export class FieldGroupsCreatePage implements OnInit {
   }
 
   createFieldGroup() {
-    console.log(this.fieldGroupForm.value);
+    let fieldName = '';
+    this.fields.filter(f => {
+      return (this.fieldGroupForm.get('fields').value as string[]).includes(f._id);
+    }).forEach(f => {
+      if (fieldName !== '') {
+        fieldName += ', ';
+      }
+      fieldName += f.name;
+    });
     if (this.fieldGroupForm.valid) {
-      this.fieldService.createFieldGroup(this.fieldGroupForm.value).then(data => {
+      this.fieldService.createFieldGroup({
+        ...this.fieldGroupForm.value,
+        name: fieldName,
+        isActive: true
+      }).then(data => {
         console.log(data);
         this.popoverCtrl.dismiss();
         this.success('Successfully created a field group');
@@ -66,13 +78,14 @@ export class FieldGroupsCreatePage implements OnInit {
   }
 
   resolveFieldGroupType() {
-    this.fieldsToDisplay = this.fields.filter(f => {
-      return this.fieldGroupType === FieldGroupType.STANDARD && f.fieldType === FieldType.STANDARD
-        || this.fieldGroupType === FieldGroupType.MINOR && f.fieldType === FieldType.MINOR
-        || this.fieldGroupType === FieldGroupType.ELECTIVE && f.fieldType === FieldType.ELECTIVE;
-    });
-
-    console.log(this.fieldsToDisplay);
+    this.fieldsToDisplay = [];
+    this.fieldsToDisplay = [
+      ...this.fields.filter(f => {
+        return this.fieldGroupType === FieldGroupType.STANDARD && f.fieldType === FieldType.STANDARD
+          || this.fieldGroupType === FieldGroupType.MINOR && f.fieldType === FieldType.MINOR
+          || this.fieldGroupType === FieldGroupType.ELECTIVE && f.fieldType === FieldType.ELECTIVE;
+      })
+    ];
   }
 
   async success(message: string) {

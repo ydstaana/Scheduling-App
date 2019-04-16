@@ -21,8 +21,14 @@ export class FieldsApi extends Api {
   }
 
   createGroup(field: any) {
-    console.log(field);
-    return Promise.resolve(field);
+    return this.http.post(
+      `${this.baseUrl}/field-groups`,
+      {
+        ...field,
+        isActive: true
+      },
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
   }
 
   list() {
@@ -31,76 +37,6 @@ export class FieldsApi extends Api {
 
   listFieldGroups() {
     return this.http.get(`${this.baseUrl}/field-groups`).toPromise();
-    // return Promise.resolve([
-    //   {
-    //     id: 1,
-    //     name: 'Com-Med, Derma',
-    //     fields: [
-    //       {
-    //         id: 1,
-    //         name: 'Com-Med',
-    //         address: 'Pateros',
-    //         admin: {
-    //             id: 1,
-    //             firstName: 'Gregorio',
-    //             middleName: 'Del',
-    //             lastName: 'Pilar'
-    //             // other fields
-    //         },
-    //         isActive: true
-    //       },
-    //       {
-    //         id: 2,
-    //         name: 'Derma',
-    //         address: 'Pateros',
-    //         admin: {
-    //             id: 2,
-    //             firstName: 'Marcel',
-    //             middleName: 'Del',
-    //             lastName: 'Pilar'
-    //             // other fields
-    //         },
-    //         isActive: true
-    //       }
-    //     ],
-    //     rotationType: 'Multiple',
-    //     isActive: true
-    //   },
-    //   {
-    //     id: 2,
-    //     name: 'Radio Ewan, Derma',
-    //     fields: [
-    //       {
-    //         id: 1,
-    //         name: 'Radio Ewan',
-    //         address: 'Pateros',
-    //         admin: {
-    //             id: 1,
-    //             firstName: 'Gregorio',
-    //             middleName: 'Del',
-    //             lastName: 'Pilar'
-    //             // other fields
-    //         },
-    //         isActive: true
-    //       },
-    //       {
-    //         id: 2,
-    //         name: 'Derma',
-    //         address: 'Pateros',
-    //         admin: {
-    //             id: 2,
-    //             firstName: 'Marcel',
-    //             middleName: 'Del',
-    //             lastName: 'Pilar'
-    //             // other fields
-    //         },
-    //         isActive: true
-    //       }
-    //     ],
-    //     rotationType: 'Elective',
-    //     isActive: true
-    //   }
-    // ]);
   }
 
   listAdmins() {
@@ -108,7 +44,6 @@ export class FieldsApi extends Api {
   }
 
   update(field: any) {
-    // return Promise.resolve(field);
     return this.http.put(
       `${this.baseUrl}/fields/${field._id}`,
       field,
@@ -117,6 +52,10 @@ export class FieldsApi extends Api {
   }
 
   updateGroup(group: any) {
-    return Promise.resolve(group);
+    return this.http.put(
+      `${this.baseUrl}/field-groups/${group._id}`,
+      group,
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
   }
 }
