@@ -1,4 +1,7 @@
+import { StorageService, Storage } from './../../services/storage.service';
 import { Component, OnInit } from '@angular/core';
+import { RotationService } from 'src/app/services/rotation.service';
+import { RotationType } from 'src/app/models/rotation.model';
 
 @Component({
   selector: 'app-student-rotations',
@@ -6,10 +9,31 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./student-rotations.page.scss'],
 })
 export class StudentRotationsPage implements OnInit {
+  assignments = [];
 
-  constructor() { }
+  constructor(
+    private rotationService: RotationService,
+    private storageService: StorageService
+  ) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
+    this.listRotationsByStudent();
   }
 
+  getFieldName(rotation: any) {
+    return rotation.rotationType === RotationType.Single ? rotation.field.name : rotation.fieldGroup.name;
+  }
+
+  listRotationsByStudent() {
+    console.log(this.storageService.getItem(Storage.CURRENT_USER));
+    const currentUser = JSON.parse(this.storageService.getItem(Storage.CURRENT_USER));
+    this.rotationService.listRotationsByStudent(
+      currentUser.id
+    ).then((data: any) => {
+      this.assignments = data;
+      console.log(this.assignments);
+    });
+  }
 }

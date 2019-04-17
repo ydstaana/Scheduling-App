@@ -38,7 +38,7 @@ function createRotation(req, res) {
         }
       });
       break;
-      case RotationType.SINGLE :
+      case RotationType.MULTIPLE :
         MultipleRotation.create(req.body, async function (err, rotation) {
           if (err) {
             res.status(422).json({
@@ -108,6 +108,15 @@ function listRotations(req, res) {
   .populate({
     path : 'field',
     populate : { path : 'admin'}
+  })
+  .populate({
+    path: 'fieldGroup',
+    populate: {
+      path: 'fields',
+      populate: {
+        path: 'admin'
+      }
+    }
   })
   .exec(function(err, rotations) {
     if(err) {

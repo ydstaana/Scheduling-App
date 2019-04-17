@@ -19,8 +19,9 @@ var AssignmentSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  isCompleted: { type : Boolean, default : false},
-  isApproved: { type : Boolean, default : false}
+  isCompleted: { type : Boolean, default : false },
+  isApproved: { type : Boolean, default : false },
+  isActive: { type : Boolean, default : true }
 })
 
 var Assignment = mongoose.model('Assignment', AssignmentSchema);

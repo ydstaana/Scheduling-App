@@ -19,69 +19,15 @@ export class RotationsApi extends Api {
       },
       { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
     ).toPromise();
-    // return Promise.resolve(rotation);
   }
 
   list() {
     return this.http.get(`${this.baseUrl}/rotations`).toPromise();
-    // return Promise.resolve([
-    //   {
-    //     id: 1,
-    //     schedule: {
-    //       id: 1,
-    //       startDate: '04/02/19',
-    //       endDate: '04/03/19',
-    //       isActive: true
-    //     },
-    //     field: {
-    //       id: 1,
-    //       name: 'Com-Med',
-    //       address: 'Pateros',
-    //       admin: {
-    //           id: 1,
-    //           firstName: 'Gregorio',
-    //           middleName: 'Del',
-    //           lastName: 'Pilar'
-    //           // other fields
-    //       },
-    //       isActive: true
-    //     },
-    //     group: {
-    //       id: 1,
-    //       name: 'Group 1'
-    //     },
-    //     rotationType: 'Single',
-    //     isActive: true
-    //   },
-    //   {
-    //     id: 2,
-    //     schedule: {
-    //       id: 2,
-    //       startDate: '04/04/19',
-    //       endDate: '04/05/19',
-    //       isActive: true
-    //     },
-    //     field: {
-    //       id: 1,
-    //       name: 'Derma',
-    //       address: 'Pateros',
-    //       admin: {
-    //           id: 1,
-    //           firstName: 'Gregorio',
-    //           middleName: 'Del',
-    //           lastName: 'Pilar'
-    //           // other fields
-    //       },
-    //       isActive: true
-    //     },
-    //     group: {
-    //       id: 2,
-    //       name: 'Group 2'
-    //     },
-    //     rotationType: 'Single',
-    //     isActive: true
-    //   }
-    // ]);
+  }
+
+  listRotationsByStudent(id: string) {
+    console.log(`>>>>>>URL: ${this.baseUrl}/assignments/students/${id}`);
+    return this.http.get(`${this.baseUrl}/assignments/students/${id}`).toPromise();
   }
 
   update(rotation: any) {

@@ -1,3 +1,4 @@
+import { StorageService, Storage } from './../services/storage.service';
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
@@ -17,7 +18,8 @@ export class LoginPage implements OnInit {
   constructor(
     private formBuilder: FormBuilder,
     private router: Router,
-    private userService: UserService
+    private userService: UserService,
+    private storageService: StorageService
   ) { }
 
   ngOnInit() {
@@ -40,15 +42,11 @@ export class LoginPage implements OnInit {
       this.callInProgress = true;
 
       this.userService.login(this.loginForm.value['email'], this.loginForm.value['password']).then((data) => {
-        // this.storageService.setItem(Storage.ACCESS_TOKEN, data.accessToken);
-
         this.isUnauthorized = false;
         this.callInProgress = false;
 
-        // TODO: handle token
-        // store current user
-        // store current permission
-        console.log(data);
+        this.storageService.setItem(Storage.CURRENT_USER, JSON.stringify(data));
+
         switch (data['userType']) {
           case UserType.UST_MEDICINE_ADMIN:
             this.router.navigateByUrl('/admin');
@@ -58,21 +56,6 @@ export class LoginPage implements OnInit {
             this.router.navigateByUrl('/student');
             break;
         }
-
-        // get user permissions
-        // this.userService.getPermissions().then((perm: any) => {
-        //   if (!perm || perm.length === 0) {
-        //     // no permissions returned
-        //     // TODO: Display permission errors
-        //     this.router.navigateByUrl('/login');
-        //   } else {
-        //     this.storageService.setItem(Storage.PERMISSIONS, JSON.stringify(perm.map(p => p.code)));
-        //     this.router.navigateByUrl('/reports');
-        //     this.resetForm();
-        //     this.isUnauthorized = false;
-        //     this.callInProgress = false;
-        //   }
-        // });
       }).catch(error => {
         console.log(error);
         this.callInProgress = false;

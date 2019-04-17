@@ -7,6 +7,7 @@ import { IonicModule } from '@ionic/angular';
 
 import { LoginPage } from './login.page';
 import { UserService } from '../services/user.service';
+import { StorageService } from '../services/storage.service';
 
 const routes: Routes = [
   {
@@ -25,7 +26,8 @@ const routes: Routes = [
   ],
   declarations: [LoginPage],
   providers: [
-    UserService
+    UserService,
+    StorageService
   ]
 })
 export class LoginPageModule {}

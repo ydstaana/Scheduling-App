@@ -32,7 +32,7 @@
       align-items-center *ngFor="let rotation of rotations"
       (click)="viewRotation(rotation)">
       <ion-col size="2">
-        {{ rotation.field.name }}
+        {{ getFieldName(rotation) }}
       </ion-col>
       <ion-col size="2">
         {{ rotation.schedule.startDate | date: 'MMM dd, yyyy' }}
@@ -41,7 +41,7 @@
         {{ rotation.schedule.endDate | date: 'MMM dd, yyyy' }}
       </ion-col>
       <ion-col size="2">
-        {{ rotation.field.admin.firstName + ' ' + rotation.field.admin.lastName }}
+        {{ getAdminName(rotation) }}
       </ion-col>
       <ion-col size="2">
         {{ rotation.group.name }}

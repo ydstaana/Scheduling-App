@@ -13,6 +13,10 @@ export class RotationService {
     return Rotation.list();
   }
 
+  listRotationsByStudent(id: string) {
+    return Rotation.listRotationsByStudent(id);
+  }
+
   update(rotation: any) {
     return Rotation.update(rotation);
   }

@@ -54,7 +54,19 @@ function listAssignmentsByStudent(req ,res) {
     student : req.params.id
   })
   .populate('student')
-  .populate('rotation')
+  .populate({
+    path: 'rotation',
+    populate: [
+      { path: 'schedule' },
+      { path: 'field' },
+      { 
+        path: 'fieldGroup', 
+        populate: {
+          path: 'fields'
+        } 
+      }
+    ]
+  })
   .populate('group')
   .populate('admin')
   .exec(function (err, assignments) {

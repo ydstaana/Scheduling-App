@@ -107,7 +107,11 @@
           </ng-container>
           <ion-row>
             <ion-col text-right>
-              <ion-button (click)="updateGroups()">Update Groups</ion-button>
+              <ion-button 
+                (click)="updateGroups()" 
+                [disabled]="currentGroup === 'Unassigned' && unassignedStudents.length === 0 || currentGroup !== 'Unassigned' && currentGroup?.students.length === 0">
+                Update Groups
+              </ion-button>
             </ion-col>
           </ion-row>
         </ion-grid>
