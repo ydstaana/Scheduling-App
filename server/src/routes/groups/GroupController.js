@@ -1,6 +1,13 @@
 var Group = require('../../models/groups/GroupSchema.js');
 var Student = require('../../models/users/StudentSchema.js');
+var Field = require('../../models/fields/FieldSchema.js');
 var Assignment = require('../../models/assignments/AssignmentSchema.js');
+
+var RotationType = {
+  SINGLE: "Single",
+  MULTIPLE: "Multiple",
+  SPECIAL : "Special"
+}
 
 function createGroup(req, res) {
   Group.create(req.body, function (err, group) {
@@ -66,13 +73,14 @@ function listGroups(req, res) {
     })
 }
 
-function createNewAssignment(group, student, rotation) {
+function createNewAssignment(group, student, rotation, field) {
   return new Promise(function(resolve, reject) {
     console.log("Creating a new doc...");
     new Assignment({
       student : student.id,
       rotation : rotation,
-      group : group.id
+      group : group.id,
+      field : field.id
     })
     .save().then(async assign => {
       console.log("Creating a new doc finished executing...");
@@ -128,21 +136,40 @@ async function addStudentToGroup(req, res) {
     }
 
     newGroup.rotations.forEach(rotation => {
-      createNewAssignment(newGroup, student, rotation)
-      .then(result => {
-        counter++;
-        student.assignments.push(result);
-        if(counter == newGroup.rotations.length) {
-          student.save().then(async () => {
-            newGroup.save().then(result => {
-              res.status(200).send(student);
-            });
+      switch(rotation.rotationType) {
+        case RotationType.SINGLE :
+          createNewAssignment(newGroup, student, rotation, rotation.field)
+          .then(result => {
+            counter++;
+            student.assignments.push(result);
+            if(counter == newGroup.rotations.length) {
+              student.save().then(async () => {
+                newGroup.save().then(result => {
+                  res.status(200).send(student);
+                });
+              })
+              .catch(err => {
+                return res.status(422).json({code:'422', message: err});
+              }) 
+            }
           })
-          .catch(err => {
-            return res.status(422).json({code:'422', message: err});
-          }) 
-        }
-      })
+          break;
+      }
+      // createNewAssignment(newGroup, student, rotation)
+      // .then(result => {
+      //   counter++;
+      //   student.assignments.push(result);
+      //   if(counter == newGroup.rotations.length) {
+      //     student.save().then(async () => {
+      //       newGroup.save().then(result => {
+      //         res.status(200).send(student);
+      //       });
+      //     })
+      //     .catch(err => {
+      //       return res.status(422).json({code:'422', message: err});
+      //     }) 
+      //   }
+      // })
     })    
   })
 }

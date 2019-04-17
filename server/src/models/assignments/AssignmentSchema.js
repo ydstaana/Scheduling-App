@@ -13,6 +13,10 @@ var AssignmentSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Group'
   },
+  field : {
+    type: mongoose.Schema.Types.ObjectId,
+    ref: 'Field'
+  },
   grade : Number,
   remarks: String,
   admin : {
