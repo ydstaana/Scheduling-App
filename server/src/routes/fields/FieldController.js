@@ -7,7 +7,6 @@ var FieldGroup = require('../../models/fields/FieldGroupSchema.js');
 var StandardFieldGroup = require('../../models/fields/StandardFieldGroupSchema.js');
 var MinorFieldGroup = require('../../models/fields/MinorFieldGroupSchema.js');
 var ElectiveFieldGroup = require('../../models/fields/ElectiveFieldGroupSchema.js');
-var deepPopulate = require('mongoose-deep-populate');
 
 var FieldTypes = {
   STANDARD : "Standard",
