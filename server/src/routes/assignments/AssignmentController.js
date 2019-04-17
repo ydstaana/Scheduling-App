@@ -16,6 +16,24 @@ function createAssignment(req, res) {
   });
 }
 
+function getAssignment(req, res) {
+  Assignment.findById(req.params.id)
+  .populate('student')
+  .populate('rotation')
+  .populate('group')
+  .populate('field')
+  .populate('admin')
+  .exec(function(err, assignment) {
+    if(err) {
+      res.status(422).json({
+        message: err
+      });
+    }
+    else
+      res.status(200).send(assignment);
+  })
+}
+
 async function updateAssignment(req, res) {
   var assign = await Assignment.findById(req.params.id)
 
@@ -106,6 +124,7 @@ function listAssignmentsByRotation(req ,res) {
 module.exports = {
   createAssignment : createAssignment,
   listAssignments : listAssignments,
+  getAssignment : getAssignment,
   updateAssignment : updateAssignment,
   listAssignmentsByStudent : listAssignmentsByStudent,
   listAssignmentsByRotation : listAssignmentsByRotation

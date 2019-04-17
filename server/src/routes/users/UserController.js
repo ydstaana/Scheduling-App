@@ -2,14 +2,22 @@ var User = require('../../models/users/UserSchema.js');
 var MedAdmin = require('../../models/users/MedAdminSchema.js');
 var Student = require('../../models/users/StudentSchema.js');
 var FieldAdmin = require('../../models/users/FieldAdminSchema.js');
+var FieldGroup = require('../../models/fields/FieldGroupSchema.js');
 var Group = require('../../models/groups/GroupSchema.js');
 var Assignment = require('../../models/assignments/AssignmentSchema.js');
+var Rotation = require('../../models/rotations/RotationSchema.js');
 var mongoose = require('mongoose');
 
 var UserTypes = {
   STUDENT: "Student",
   UST_MEDICINE_ADMIN: "UST Medicine Admin",
   FIELD_ADMIN: "Field Admin"
+}
+
+var RotationType = {
+  SINGLE: "Single",
+  MULTIPLE: "Multiple",
+  SPECIAL : "Special"
 }
 
 function login(req, res) {
@@ -196,13 +204,14 @@ function listUnassignedStudents(req, res) {
 	})
 }
 
-function createNewAssignment(group, student, rotation) {
+function createNewAssignment(group, student, rotation, field) {
   return new Promise(function(resolve, reject) {
     console.log("Creating a new doc...");
     new Assignment({
       student : student.id,
-      rotation : rotation,
-      group : group
+      rotation : rotation.id,
+      group : group.id,
+      field : field
     })
     .save().then(async assign => {
       console.log("Creating a new doc finished executing...");
@@ -242,24 +251,52 @@ async function updateUser(req, res) {
         return res.status(422).json({code:'422', message: err});
       })
     }
-    newGroup.rotations.forEach(rotation => {
-      createNewAssignment(newGroup, doc, rotation)
-      .then(result => {
-        counter++;
-        doc.assignments.push(result);
-        if(counter == newGroup.rotations.length) {
-          newGroup.students.push(doc.id);
-          newGroup.save();
-          doc.set(req.body);
-          doc.save().then(() => {
-            res.status(200).send(doc);
+    newGroup.rotations.forEach(async rotation => {
+      var rot = await Rotation.findById(rotation);
+      switch(rot.rotationType) {
+        case RotationType.SINGLE :
+          createNewAssignment(newGroup, doc, rot, rot.field)
+          .then(result => {
+            counter++;
+            doc.assignments.push(result);
+            if(counter == newGroup.rotations.length) {
+              doc.save().then(async () => {
+                newGroup.save().then(result => {
+                  res.status(200).send(doc);
+                });
+              })
+              .catch(err => {
+                return res.status(422).json({code:'422', message: err});
+              }) 
+            }
           })
-          .catch(err => {
-            return res.status(422).json({code:'422', message: err});
-          }) 
-        }
-      })
-    }) 
+          break;
+        default :
+          var fieldGroup = await FieldGroup.findById(rot.fieldGroup)
+          var fieldCtr = 0;
+          fieldGroup.fields.forEach(field => {
+            createNewAssignment(newGroup, doc, rot, field)
+            .then(result => {
+              fieldCtr++;
+              doc.assignments.push(result);
+              if(fieldCtr == fieldGroup.fields.length) {
+                counter++;
+                if(counter == newGroup.rotations.length) {
+                  doc.save().then(async () => {
+                    newGroup.save().then(result => {
+                      res.status(200).send(doc);
+                    });
+                  })
+                  .catch(err => {
+                    return res.status(422).json({code:'422', message: err});
+                  }) 
+                }
+              }
+            })
+          })
+          break;
+      }
+    })
   }
   else {
     doc.set(req.body)

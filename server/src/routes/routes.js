@@ -55,6 +55,7 @@ router.post('/rotations/lookup', rotationController.rotationLookup);
 router.get('/assignments', assignmentController.listAssignments);
 router.post('/assignments', assignmentController.createAssignment);
 router.put('/assignments/:id', assignmentController.updateAssignment);
+router.get('/assignments/:id', assignmentController.getAssignment);
 router.get('/assignments/students/:id', assignmentController.listAssignmentsByStudent);
 router.get('/assignments/rotations/:id', assignmentController.listAssignmentsByRotation);
 
