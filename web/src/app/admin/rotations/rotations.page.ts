@@ -23,8 +23,9 @@ export class RotationsPage implements OnInit {
   }
 
   listRotations() {
-    this.rotationService.list().then(data => {
+    this.rotationService.list().then((data: any) => {
       this.rotations = data;
+      console.log(this.rotations);
     });
   }
 

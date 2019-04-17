@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/forms';
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
+import { UserType } from '../models/user.model';
 
 @Component({
   selector: 'app-login',
@@ -48,7 +49,15 @@ export class LoginPage implements OnInit {
         // store current user
         // store current permission
         console.log(data);
-        this.router.navigateByUrl('/admin');
+        switch (data['userType']) {
+          case UserType.UST_MEDICINE_ADMIN:
+            this.router.navigateByUrl('/admin');
+            break;
+
+          case UserType.STUDENT:
+            this.router.navigateByUrl('/student');
+            break;
+        }
 
         // get user permissions
         // this.userService.getPermissions().then((perm: any) => {
