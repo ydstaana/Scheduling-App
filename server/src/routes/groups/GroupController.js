@@ -85,10 +85,11 @@ function createNewAssignment(group, student, rotation) {
 }
 async function addStudentToGroup(req, res) {
   const requests = req.body;
-  console.log('>>>>>>>>>>BODY');
-  console.log(requests);
   requests.forEach(async request => {
     var student = await Student.findById(request.studentId);
+    if(student == null) {
+      return res.status(422).json({code:'422', message: "Student does not exist"});
+    }
     student.group = request.groupId;
     
     if(student.assignments.length != 0)
@@ -99,9 +100,23 @@ async function addStudentToGroup(req, res) {
       })
 
     const newGroup = await Group.findById(student.group);
+    if(newGroup == null) {
+      return res.status(422).json({code:'422', message: "Group does not exist"});
+    }
+
     newGroup.students.push(student.id);
 
     var counter = 0;
+
+    if(newGroup.rotations.length == 0) {
+      student.save().then(async () => {
+        return res.status(200).send(student);
+      })
+      .catch(err => {
+        return res.status(422).json({code:'422', message: err});
+      }) 
+    }
+
     newGroup.rotations.forEach(rotation => {
       createNewAssignment(newGroup, student, rotation)
       .then(result => {
