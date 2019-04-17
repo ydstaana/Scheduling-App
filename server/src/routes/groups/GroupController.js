@@ -88,7 +88,14 @@ async function addStudentToGroup(req, res) {
   requests.forEach(async request => {
     var student = await Student.findById(request.studentId);
     if(student == null) {
+      console.log("222")
       return res.status(422).json({code:'422', message: "Student does not exist"});
+    }
+
+    if(student.group != null) {
+      const oldGroup = await Group.findById(student.group);
+      oldGroup.students.splice(oldGroup.students.indexOf(student.id), 1)
+      oldGroup.save();
     }
     student.group = request.groupId;
     
@@ -100,7 +107,9 @@ async function addStudentToGroup(req, res) {
       })
 
     const newGroup = await Group.findById(student.group);
+    
     if(newGroup == null) {
+      console.log("HERE")
       return res.status(422).json({code:'422', message: "Group does not exist"});
     }
 

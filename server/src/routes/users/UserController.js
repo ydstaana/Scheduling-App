@@ -220,6 +220,28 @@ async function updateUser(req, res) {
   if(doc.group != req.body.group) {
     const newGroup = await Group.findById(req.body.group);
     var counter = 0;
+    
+    if(newGroup == null) {
+      return res.status(422).json({code:'422', message: "Group does not exist"});
+    }
+
+    if(doc.group != null) {
+      const oldGroup = await Group.findById(doc.group);
+      oldGroup.students.splice(oldGroup.students.indexOf(doc.id), 1)
+      oldGroup.save();
+    }
+
+    if(newGroup.rotations.length == 0) {
+      newGroup.students.push(doc.id);
+      newGroup.save();
+      doc.set(req.body);
+      doc.save().then(() => {
+        res.status(200).send(doc);
+      })
+      .catch(err => {
+        return res.status(422).json({code:'422', message: err});
+      })
+    }
     newGroup.rotations.forEach(rotation => {
       createNewAssignment(newGroup, doc, rotation)
       .then(result => {
