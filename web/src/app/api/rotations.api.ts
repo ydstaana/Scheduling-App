@@ -26,7 +26,6 @@ export class RotationsApi extends Api {
   }
 
   listRotationsByStudent(id: string) {
-    console.log(`>>>>>>URL: ${this.baseUrl}/assignments/students/${id}`);
     return this.http.get(`${this.baseUrl}/assignments/students/${id}`).toPromise();
   }
 

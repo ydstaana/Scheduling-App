@@ -36,4 +36,8 @@ export class StudentRotationsPage implements OnInit {
       console.log(this.assignments);
     });
   }
+
+  viewAssignment(assignment) {
+    alert('Coming soon!');
+  }
 }
