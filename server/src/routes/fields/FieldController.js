@@ -7,6 +7,7 @@ var FieldGroup = require('../../models/fields/FieldGroupSchema.js');
 var StandardFieldGroup = require('../../models/fields/StandardFieldGroupSchema.js');
 var MinorFieldGroup = require('../../models/fields/MinorFieldGroupSchema.js');
 var ElectiveFieldGroup = require('../../models/fields/ElectiveFieldGroupSchema.js');
+var deepPopulate = require('mongoose-deep-populate');
 
 var FieldTypes = {
   STANDARD : "Standard",
@@ -121,7 +122,12 @@ function listFields(req, res) {
 function listFieldGroups(req, res) {
   FieldGroup.find({})
   .populate('fields')
+  .populate({
+    path : 'fields',
+    populate : { path : 'admin'}
+  })
   .exec(function(err, fields) {
+    console.log(fields)
     if (err) {
       res.status(422).json({
         message: err

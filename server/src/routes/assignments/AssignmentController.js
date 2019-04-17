@@ -69,6 +69,26 @@ function listAssignmentsByStudent(req ,res) {
   })
 }
 
+function listAssignmentsByField(req ,res) {
+  Assignment.find({
+    student : req.params.id
+  })
+  .populate('student')
+  .populate('rotation')
+  .populate('group')
+  .populate('admin')
+  .exec(function (err, assignments) {
+    if (err) {
+      res.status(422).json({
+        message: err
+      });
+    }
+    else{
+      res.status(200).send(assignments);
+    }
+  })
+}
+
 function listAssignmentsByRotation(req ,res) {
   // TO DO -> Filter by isChanged
   Assignment.find({

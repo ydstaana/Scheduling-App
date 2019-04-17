@@ -105,6 +105,10 @@ function listRotations(req, res) {
   Rotation.find({})
   .populate('schedule')
   .populate ('group')
+  .populate({
+    path : 'field',
+    populate : { path : 'admin'}
+  })
   .exec(function(err, rotations) {
     if(err) {
       res.status(422).json({

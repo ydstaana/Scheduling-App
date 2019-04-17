@@ -1,5 +1,5 @@
 var mongoose = require('mongoose');
-
+var deepPopulate = require('mongoose-deep-populate')(mongoose);
 
 var FieldGroupSchema = new mongoose.Schema({
   name: String,
@@ -14,6 +14,12 @@ var FieldGroupSchema = new mongoose.Schema({
   discriminatorKey : 'fieldGroupType'
 });
 
+FieldGroupSchema.plugin(deepPopulate, {
+  whitelist: [
+    'fields.admin'
+  ]
+}
+)
 var FieldGroup = mongoose.model('FieldGroup', FieldGroupSchema);
 
 module.exports = FieldGroup;

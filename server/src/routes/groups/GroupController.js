@@ -109,7 +109,6 @@ async function addStudentToGroup(req, res) {
     const newGroup = await Group.findById(student.group);
     
     if(newGroup == null) {
-      console.log("HERE")
       return res.status(422).json({code:'422', message: "Group does not exist"});
     }
 
