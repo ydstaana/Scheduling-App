@@ -10,6 +10,7 @@ export class RotationsApi extends Api {
   }
 
   create(rotation: any) {
+    console.log(rotation);
     return Promise.resolve(rotation);
   }
 

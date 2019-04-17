@@ -19,8 +19,8 @@
               <ion-select 
                 interface="popover" 
                 placeholder="Select Schedule"
-                formControlName="scheduleId">
-                <ion-select-option [value]="sched.id" *ngFor="let sched of schedules">
+                formControlName="schedule">
+                <ion-select-option [value]="sched._id" *ngFor="let sched of schedules">
                   {{ sched.startDate | date: 'MMM dd, yyyy' }} - {{ sched.endDate | date: 'MMM dd, yyyy' }}
                 </ion-select-option>
               </ion-select>
@@ -54,8 +54,8 @@
               <ion-select 
                 interface="popover" 
                 placeholder="Select Field"
-                formControlName="fieldId">
-                <ion-select-option [value]="field.id" *ngFor="let field of fields">
+                formControlName="field">
+                <ion-select-option [value]="field._id" *ngFor="let field of fields">
                   {{ field.name }}
                 </ion-select-option>
               </ion-select>
@@ -71,8 +71,8 @@
               <ion-select 
                 interface="popover" 
                 placeholder="Select Field Group"
-                formControlName="fieldGroupId">
-                <ion-select-option [value]="fg.id" *ngFor="let fg of fieldGroupsDisplay">
+                formControlName="fieldGroup">
+                <ion-select-option [value]="fg._id" *ngFor="let fg of fieldGroupsDisplay">
                   {{ fg.name }}
                 </ion-select-option>
               </ion-select>
@@ -86,9 +86,9 @@
               <ion-select 
                 interface="popover" 
                 placeholder="Select Group"
-                formControlName="groupId">
+                formControlName="group">
                 <ng-container *ngFor="let group of groups">
-                  <ion-select-option [value]="group.id" *ngIf="group.name !== 'Unassigned'">
+                  <ion-select-option [value]="group._id" *ngIf="group.name !== 'Unassigned'">
                     {{ group.name }}
                   </ion-select-option>
                 </ng-container>

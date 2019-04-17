@@ -13,7 +13,10 @@ export class UsersApi extends Api {
   create(user: any) {
     return this.http.post(
       `${this.baseUrl}/users`,
-      user,
+      {
+        ...user,
+        isActive: true
+      },
       { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
     ).toPromise();
   }

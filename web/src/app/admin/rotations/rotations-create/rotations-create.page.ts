@@ -6,6 +6,7 @@ import { UserService } from 'src/app/services/user.service';
 import { PopoverController, ToastController } from '@ionic/angular';
 import { RotationService } from 'src/app/services/rotation.service';
 import { RotationType } from 'src/app/models/rotation.model';
+import { FieldGroupType } from 'src/app/models/field.model';
 
 @Component({
   selector: 'app-rotations-create',
@@ -57,10 +58,10 @@ export class RotationsCreatePage implements OnInit {
 
   buildForm() {
     this.rotationForm = this.formBuilder.group({
-      scheduleId: ['', [Validators.required]],
-      fieldId: ['', [Validators.required]],
-      fieldGroupId: ['', [Validators.required]],
-      groupId: ['', [Validators.required]],
+      schedule: ['', [Validators.required]],
+      field: ['', [Validators.required]],
+      fieldGroup: ['', [Validators.required]],
+      group: ['', [Validators.required]],
       rotationType: ['', [Validators.required]]
     });
   }
@@ -83,10 +84,12 @@ export class RotationsCreatePage implements OnInit {
   }
 
   resolveRotationType() {
-    const fieldId = this.rotationForm.get('fieldId');
-    const fieldGroupId = this.rotationForm.get('fieldGroupId');
+    const fieldId = this.rotationForm.get('field');
+    const fieldGroupId = this.rotationForm.get('fieldGroup');
     this.fieldGroupsDisplay = this.fieldGroups.filter(fg => {
-      return fg.rotationType === this.rotationType;
+      // return fg.rotationType === this.rotationType;
+      return this.rotationType === RotationType.Multiple && fg.fieldGroupType === FieldGroupType.MINOR ||
+        this.rotationType === RotationType.Elective && fg.fieldGroupType === FieldGroupType.ELECTIVE;
     });
 
     if (this.rotationType === RotationType.Single) {
