@@ -17,7 +17,9 @@ export class FieldGroupsPage implements OnInit {
     private popoverCtrl: PopoverController
   ) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  ionViewWillEnter() {
     this.listFieldGroups();
   }
 

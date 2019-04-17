@@ -20,7 +20,9 @@ export class AccountsPage implements OnInit {
     private modalCtrl: ModalController
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
     this.listUsers();
   }
 

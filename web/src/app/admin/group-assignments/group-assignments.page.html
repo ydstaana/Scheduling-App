@@ -6,6 +6,9 @@
           interface="popover"
           [(ngModel)]="currentGroup"
           (ionChange)="resolveGroup()">
+          <ion-select-option value="Unassigned">
+            Unassigned
+          </ion-select-option>
           <ion-select-option [value]="g" *ngFor="let g of groups">
             {{ g.name }}
           </ion-select-option>
@@ -21,6 +24,16 @@
             </ion-col>
             <ion-col size="5">
               <b>Students</b>
+            </ion-col>
+          </ion-row>
+          <ion-row 
+            class="border-bottom log p-t-b-10" 
+            align-items-center>
+            <ion-col size="8">
+              Unassigned
+            </ion-col>
+            <ion-col size="4">
+              {{ unassignedStudents.length }}
             </ion-col>
           </ion-row>
           <ion-row 
@@ -48,25 +61,50 @@
               <b>Group</b>
             </ion-col>
           </ion-row>
-          <ion-row 
-            class="border-bottom log p-t-b-10" 
-            align-items-center *ngFor="let student of currentGroup?.students; let i = index">
-            <ion-col size="3">
-              {{ student.studentId }}
-            </ion-col>
-            <ion-col size="6">
-              {{ student.firstName + ' ' + student.lastName }}
-            </ion-col>
-            <ion-col size="3">
-              <ion-select 
-                interface="popover"
-                (ionChange)="setGroup(student, $event)">
-                <ion-select-option [selected]="g._id === currentGroup._id" [value]="g" *ngFor="let g of groups">
-                  {{ g.name }}
-                </ion-select-option>
-              </ion-select>
-            </ion-col>
-          </ion-row>
+          <ng-container *ngIf="currentGroup === 'Unassigned'">
+            <ion-row 
+              class="border-bottom log p-t-b-10" 
+              align-items-center 
+              *ngFor="let student of unassignedStudents; let i = index">
+              <ion-col size="3">
+                {{ student.studentId }}
+              </ion-col>
+              <ion-col size="6">
+                {{ student.firstName + ' ' + student.lastName }}
+              </ion-col>
+              <ion-col size="3">
+                <ion-select 
+                  interface="popover"
+                  (ionChange)="setGroup(student, $event)">
+                  <ion-select-option [selected]="g._id === groups[0]._id" [value]="g" *ngFor="let g of groups">
+                    {{ g.name }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-col>
+            </ion-row>
+          </ng-container>
+          <ng-container *ngIf="currentGroup !== 'Unassigned'">
+            <ion-row 
+              class="border-bottom log p-t-b-10" 
+              align-items-center 
+              *ngFor="let student of currentGroup?.students; let i = index">
+              <ion-col size="3">
+                {{ student.studentId }}
+              </ion-col>
+              <ion-col size="6">
+                {{ student.firstName + ' ' + student.lastName }}
+              </ion-col>
+              <ion-col size="3">
+                <ion-select 
+                  interface="popover"
+                  (ionChange)="setGroup(student, $event)">
+                  <ion-select-option [selected]="g._id === currentGroup._id" [value]="g" *ngFor="let g of groups">
+                    {{ g.name }}
+                  </ion-select-option>
+                </ion-select>
+              </ion-col>
+            </ion-row>
+          </ng-container>
           <ion-row>
             <ion-col text-right>
               <ion-button (click)="updateGroups()">Update Groups</ion-button>

@@ -11,43 +11,73 @@ export class GroupAssignmentsPage implements OnInit {
   groups = [];
   currentGroup: any;
   currentStudents = [];
+  unassignedStudents = [];
 
   constructor(
     private userService: UserService,
     private toastCtrl: ToastController
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
     this.listUserGroups();
   }
 
   listUserGroups() {
+    // set current group to display = null
+    this.currentGroup = 'Unassigned';
+
     this.currentStudents = [];
     this.userService.listUserGroups().then((data: any) => {
       this.groups = data.map(group => {
         return {
           ...group,
-          order: group.name === 'Unassigned' ? 0 : +group.name.split(' ')[1]
+          order: +group.name.split(' ')[1]
         };
       })
       .sort((a, b) => ((a.order === b.order) ? 0 : ((a.order > b.order) ? 1 : -1)) );
-      this.currentGroup = this.groups[0];
+      // this.currentGroup = this.groups[0];
 
-      if (this.currentGroup.students) {
-        this.currentGroup.students.forEach(student => {
-          this.currentStudents.push({
-            studentId: student._id,
-            groupId: this.currentGroup._id
+      // if (this.currentGroup.students) {
+      //   this.currentGroup.students.forEach(student => {
+      //     this.currentStudents.push({
+      //       studentId: student._id,
+      //       groupId: this.currentGroup._id
+      //     });
+      //   });
+      // }
+
+      // console.log(this.groups);
+      // get unassigned students
+      this.userService.listUnassignedStudents().then((res: any) => {
+        this.unassignedStudents = res;
+
+        if (res) {
+          this.unassignedStudents.forEach(student => {
+            this.currentStudents.push({
+              studentId: student._id,
+              groupId: this.groups[0]._id
+            });
           });
-        });
-      }
 
-      console.log(this.groups);
+          console.log(this.currentStudents);
+        }
+      });
     });
   }
 
   resolveGroup() {
-    if (this.currentGroup.students) {
+    console.log(this.currentGroup);
+    if (this.currentGroup === 'Unassigned') {
+      this.currentStudents = [];
+      this.unassignedStudents.forEach(student => {
+        this.currentStudents.push({
+          studentId: student._id,
+          groupId: this.groups[0]._id
+        });
+      });
+    } else if (this.currentGroup.students) {
       this.currentStudents = [];
       this.currentGroup.students.forEach(student => {
         this.currentStudents.push({
@@ -56,6 +86,7 @@ export class GroupAssignmentsPage implements OnInit {
         });
       });
     }
+    console.log(this.currentStudents);
   }
 
   setGroup(student, event) {

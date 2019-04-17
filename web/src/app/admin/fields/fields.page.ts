@@ -17,7 +17,9 @@ export class FieldsPage implements OnInit {
     private popoverCtrl: PopoverController
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
     this.listFields();
   }
 

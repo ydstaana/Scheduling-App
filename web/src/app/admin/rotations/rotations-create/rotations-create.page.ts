@@ -48,7 +48,7 @@ export class RotationsCreatePage implements OnInit {
       this.fieldGroups = data;
     });
 
-    this.userService.listUserGroups().then(data => {
+    this.userService.listUserGroups().then((data: any) => {
       this.groups = data;
     });
 

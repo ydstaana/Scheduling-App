@@ -22,6 +22,10 @@ export class UsersApi extends Api {
     return this.http.get(`${this.baseUrl}/users`).toPromise();
   }
 
+  listUnassignedStudents() {
+    return this.http.get(`${this.baseUrl}/users/students/unassigned`).toPromise();
+  }
+
   listUserGroups() {
     return this.http.get(`${this.baseUrl}/groups`).toPromise();
   }
@@ -48,9 +52,7 @@ export class UsersApi extends Api {
   updateUserGroups(userGroup: any) {
     return this.http.post(
       `${this.baseUrl}/groups/addStudent`,
-      {
-        assignments: userGroup
-      },
+      userGroup,
       { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
     ).toPromise();
   }

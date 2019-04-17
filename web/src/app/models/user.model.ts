@@ -15,6 +15,10 @@ export class User extends Model {
     return this.api().users().list();
   }
 
+  static listUnassignedStudents() {
+    return this.api().users().listUnassignedStudents();
+  }
+
   static listUserGroups() {
     return this.api().users().listUserGroups();
   }

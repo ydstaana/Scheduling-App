@@ -16,7 +16,9 @@ export class RotationsPage implements OnInit {
     private popoverCtrl: PopoverController
   ) { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ionViewWillEnter() {
     this.listRotations();
   }
 

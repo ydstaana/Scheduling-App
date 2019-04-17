@@ -12,6 +12,10 @@ export class UserService {
     return User.create(user);
   }
 
+  listUnassignedStudents() {
+    return User.listUnassignedStudents();
+  }
+
   listUsers() {
     return User.list();
   }
