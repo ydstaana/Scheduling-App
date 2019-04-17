@@ -7,6 +7,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { IonicModule } from '@ionic/angular';
 
 import { StudentPage } from './student.page';
+import { StudentProfilePage } from './student-profile/student-profile.page';
 
 const routes: Routes = [
   {
@@ -36,7 +37,11 @@ const routes: Routes = [
   ],
   declarations: [
     StudentPage,
-    StudentRotationsPage
+    StudentRotationsPage,
+    StudentProfilePage
+  ],
+  entryComponents: [
+    StudentProfilePage
   ]
 })
 export class StudentPageModule {}
