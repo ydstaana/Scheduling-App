@@ -1,5 +1,5 @@
 import { Api } from './api';
-import { HttpClient } from '@angular/common/http';
+import { HttpClient, HttpHeaders } from '@angular/common/http';
 
 export class RotationsApi extends Api {
   constructor(
@@ -11,7 +11,15 @@ export class RotationsApi extends Api {
 
   create(rotation: any) {
     console.log(rotation);
-    return Promise.resolve(rotation);
+    return this.http.post(
+      `${this.baseUrl}/rotations`,
+      {
+        ...rotation,
+        isActive: true
+      },
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
+    // return Promise.resolve(rotation);
   }
 
   list() {

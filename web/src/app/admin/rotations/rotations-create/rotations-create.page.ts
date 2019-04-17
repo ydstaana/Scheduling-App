@@ -59,8 +59,8 @@ export class RotationsCreatePage implements OnInit {
   buildForm() {
     this.rotationForm = this.formBuilder.group({
       schedule: ['', [Validators.required]],
-      field: ['', [Validators.required]],
-      fieldGroup: ['', [Validators.required]],
+      field: ['dummy', [Validators.required]],
+      fieldGroup: ['dummy', [Validators.required]],
       group: ['', [Validators.required]],
       rotationType: ['', [Validators.required]]
     });
