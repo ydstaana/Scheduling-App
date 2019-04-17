@@ -110,7 +110,9 @@ async function addStudentToGroup(req, res) {
 
     if(newGroup.rotations.length == 0) {
       student.save().then(async () => {
-        return res.status(200).send(student);
+        newGroup.save().then(result => {
+          return res.status(200).send(student);
+        });
       })
       .catch(err => {
         return res.status(422).json({code:'422', message: err});
@@ -123,9 +125,10 @@ async function addStudentToGroup(req, res) {
         counter++;
         student.assignments.push(result);
         if(counter == newGroup.rotations.length) {
-          newGroup.save();
           student.save().then(async () => {
-            res.status(200).send(student);
+            newGroup.save().then(result => {
+              res.status(200).send(student);
+            });
           })
           .catch(err => {
             return res.status(422).json({code:'422', message: err});
