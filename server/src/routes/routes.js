@@ -58,6 +58,7 @@ router.put('/assignments/:id', assignmentController.updateAssignment);
 router.get('/assignments/:id', assignmentController.getAssignment);
 router.get('/assignments/students/:id', assignmentController.listAssignmentsByStudent);
 router.get('/assignments/rotations/:id', assignmentController.listAssignmentsByRotation);
+router.get('/assignments/field-admin/:id', assignmentController.listAssignmentsByFieldAdmin);
 
 //Requests
 router.post('/requests', requestController.createRequest);

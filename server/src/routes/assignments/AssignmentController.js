@@ -1,4 +1,5 @@
 var Assignment = require('../../models/assignments/AssignmentSchema.js');
+var Field = require('../../models/fields/FieldSchema.js');
 var Student = require('../../models/users/StudentSchema.js');
 
 function createAssignment(req, res) {
@@ -121,11 +122,42 @@ function listAssignmentsByRotation(req ,res) {
   })
 }
 
+async function listAssignmentsByFieldAdmin(req ,res) {
+  var field = await Field.findOne({
+    admin : req.params.id
+  });
+
+  if(field == null) {
+    return res.status(422).json({
+      message: "No fields for this field admin"
+    });
+  }
+
+  Assignment.find({
+    field : field._id
+  })
+  .populate('student')
+  .populate('rotation')
+  .populate('group')
+  .populate('admin')
+  .exec(function (err, assignments) {
+    if (err) {
+      res.status(422).json({
+        message: err
+      });
+    }
+    else{
+      res.status(200).send(assignments);
+    }
+  })
+}
+
 module.exports = {
   createAssignment : createAssignment,
   listAssignments : listAssignments,
   getAssignment : getAssignment,
   updateAssignment : updateAssignment,
   listAssignmentsByStudent : listAssignmentsByStudent,
-  listAssignmentsByRotation : listAssignmentsByRotation
+  listAssignmentsByRotation : listAssignmentsByRotation,
+  listAssignmentsByFieldAdmin : listAssignmentsByFieldAdmin
 } 
