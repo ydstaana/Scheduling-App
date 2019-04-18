@@ -14,7 +14,7 @@ function createSchedule(req, res) {
 };
 
 function listSchedules(req, res) {
-  Schedule.find({}, function(err, scheds) {
+  Schedule.find(req.query, function(err, scheds) {
     if (err) {
       res.status(422).json({
         message: err
@@ -26,7 +26,19 @@ function listSchedules(req, res) {
   })
 }
 
+async function updateSchedule(req, res) {
+  const doc = await Schedule.findById(req.params.id);
+  doc.set(req.body);
+  doc.save().then(() => {
+    res.status(200).send(doc);
+  })
+  .catch(err => {
+    res.status(422).json({code:'422', message: err});
+  });
+}
+
 module.exports = {
   createSchedule : createSchedule,
-  listSchedules : listSchedules
+  listSchedules : listSchedules,
+  updateSchedule: updateSchedule
 }

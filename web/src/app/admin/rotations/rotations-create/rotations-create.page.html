@@ -17,7 +17,7 @@
             <ion-item>
               <ion-label position="floating">Schedules</ion-label>
               <ion-select 
-                interface="popover" 
+                interface="action-sheet" 
                 placeholder="Select Schedule"
                 formControlName="schedule">
                 <ion-select-option [value]="sched._id" *ngFor="let sched of schedules">
@@ -52,7 +52,7 @@
             <ion-item>
               <ion-label position="floating">Field</ion-label>
               <ion-select 
-                interface="popover" 
+                interface="action-sheet" 
                 placeholder="Select Field"
                 formControlName="field">
                 <ion-select-option [value]="field._id" *ngFor="let field of fields">
@@ -74,7 +74,7 @@
             <ion-item>
               <ion-label position="floating">Field Group</ion-label>
               <ion-select 
-                interface="popover" 
+                interface="action-sheet" 
                 placeholder="Select Field Group"
                 formControlName="fieldGroup">
                 <ion-select-option [value]="fg._id" *ngFor="let fg of fieldGroupsDisplay">
@@ -94,7 +94,7 @@
             <ion-item>
               <ion-label position="floating">Group</ion-label>
               <ion-select 
-                interface="popover" 
+                interface="action-sheet" 
                 placeholder="Select Group"
                 formControlName="group">
                 <ng-container *ngFor="let group of groups">

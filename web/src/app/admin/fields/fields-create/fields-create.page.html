@@ -50,11 +50,11 @@
             <ion-item>
               <ion-label position="floating">Field Admin</ion-label>
               <ion-select 
-                interface="popover" 
+                interface="action-sheet" 
                 placeholder="Select Field Admin"
                 formControlName="admin">
                 <ion-select-option [value]="admin._id" *ngFor="let admin of admins">
-                  {{ admin.firstName + ' ' + admin.lastName }}
+                  {{ admin.firstName + ' ' + admin.middleName + ' ' + admin.lastName }}
                 </ion-select-option>
               </ion-select>
             </ion-item>

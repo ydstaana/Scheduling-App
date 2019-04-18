@@ -2,6 +2,7 @@ import { ScheduleService } from './../../../services/schedule.service';
 import { PopoverController, ToastController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-schedules-create',
@@ -11,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 export class SchedulesCreatePage implements OnInit {
   callInProgress = false;
   scheduleForm: FormGroup;
+  maxYear = moment().year() + 2;
 
   constructor(
     private formBuilder: FormBuilder,

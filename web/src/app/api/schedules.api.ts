@@ -26,7 +26,7 @@ export class SchedulesApi extends Api {
 
   update(schedules: any) {
     return this.http.put(
-      `${this.baseUrl}/schedules/${schedules._id}`,
+      `${this.baseUrl}/schedules/${schedules.id}`,
       schedules,
       { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
     ).toPromise();

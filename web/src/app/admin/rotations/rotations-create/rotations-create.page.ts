@@ -38,15 +38,15 @@ export class RotationsCreatePage implements OnInit {
 
   ngOnInit() {
     this.scheduleService.list().then((data: any) => {
-      this.schedules = data;
+      this.schedules = data.filter(d => d.isActive);
     });
 
     this.fieldService.list().then((data: any) => {
-      this.fields = data;
+      this.fields = data.filter(d => d.isActive);
     });
 
     this.fieldService.listFieldGroups().then((data: any) => {
-      this.fieldGroups = data;
+      this.fieldGroups = data.filter(d => d.isActive);
     });
 
     this.userService.listUserGroups().then((data: any) => {

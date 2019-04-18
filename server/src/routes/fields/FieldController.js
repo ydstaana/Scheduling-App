@@ -104,7 +104,7 @@ function createFieldGroup(req, res) {
 }
 
 function listFields(req, res) {
-  Field.find({})
+  Field.find(req.query)
   .populate('admin')
   .exec(function(err, fields) {
     if (err) {

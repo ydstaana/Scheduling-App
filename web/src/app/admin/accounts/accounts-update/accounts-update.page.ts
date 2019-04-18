@@ -37,7 +37,7 @@ export class AccountsUpdatePage implements OnInit {
 
   buildForm() {
     this.accountForm = this.formBuilder.group({
-      studentId: [this.user.id ? this.user.id : 'dummy', [Validators.required]],
+      studentId: [this.user.studentId ? this.user.studentId : 'dummy', [Validators.required]],
       userType: ['', [
         Validators.required
       ]],

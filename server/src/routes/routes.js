@@ -48,6 +48,7 @@ router.put('/field-groups/:id', fieldController.updateFieldGroup);
 //Schedules
 router.get('/schedules', scheduleController.listSchedules);
 router.post('/schedules', scheduleController.createSchedule);
+router.put('/schedules/:id', scheduleController.updateSchedule);
 
 //Rotations
 router.post('/rotations', rotationController.createRotation);

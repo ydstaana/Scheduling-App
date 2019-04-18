@@ -31,7 +31,7 @@ export class FieldGroupsCreatePage implements OnInit {
     this.buildForm();
 
     this.fieldService.list().then((data: any) => {
-      this.fields = data;
+      this.fields = data.filter(d => d.isActive);
 
       this.fieldsToDisplay = this.fields.filter(f => {
         return this.fieldGroupType === FieldGroupType.STANDARD && f.fieldType === FieldType.STANDARD
