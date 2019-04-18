@@ -1,6 +1,6 @@
 var Assignment = require('../../models/assignments/AssignmentSchema.js');
 var Field = require('../../models/fields/FieldSchema.js');
-var Field = require('../../models/fields/FieldGroupSchema.js');
+var FieldGroup = require('../../models/fields/FieldGroupSchema.js');
 var Student = require('../../models/users/StudentSchema.js');
 var Rotation = require('../../models/rotations/RotationSchema.js');
 var Request = require('../../models/requests/RequestSchema.js');
@@ -229,8 +229,8 @@ async function switchAssignments(req, res) {
 
 async function listAssignmentsByFieldAdmin(req ,res) {
   var field = await Field.findOne({
-    admin : req.params.id
-  });
+    admin: req.params.id
+  })
 
   if(field == null) {
     return res.status(422).json({
