@@ -37,6 +37,7 @@ router.post('/groups/default/create', groupController.createDefaultGroups);
 
 //Fields
 router.get('/fields', fieldController.listFields);
+router.get('/fields/:id', fieldController.getField);
 router.post('/fields', fieldController.createField);
 router.put('/fields/:id', fieldController.updateField);
 

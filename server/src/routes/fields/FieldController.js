@@ -158,6 +158,21 @@ async function updateField(req, res) {
   })
 }
 
+function getField(req, res) {
+  Field.findById(req.params.id)
+  .populate('admin')
+  .exec(function(err, field) {
+    if (err) {
+      res.status(422).json({
+        message: err
+      });
+    }
+      else{
+        res.status(200).send(field);
+      }
+  })
+}
+
 async function updateFieldGroup(req, res) {
   const doc = await FieldGroup.findById(req.params.id);
 
@@ -177,5 +192,6 @@ module.exports = {
   listFieldGroups : listFieldGroups,
   createFieldGroup : createFieldGroup,
   updateField : updateField,
+  getField : getField,
   updateFieldGroup : updateFieldGroup
 }
