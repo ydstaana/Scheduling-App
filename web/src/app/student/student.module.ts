@@ -10,6 +10,8 @@ import { IonicModule } from '@ionic/angular';
 
 import { StudentPage } from './student.page';
 import { StudentProfilePage } from './student-profile/student-profile.page';
+import { UpdatePasswordModalPageModule } from '../update-password-modal/update-password-modal.module';
+import { UpdatePasswordModalPage } from '../update-password-modal/update-password-modal.page';
 
 const routes: Routes = [
   {
@@ -35,7 +37,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UpdatePasswordModalPageModule
   ],
   declarations: [
     StudentPage,
@@ -45,7 +48,8 @@ const routes: Routes = [
   ],
   entryComponents: [
     StudentProfilePage,
-    ViewStudentAssignmentPage
+    ViewStudentAssignmentPage,
+    UpdatePasswordModalPage
   ],
   providers: [
     AssignmentService

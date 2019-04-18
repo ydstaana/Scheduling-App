@@ -3,6 +3,7 @@ import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { UserService } from 'src/app/services/user.service';
 import { PopoverController, ToastController } from '@ionic/angular';
+import { UpdatePasswordModalPage } from 'src/app/update-password-modal/update-password-modal.page';
 
 @Component({
   selector: 'app-student-profile',
@@ -96,6 +97,16 @@ export class StudentProfilePage implements OnInit {
 
   dismiss() {
     this.popoverCtrl.dismiss();
+  }
+
+  async updatePassword() {
+    const viewModal = await this.popoverCtrl.create({
+      component: UpdatePasswordModalPage,
+      cssClass: 'smaller-custom-popover',
+      backdropDismiss: false
+    });
+
+    return await viewModal.present();
   }
 
   async success(message: string) {

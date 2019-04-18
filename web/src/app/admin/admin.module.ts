@@ -1,3 +1,4 @@
+import { UpdatePasswordModalPage } from 'src/app/update-password-modal/update-password-modal.page';
 import { AdminProfilePage } from './admin-profile/admin-profile.page';
 import { FieldGroupsUpdatePage } from './field-groups/field-groups-update/field-groups-update.page';
 import { FieldGroupsViewPage } from './field-groups/field-groups-view/field-groups-view.page';
@@ -31,6 +32,7 @@ import { GroupAssignmentsPage } from './group-assignments/group-assignments.page
 import { RotationsPage } from './rotations/rotations.page';
 import { RotationsCreatePage } from './rotations/rotations-create/rotations-create.page';
 import { RotationService } from '../services/rotation.service';
+import { UpdatePasswordModalPageModule } from '../update-password-modal/update-password-modal.module';
 
 const routes: Routes = [
   {
@@ -80,7 +82,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UpdatePasswordModalPageModule
   ],
   declarations: [
     AccountsCreatePage,
@@ -126,7 +129,8 @@ const routes: Routes = [
     SchedulesUpdatePage,
     SchedulesViewPage,
     RotationsCreatePage,
-    AdminProfilePage
+    AdminProfilePage,
+    UpdatePasswordModalPage
   ]
 })
 export class AdminPageModule {}

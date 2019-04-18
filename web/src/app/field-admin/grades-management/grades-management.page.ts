@@ -33,6 +33,8 @@ export class GradesManagementPage implements OnInit {
   listAssignments() {
     this.assignmentService.listByFieldAdmin(this.currentUser._id).then((data: any) => {
       this.assignments = data;
+    }, error => {
+      console.log(error);
     });
   }
 

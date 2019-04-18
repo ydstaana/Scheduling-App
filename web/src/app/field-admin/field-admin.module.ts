@@ -1,3 +1,5 @@
+import { UpdatePasswordModalPage } from 'src/app/update-password-modal/update-password-modal.page';
+import { UpdatePasswordModalPageModule } from './../update-password-modal/update-password-modal.module';
 import { ViewAssignmentPage } from './grades-management/view-assignment/view-assignment.page';
 import { AssignmentService } from './../services/assignment.service';
 import { GradesManagementPage } from './grades-management/grades-management.page';
@@ -36,7 +38,8 @@ const routes: Routes = [
     FormsModule,
     IonicModule,
     RouterModule.forChild(routes),
-    ReactiveFormsModule
+    ReactiveFormsModule,
+    UpdatePasswordModalPageModule
   ],
   declarations: [
     FieldAdminPage,
@@ -48,7 +51,8 @@ const routes: Routes = [
   entryComponents: [
     FieldAdminProfilePage,
     UpdateGradePage,
-    ViewAssignmentPage
+    ViewAssignmentPage,
+    UpdatePasswordModalPage
   ],
   providers: [
     AssignmentService

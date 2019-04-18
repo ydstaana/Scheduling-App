@@ -1,3 +1,4 @@
+import { UpdatePasswordModalPage } from './../../update-password-modal/update-password-modal.page';
 import { PopoverController, ToastController } from '@ionic/angular';
 import { UserService } from './../../services/user.service';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
@@ -77,6 +78,16 @@ export class AdminProfilePage implements OnInit {
 
   dismiss() {
     this.popoverCtrl.dismiss();
+  }
+
+  async updatePassword() {
+    const viewModal = await this.popoverCtrl.create({
+      component: UpdatePasswordModalPage,
+      cssClass: 'smaller-custom-popover',
+      backdropDismiss: false
+    });
+
+    return await viewModal.present();
   }
 
   async success(message: string) {
