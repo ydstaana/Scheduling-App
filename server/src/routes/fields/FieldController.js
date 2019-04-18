@@ -30,9 +30,9 @@ function createField(req, res) {
             message: err
           });
         }
-          else{
-            res.status(200).send(field);
-          }
+        else{
+          res.status(200).send(field);
+        }
       })
       break;
     case FieldTypes.MINOR:
@@ -42,9 +42,9 @@ function createField(req, res) {
             message: err
           });
         }
-          else{
-            res.status(200).send(field);
-          }
+        else{
+          res.status(200).send(field);
+        }
       })
       break;
     case FieldTypes.ELECTIVE:
@@ -54,9 +54,9 @@ function createField(req, res) {
             message: err
           });
         }
-          else{
-            res.status(200).send(field);
-          }
+        else{
+          res.status(200).send(field);
+        }
       })
       break;
   } 

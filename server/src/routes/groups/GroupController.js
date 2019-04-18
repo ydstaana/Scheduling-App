@@ -98,7 +98,6 @@ async function addStudentToGroup(req, res) {
   requests.forEach(async request => {
     var student = await Student.findById(request.studentId);
     if(student == null) {
-      console.log("222")
       return res.status(422).json({code:'422', message: "Student does not exist"});
     }
 
@@ -111,7 +110,7 @@ async function addStudentToGroup(req, res) {
     
     if(student.assignments.length != 0)
       student.assignments.forEach(async assign => {
-        var tempAssign = await Assignment.findById(assign.id)
+        var tempAssign = await Assignment.findById(assign)
         tempAssign.isActive = false;
         tempAssign.save();
       })

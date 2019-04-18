@@ -66,7 +66,7 @@ function createRotation(req, res) {
           }
         });
         break;
-      case RotationType.ELECTIVE :
+      case RotationType.SPECIAL :
         SpecialRotation.create(req.body, async function (err, rotation) {
           if (err) {
             res.status(422).json({

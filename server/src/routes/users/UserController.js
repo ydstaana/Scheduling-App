@@ -236,12 +236,18 @@ async function updateUserProfile(req, res) {
 }
 
 async function updateUser(req, res) {
-  console.log(req.body);
   const doc = await User.findById(req.params.id);
 
   if(doc.group != req.body.group) {
     const newGroup = await Group.findById(req.body.group);
     var counter = 0;
+
+    if(doc.assignments.length != 0)
+      doc.assignments.forEach(async assign => {
+        var tempAssign = await Assignment.findById(assign)
+        tempAssign.isActive = false;
+        tempAssign.save();
+      })
     
     if(newGroup == null) {
       return res.status(422).json({code:'422', message: "Group does not exist"});
