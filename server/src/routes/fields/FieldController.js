@@ -7,6 +7,7 @@ var FieldGroup = require('../../models/fields/FieldGroupSchema.js');
 var StandardFieldGroup = require('../../models/fields/StandardFieldGroupSchema.js');
 var MinorFieldGroup = require('../../models/fields/MinorFieldGroupSchema.js');
 var ElectiveFieldGroup = require('../../models/fields/ElectiveFieldGroupSchema.js');
+var mongoose = require('mongoose');
 
 var FieldTypes = {
   STANDARD : "Standard",
@@ -150,7 +151,11 @@ async function updateField(req, res) {
 
     await admin.save();
 
-		res.status(200).send(doc);
+    Field.populate(doc, {path : 'admin'}, function(err, field) {
+      res.status(200).send(field);
+    })
+
+		
   })
   .catch(err => {
     console.log(err)
