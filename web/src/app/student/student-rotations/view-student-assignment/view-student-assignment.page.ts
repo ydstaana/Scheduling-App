@@ -1,3 +1,4 @@
+import { PopoverController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,15 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./view-student-assignment.page.scss'],
 })
 export class ViewStudentAssignmentPage implements OnInit {
+  assignment: any;
 
-  constructor() { }
+  constructor(
+    private popoverCtrl: PopoverController
+  ) { }
 
-  ngOnInit() {
+  ngOnInit() { }
+
+  dismiss() {
+    this.popoverCtrl.dismiss();
   }
-
 }

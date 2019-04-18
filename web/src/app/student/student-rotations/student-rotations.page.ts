@@ -1,8 +1,8 @@
+import { PopoverController } from '@ionic/angular';
 import { StorageService, Storage } from './../../services/storage.service';
 import { Component, OnInit } from '@angular/core';
-import { RotationService } from 'src/app/services/rotation.service';
-import { RotationType } from 'src/app/models/rotation.model';
 import { AssignmentService } from 'src/app/services/assignment.service';
+import { ViewStudentAssignmentPage } from './view-student-assignment/view-student-assignment.page';
 
 @Component({
   selector: 'app-student-rotations',
@@ -14,7 +14,8 @@ export class StudentRotationsPage implements OnInit {
 
   constructor(
     private assignmentService: AssignmentService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private popoverCtrl: PopoverController
   ) { }
 
   ngOnInit() {}
@@ -33,7 +34,20 @@ export class StudentRotationsPage implements OnInit {
     });
   }
 
-  viewAssignment(assignment) {
-    alert('Coming soon!');
+  async viewAssignment(assignment) {
+    const viewModal = await this.popoverCtrl.create({
+      component: ViewStudentAssignmentPage,
+      componentProps: {
+        assignment: assignment
+      },
+      cssClass: 'custom-popover',
+      backdropDismiss: false
+    });
+
+    viewModal.onDidDismiss().then(data => {
+      this.listRotationsByStudent();
+    });
+
+    return await viewModal.present();
   }
 }
