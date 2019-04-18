@@ -44,14 +44,10 @@ export class LoginPage implements OnInit {
       this.userService.login(this.loginForm.value['email'], this.loginForm.value['password']).then((data: any) => {
         console.log(data);
         const u = this.getUserByResponse(data);
-        console.log('>>>>>>>>>>>USER: ');
-        console.log(u);
         u.then(user => {
-          console.log('>>>>>>>>>>>THEEEEN: ');
           this.isUnauthorized = false;
           this.callInProgress = false;
 
-          console.log(user);
           this.storageService.setItem(Storage.CURRENT_USER, JSON.stringify(user));
 
           switch (data['userType']) {

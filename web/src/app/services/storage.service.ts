@@ -21,5 +21,5 @@ export class StorageService {
 }
 
 export class Storage {
-  static CURRENT_USER = 'currentUser';
+  static CURRENT_USER = 'TRACK_ME_USER';
 }
