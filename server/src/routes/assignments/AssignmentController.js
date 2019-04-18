@@ -138,7 +138,7 @@ function createNewAssignment(group, student, rotation, field) {
     new Assignment({
       student : student.id,
       rotation : rotation.id,
-      group : group.id,
+      group : group,
       field : field
     })
     .save().then(async assign => {
@@ -155,34 +155,31 @@ async function switchAssignments(req, res) {
   /*
     Expected Payload
     {
-      student : 
       request : //Id of request
       remarks : 
-      oldRotation :
-      newRotation : 
     }
   */
   // Deactivate previous assignments of the student from the old rotation
   // Create new assignments from the Fields of the New Rotation
   // Approve the request
 
-  var student = await Student.findById(req.body.student);
+  var request = await Request.findById(req.body.request);
+  var student = await Student.findById(request.student);
   
   if(student.assignments.length != 0) {
     Assignment.find({
       student : student._id,
-      rotation : oldRotation
+      rotation : request.oldRotation
     })
     .then(assignments => {
       assignments.forEach(assign => {
-        student.assignments.splice(student.assignments.indexOf(assign._id), 1)
         assign.isActive = false;
         assign.save();
       })
     })
   }
 
-  var newRotation = await Rotation.findById(req.body.newRotation);
+  var newRotation = await Rotation.findById(request.newRotation);
   
   switch(newRotation.rotationType) {
     case RotationType.SINGLE :
@@ -190,9 +187,10 @@ async function switchAssignments(req, res) {
       .then(assign => {
         student.assignments.push(assign);
         student.save().then(() => {
-          res.status(200).send(assignments);
+          res.status(200).send(student);
         })
         .catch(err => {
+          console.log(err);
           res.status(422).json({
             message: err
           });
@@ -217,6 +215,7 @@ async function switchAssignments(req, res) {
               })
             })
             .catch(err => {
+              console.log("NOT HERE???")
               res.status(422).json({
                 message: err
               });

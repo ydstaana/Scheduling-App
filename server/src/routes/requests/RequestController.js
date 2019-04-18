@@ -16,13 +16,15 @@ function createRequest(req, res) {
         else
           res.status(200).send(request);
       })
+      break;
     case RequestTypes.ELECTIVE :
       ElectiveRequest.create(req.body, function(err, request) {
         if(err)
           res.status(422).json({code:'422',message:err});
         else
           res.status(200).send(request);
-      })
+      });
+      break;
   }
 }
 
@@ -38,7 +40,6 @@ function listSwitchRequests(req, res) {
     else
       res.status(200).send(requests);
   })
-
 }
 
 module.exports = {

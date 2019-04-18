@@ -11,7 +11,7 @@ var RequestSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
-  isApproved: Boolean,
+  isApproved: { type : Boolean, default : false},
   isPending: Boolean,
   message : String,
   acknowledgementMessage : String

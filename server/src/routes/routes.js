@@ -69,5 +69,6 @@ router.post('/assignments/switch', assignmentController.switchAssignments);
 
 //Requests
 router.post('/requests', requestController.createRequest);
+router.get('/requests/switch', requestController.listSwitchRequests);
 
 module.exports = router;
