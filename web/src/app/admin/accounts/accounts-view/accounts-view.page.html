@@ -44,14 +44,14 @@
   </ion-grid>
   <!-- START OF PERSONAL INFORMATION TAB (VIEW ONLY) -->
   <ion-grid padding fixed *ngIf="currentTab === 'PERSONAL_INFORMATION'">
-    <ion-row>
+    <ion-row *ngIf="user.userType === UserType.STUDENT">
       <ion-col size="4">
         <ion-label>
           <b>Student ID</b>
         </ion-label>
       </ion-col>
       <ion-col size="8">
-        <ion-label>{{ user.id }}</ion-label>
+        <ion-label>{{ user.studentId }}</ion-label>
       </ion-col>
     </ion-row>
     <ion-row>

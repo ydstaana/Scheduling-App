@@ -43,6 +43,10 @@ export class User extends Model {
     return this.api().users().update(user);
   }
 
+  static updateProfile(user: any) {
+    return this.api().users().updateProfile(user);
+  }
+
   static updateUserGroups(userGroup: any) {
     return this.api().users().updateUserGroups(userGroup);
   }

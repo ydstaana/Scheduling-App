@@ -65,6 +65,15 @@ export class UsersApi extends Api {
     ).toPromise();
   }
 
+  updateProfile(user: any) {
+    console.log(user);
+    return this.http.put(
+      `${this.baseUrl}/users/profile/update/${user.id}`,
+      user,
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
+  }
+
   updateUserGroups(userGroup: any) {
     return this.http.post(
       `${this.baseUrl}/groups/addStudent`,

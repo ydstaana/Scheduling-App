@@ -224,6 +224,17 @@ function createNewAssignment(group, student, rotation, field) {
   })
 }
 
+async function updateUserProfile(req, res) {
+  const doc = await User.findById(req.params.id);
+  doc.set(req.body);
+  doc.save().then(() => {
+    res.status(200).send(doc);
+  })
+  .catch(err => {
+    res.status(422).json({code:'422', message: err});
+  });
+}
+
 async function updateUser(req, res) {
   console.log(req.body);
   const doc = await User.findById(req.params.id);
@@ -324,5 +335,6 @@ module.exports = {
   listFieldAdmins : listFieldAdmins,
   listStudents : listStudents,
   listUnassignedStudents : listUnassignedStudents,
-  updateUser : updateUser
+  updateUser : updateUser,
+  updateUserProfile: updateUserProfile
 }

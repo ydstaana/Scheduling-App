@@ -13,13 +13,14 @@ router.post('/login', userController.login);
 
 //Users
 router.get('/users', userController.listUsers);
-router.get('/users/med-admins/:id', userController.getStudent);
-router.get('/users/field-admins/:id', userController.getFieldAdmin);
-router.get('/users/med-admins', userController.getMedAdmin);
+router.get('/users/med-admins', userController.listMedAdmins);
+router.get('/users/med-admins/:id', userController.getMedAdmin);
 router.get('/users/field-admins', userController.listFieldAdmins);
+router.get('/users/field-admins/:id', userController.getFieldAdmin);
 router.get('/users/students', userController.listStudents);
 router.get('/users/students/unassigned', userController.listUnassignedStudents);
 router.get('/users/students/:id', userController.getStudent);
+router.put('/users/profile/update/:id', userController.updateUserProfile);
 router.get('/users/:id', userController.getUser);
 
 router.put('/users/:id', userController.updateUser);

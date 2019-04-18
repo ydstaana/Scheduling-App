@@ -1,9 +1,100 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>admin-profile</ion-title>
-  </ion-toolbar>
-</ion-header>
-
-<ion-content>
-
+<ion-content padding>
+  <ion-grid fixed>
+    <form [formGroup]="accountForm">
+      <ion-list>
+        <ion-row>
+          <ion-col>
+            <h3>Update profile information</h3>
+          </ion-col>
+          <ion-col text-right>
+            <ion-button fill="clear" color="dark" (click)="dismiss()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">First Name</ion-label>
+              <ion-input formControlName="firstName"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Middle Name</ion-label>
+              <ion-input formControlName="middleName"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Last Name</ion-label>
+              <ion-input formControlName="lastName"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Email</ion-label>
+              <ion-input formControlName="email" type="email"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Mobile Number</ion-label>
+              <ion-input formControlName="mobileNumber" type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row class="m-t-20">
+          <ion-col>
+            <b>Other person in charge</b>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Name</ion-label>
+              <ion-input formControlName="contactPersonName"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Contact Number</ion-label>
+              <ion-input formControlName="contactPersonNumber" type="number"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <!-- TODO: Move to student update -->
+        <!-- 
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Password</ion-label>
+              <ion-input formControlName="password" type="password"></ion-input>
+            </ion-item>
+          </ion-col>
+        </ion-row> -->
+        <ion-row text-right>
+          <ion-col size="12">
+            <ion-button color="light" (click)="dismiss()">
+              <ion-label>Cancel</ion-label>
+            </ion-button>
+            <ion-button [disabled]="accountForm.invalid || callInProgress" (click)="updateProfile()">
+              <ion-label>Save</ion-label>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </form>
+  </ion-grid>
 </ion-content>
+  
