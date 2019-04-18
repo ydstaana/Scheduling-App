@@ -84,7 +84,7 @@
         <ion-label>{{ user.mobileNumber ? user.mobileNumber : ' -- ' }}</ion-label>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngIf="user.userType === UserType.STUDENT">
       <ion-col size="4">
         <ion-label>
           <b>Group</b>
@@ -94,6 +94,16 @@
         <ion-label>{{ user.group ? user.group.name : 'Unassigned' }}</ion-label>
       </ion-col>
     </ion-row>
+    <!-- <ion-row *ngIf="user.userType === UserType.FIELD_ADMIN">
+      <ion-col size="4">
+        <ion-label>
+          <b>Field</b>
+        </ion-label>
+      </ion-col>
+      <ion-col size="8">
+        <ion-label>{{ user.field ? user.field.name : ' -- ' }}</ion-label>
+      </ion-col>
+    </ion-row> -->
     <!-- TODO: Hide elements for students if current user is not a student -->
     <ng-container>
       <ion-row class="p-t-10">
@@ -136,12 +146,63 @@
   <!-- END OF PERSONAL INFORMATION TAB (VIEW ONLY) -->
 
   <!-- START OF ROTATIONS TAB -->
-  <ion-grid padding fixed *ngIf="currentTab === 'ROTATIONS'">
+  <!-- <ion-grid padding fixed *ngIf="currentTab === 'ROTATIONS'">
     <ion-row>
       <ion-col>
         <h1>ROTATIONS</h1>
       </ion-col>
     </ion-row>
+  </ion-grid> -->
+  <ion-grid fixed padding *ngIf="currentTab === 'ROTATIONS'">
+    <ion-row class="border-bottom">
+      <ion-col size="2">
+        <b>Field</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>Start Date</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>End Date</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>Group</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>Grade</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>Status</b>
+      </ion-col>
+    </ion-row>
+    <ion-row 
+      class="border-bottom p-t-b-10" 
+      align-items-center *ngFor="let assignment of assignments">
+      <ion-col size="2">
+        {{ assignment.field.name }}
+      </ion-col>
+      <ion-col size="2">
+        {{ assignment.rotation.schedule.startDate | date: 'MMM dd, yyyy' }}
+      </ion-col>
+      <ion-col size="2">
+        {{ assignment.rotation.schedule.endDate | date: 'MMM dd, yyyy' }}
+      </ion-col>
+      <ion-col size="2">
+        {{ assignment.group.name }}
+      </ion-col>
+      <ion-col size="2">
+        {{ assignment.grade ? assignment.grade : ' -- ' }}
+      </ion-col>
+      <ion-col size="2" *ngIf="assignment.isActive && assignment.isCompleted">
+        Completed
+      </ion-col>
+      <ion-col size="2" *ngIf="assignment.isActive && !assignment.isCompleted">
+        Incomplete
+      </ion-col>
+      <ion-col size="2" *ngIf="!assignment.isActive">
+        Inactive
+      </ion-col>
+    </ion-row>
   </ion-grid>
+      
   <!-- END OF ROTATIONS TAB -->
 </ion-content>

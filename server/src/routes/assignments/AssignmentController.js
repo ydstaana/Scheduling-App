@@ -97,6 +97,7 @@ function listAssignmentsByStudent(req ,res) {
   })
   .populate('group')
   .populate('admin')
+  .populate('field')
   .exec(function (err, assignments) {
     if (err) {
       res.status(422).json({

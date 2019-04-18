@@ -1,3 +1,4 @@
+import { AssignmentService } from 'src/app/services/assignment.service';
 import { AccountsUpdatePage } from './../accounts-update/accounts-update.page';
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
@@ -12,12 +13,23 @@ export class AccountsViewPage implements OnInit {
   user: any;
   currentTab = 'PERSONAL_INFORMATION';
   UserType = UserType;
+  assignments = [];
 
   constructor(
-    private popoverCtrl: PopoverController
+    private popoverCtrl: PopoverController,
+    private assignmentService: AssignmentService
   ) { }
 
   ngOnInit() { }
+
+  ionViewWillEnter() {
+    if (this.user.userType === UserType.STUDENT) {
+      this.assignmentService.listByStudent(this.user._id).then((data: any) => {
+        this.assignments = data;
+        console.log(this.assignments);
+      });
+    }
+  }
 
   dismiss() {
     this.popoverCtrl.dismiss();

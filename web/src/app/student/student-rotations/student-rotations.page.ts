@@ -23,10 +23,6 @@ export class StudentRotationsPage implements OnInit {
     this.listRotationsByStudent();
   }
 
-  getFieldName(rotation: any) {
-    return rotation.rotationType === RotationType.Single ? rotation.field.name : rotation.fieldGroup.name;
-  }
-
   listRotationsByStudent() {
     const currentUser = JSON.parse(this.storageService.getItem(Storage.CURRENT_USER));
     this.assignmentService.listByStudent(

@@ -25,7 +25,7 @@
       align-items-center *ngFor="let assignment of assignments"
       (click)="viewAssignment(assignment)">
       <ion-col size="2">
-        {{ getFieldName(assignment.rotation) }}
+        {{ assignment.field.name }}
       </ion-col>
       <ion-col size="2">
         {{ assignment.rotation.schedule.startDate | date: 'MMM dd, yyyy' }}

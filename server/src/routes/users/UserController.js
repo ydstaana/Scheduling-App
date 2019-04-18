@@ -158,6 +158,7 @@ async function createUser(req, res) {
 function listUsers(req, res) {
   User.find({})
   .populate('field')
+  .populate('group')
   .exec(function(err, users) {
     if(err) res.status(422).json({code:'422',message:err});
     
