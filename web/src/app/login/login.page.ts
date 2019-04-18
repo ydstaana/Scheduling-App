@@ -41,21 +41,23 @@ export class LoginPage implements OnInit {
     if (!this.loginForm.invalid && this.loginForm.value['email'] && this.loginForm.value['password']) {
       this.callInProgress = true;
 
-      this.userService.login(this.loginForm.value['email'], this.loginForm.value['password']).then((data) => {
-        this.isUnauthorized = false;
-        this.callInProgress = false;
+      this.userService.login(this.loginForm.value['email'], this.loginForm.value['password']).then((data: any) => {
+        this.userService.getStudent(data.id).then(user => {
+          this.isUnauthorized = false;
+          this.callInProgress = false;
 
-        this.storageService.setItem(Storage.CURRENT_USER, JSON.stringify(data));
+          this.storageService.setItem(Storage.CURRENT_USER, JSON.stringify(user));
 
-        switch (data['userType']) {
-          case UserType.UST_MEDICINE_ADMIN:
-            this.router.navigateByUrl('/admin');
-            break;
+          switch (data['userType']) {
+            case UserType.UST_MEDICINE_ADMIN:
+              this.router.navigateByUrl('/admin');
+              break;
 
-          case UserType.STUDENT:
-            this.router.navigateByUrl('/student');
-            break;
-        }
+            case UserType.STUDENT:
+              this.router.navigateByUrl('/student');
+              break;
+          }
+        });
       }).catch(error => {
         console.log(error);
         this.callInProgress = false;

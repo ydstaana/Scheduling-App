@@ -11,6 +11,10 @@ export class User extends Model {
     return this.api().users().create(user);
   }
 
+  static getStudent(id: string) {
+    return this.api().users().getStudent(id);
+  }
+
   static list() {
     return this.api().users().list();
   }

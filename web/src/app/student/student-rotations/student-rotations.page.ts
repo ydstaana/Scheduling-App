@@ -27,10 +27,9 @@ export class StudentRotationsPage implements OnInit {
   }
 
   listRotationsByStudent() {
-    console.log(this.storageService.getItem(Storage.CURRENT_USER));
     const currentUser = JSON.parse(this.storageService.getItem(Storage.CURRENT_USER));
     this.rotationService.listRotationsByStudent(
-      currentUser.id
+      currentUser._id
     ).then((data: any) => {
       this.assignments = data;
       console.log(this.assignments);

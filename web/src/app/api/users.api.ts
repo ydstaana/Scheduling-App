@@ -21,6 +21,10 @@ export class UsersApi extends Api {
     ).toPromise();
   }
 
+  getStudent(id: string) {
+    return this.http.get(`${this.baseUrl}/users/students/${id}`).toPromise();
+  }
+
   list() {
     return this.http.get(`${this.baseUrl}/users`).toPromise();
   }
@@ -45,6 +49,7 @@ export class UsersApi extends Api {
   }
 
   update(user: any) {
+    console.log(user);
     return this.http.put(
       `${this.baseUrl}/users/${user._id}`,
       user,

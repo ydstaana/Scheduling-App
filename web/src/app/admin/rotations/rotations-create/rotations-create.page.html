@@ -62,6 +62,11 @@
             </ion-item>
           </ion-col>
         </ion-row>
+        <!-- <ion-row *ngIf="rotationType === ROTATION_TYPE_VALUES.Single && fieldGroupsDisplay.length === 0">
+          <ion-col>
+            <ion-label class="error">Please create a field for this type</ion-label>
+          </ion-col>
+        </ion-row> -->
         <ion-row
           class="field-input" 
           [ngClass]="{'input-hidden': rotationType === ROTATION_TYPE_VALUES.Single}">
@@ -79,6 +84,11 @@
             </ion-item>
           </ion-col>
         </ion-row>
+        <!-- <ion-row *ngIf="rotationType !== ROTATION_TYPE_VALUES.Single && fieldGroupsDisplay.length === 0">
+          <ion-col>
+            <ion-label class="error">Please create a field group for this type</ion-label>
+          </ion-col>
+        </ion-row> -->
         <ion-row>
           <ion-col>
             <ion-item>

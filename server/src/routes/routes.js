@@ -17,6 +17,7 @@ router.get('/users/med-admins', userController.listMedAdmins);
 router.get('/users/field-admins', userController.listFieldAdmins);
 router.get('/users/students', userController.listStudents);
 router.get('/users/students/unassigned', userController.listUnassignedStudents);
+router.get('/users/students/:id', userController.getStudent);
 router.get('/users/med-admins', userController.listMedAdmins);
 router.get('/users/:id', userController.getUser);
 

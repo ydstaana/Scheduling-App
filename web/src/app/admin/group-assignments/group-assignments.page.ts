@@ -63,6 +63,8 @@ export class GroupAssignmentsPage implements OnInit {
 
           console.log(this.currentStudents);
         }
+      }, error => {
+        console.log(error);
       });
     });
   }

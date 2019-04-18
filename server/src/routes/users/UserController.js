@@ -224,6 +224,7 @@ function createNewAssignment(group, student, rotation, field) {
 }
 
 async function updateUser(req, res) {
+  console.log(req.body);
   const doc = await User.findById(req.params.id);
 
   if(doc.group != req.body.group) {

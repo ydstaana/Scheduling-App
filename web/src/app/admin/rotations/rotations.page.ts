@@ -75,6 +75,10 @@ export class RotationsPage implements OnInit {
     return name;
   }
 
+  viewRotation(rotation) {
+    alert('coming soon!');
+  }
+
   async createRotation() {
     const viewModal = await this.popoverCtrl.create({
       component: RotationsCreatePage,
