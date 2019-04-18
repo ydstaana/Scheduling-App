@@ -1,3 +1,4 @@
+import { AdminProfilePage } from './admin-profile/admin-profile.page';
 import { FieldGroupsUpdatePage } from './field-groups/field-groups-update/field-groups-update.page';
 import { FieldGroupsViewPage } from './field-groups/field-groups-view/field-groups-view.page';
 import { FieldGroupsCreatePage } from './field-groups/field-groups-create/field-groups-create.page';
@@ -102,7 +103,8 @@ const routes: Routes = [
     SchedulesOverviewPage,
     GroupAssignmentsPage,
     RotationsPage,
-    RotationsCreatePage
+    RotationsCreatePage,
+    AdminProfilePage
   ],
   providers: [
     FieldService,
@@ -123,7 +125,8 @@ const routes: Routes = [
     SchedulesCreatePage,
     SchedulesUpdatePage,
     SchedulesViewPage,
-    RotationsCreatePage
+    RotationsCreatePage,
+    AdminProfilePage
   ]
 })
 export class AdminPageModule {}

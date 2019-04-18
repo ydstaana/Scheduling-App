@@ -15,6 +15,14 @@ export class User extends Model {
     return this.api().users().getStudent(id);
   }
 
+  static getUMA(id: string) {
+    return this.api().users().getUMA(id);
+  }
+
+  static getFieldAdmin(id: string) {
+    return this.api().users().getFieldAdmin(id);
+  }
+
   static list() {
     return this.api().users().list();
   }

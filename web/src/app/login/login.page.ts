@@ -42,10 +42,12 @@ export class LoginPage implements OnInit {
       this.callInProgress = true;
 
       this.userService.login(this.loginForm.value['email'], this.loginForm.value['password']).then((data: any) => {
-        this.userService.getStudent(data.id).then(user => {
+        console.log(data);
+        this.getUserByResponse(data).then(user => {
           this.isUnauthorized = false;
           this.callInProgress = false;
 
+          console.log(user);
           this.storageService.setItem(Storage.CURRENT_USER, JSON.stringify(user));
 
           switch (data['userType']) {
@@ -55,6 +57,10 @@ export class LoginPage implements OnInit {
 
             case UserType.STUDENT:
               this.router.navigateByUrl('/student');
+              break;
+
+            case UserType.FIELD_ADMIN:
+              this.router.navigateByUrl('/field-admin');
               break;
           }
         });
@@ -66,4 +72,16 @@ export class LoginPage implements OnInit {
     }
   }
 
+  getUserByResponse(response: any) {
+    switch (response.userType) {
+      case UserType.UST_MEDICINE_ADMIN:
+        return this.userService.getUMA(response.id);
+
+      case UserType.STUDENT:
+        return this.userService.getStudent(response.id);
+
+      case UserType.FIELD_ADMIN:
+        return this.userService.getFieldAdmin(response.id);
+    }
+  }
 }

@@ -2,6 +2,7 @@ import { StorageService, Storage } from './../../services/storage.service';
 import { Component, OnInit } from '@angular/core';
 import { RotationService } from 'src/app/services/rotation.service';
 import { RotationType } from 'src/app/models/rotation.model';
+import { AssignmentService } from 'src/app/services/assignment.service';
 
 @Component({
   selector: 'app-student-rotations',
@@ -12,7 +13,7 @@ export class StudentRotationsPage implements OnInit {
   assignments = [];
 
   constructor(
-    private rotationService: RotationService,
+    private assignmentService: AssignmentService,
     private storageService: StorageService
   ) { }
 
@@ -28,7 +29,7 @@ export class StudentRotationsPage implements OnInit {
 
   listRotationsByStudent() {
     const currentUser = JSON.parse(this.storageService.getItem(Storage.CURRENT_USER));
-    this.rotationService.listRotationsByStudent(
+    this.assignmentService.listByStudent(
       currentUser._id
     ).then((data: any) => {
       this.assignments = data;

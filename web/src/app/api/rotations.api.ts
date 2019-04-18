@@ -25,10 +25,6 @@ export class RotationsApi extends Api {
     return this.http.get(`${this.baseUrl}/rotations`).toPromise();
   }
 
-  listRotationsByStudent(id: string) {
-    return this.http.get(`${this.baseUrl}/assignments/students/${id}`).toPromise();
-  }
-
   update(rotation: any) {
     return Promise.resolve(rotation);
   }

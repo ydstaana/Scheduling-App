@@ -1,3 +1,5 @@
+import { ViewStudentAssignmentPage } from './student-rotations/view-student-assignment/view-student-assignment.page';
+import { AssignmentService } from './../services/assignment.service';
 import { StudentRotationsPage } from './student-rotations/student-rotations.page';
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
@@ -38,10 +40,15 @@ const routes: Routes = [
   declarations: [
     StudentPage,
     StudentRotationsPage,
-    StudentProfilePage
+    StudentProfilePage,
+    ViewStudentAssignmentPage
   ],
   entryComponents: [
-    StudentProfilePage
+    StudentProfilePage,
+    ViewStudentAssignmentPage
+  ],
+  providers: [
+    AssignmentService
   ]
 })
 export class StudentPageModule {}

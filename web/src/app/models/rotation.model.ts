@@ -15,10 +15,6 @@ export class Rotation extends Model {
     return this.api().rotations().list();
   }
 
-  static listRotationsByStudent(id: string) {
-    return this.api().rotations().listRotationsByStudent(id);
-  }
-
   static update(rotation: any) {
     return this.api().rotations().update(rotation);
   }

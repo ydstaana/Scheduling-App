@@ -5,16 +5,16 @@
         <b>Field</b>
       </ion-col>
       <ion-col size="2">
-        <b>Start Date</b>
+        <b>Student Name</b>
       </ion-col>
       <ion-col size="2">
-        <b>End Date</b>
+        <b>Student ID</b>
       </ion-col>
-      <ion-col size="2">
+      <ion-col size="1">
         <b>Group</b>
       </ion-col>
-      <ion-col size="2">
-        <b>Grade</b>
+      <ion-col size="3">
+        <b>Schedule</b>
       </ion-col>
       <ion-col size="2">
         <b>Status</b>
@@ -25,19 +25,19 @@
       align-items-center *ngFor="let assignment of assignments"
       (click)="viewAssignment(assignment)">
       <ion-col size="2">
-        {{ getFieldName(assignment.rotation) }}
+        {{ assignment.field.name }}
       </ion-col>
       <ion-col size="2">
-        {{ assignment.rotation.schedule.startDate | date: 'MMM dd, yyyy' }}
+        {{ assignment.student.firstName + ' ' + assignment.student.lastName }}
       </ion-col>
       <ion-col size="2">
-        {{ assignment.rotation.schedule.endDate | date: 'MMM dd, yyyy' }}
+        {{ assignment.student.studentId }}
       </ion-col>
-      <ion-col size="2">
+      <ion-col size="1">
         {{ assignment.group.name }}
       </ion-col>
-      <ion-col size="2">
-        {{ assignment.grade ? assignment.grade : ' -- ' }}
+      <ion-col size="3">
+        {{ (assignment.rotation.schedule.startDate | date: 'MMM dd, yyyy') + ' - ' + (assignment.rotation.schedule.endDate | date: 'MMM dd, yyyy') }}
       </ion-col>
       <ion-col size="2" *ngIf="assignment.isActive && assignment.isCompleted">
         Completed

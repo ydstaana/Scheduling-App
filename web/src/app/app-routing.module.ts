@@ -14,6 +14,11 @@ const routes: Routes = [
     path: 'student',
     loadChildren: './student/student.module#StudentPageModule',
     canActivate: [AuthGuard]
+  },
+  {
+    path: 'field-admin',
+    loadChildren: './field-admin/field-admin.module#FieldAdminPageModule',
+    canActivate: [AuthGuard]
   }
 ];
 

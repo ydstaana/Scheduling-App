@@ -16,6 +16,14 @@ export class UserService {
     return User.getStudent(id);
   }
 
+  getUMA(id: string) {
+    return User.getUMA(id);
+  }
+
+  getFieldAdmin(id: string) {
+    return User.getFieldAdmin(id);
+  }
+
   listUnassignedStudents() {
     return User.listUnassignedStudents();
   }

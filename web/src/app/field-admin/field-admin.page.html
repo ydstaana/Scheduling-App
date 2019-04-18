@@ -1,0 +1,37 @@
+<ion-header>
+  <ion-toolbar>
+    <ion-buttons slot="start">
+    <img class="logo" src="./../../../../../assets/images/logo.png">
+    </ion-buttons>
+    <ion-title>Track Me</ion-title>
+    <ion-buttons slot="end">
+      <ion-button title="Profile" (click)="viewProfile()">
+        <ion-icon name="contact"></ion-icon>
+      </ion-button>
+      <ion-button title="Logout" (click)="logout($event)">
+        <ion-icon name="log-out"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-split-pane [when]="true" id="split-pane">
+    <ion-menu>
+      <ion-content>
+        <ion-list lines="none">
+          <ion-menu-toggle auto-hide="false">
+            <ion-item a [routerLink]="['/field-admin/grades']">
+              <ion-label>Grades Management</ion-label>
+            </ion-item>
+          </ion-menu-toggle>
+        </ion-list>
+      </ion-content>
+    </ion-menu>
+  
+    <ion-nav main>
+      <ion-router-outlet></ion-router-outlet>
+    </ion-nav>
+  </ion-split-pane>
+</ion-content>
+  

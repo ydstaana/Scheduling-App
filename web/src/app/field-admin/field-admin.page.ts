@@ -1,16 +1,15 @@
-import { AdminProfilePage } from './admin-profile/admin-profile.page';
+import { FieldAdminProfilePage } from './field-admin-profile/field-admin-profile.page';
 import { PopoverController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { StorageService, Storage } from './../services/storage.service';
+import { StorageService, Storage } from '../services/storage.service';
 
 @Component({
-  selector: 'app-admin',
-  templateUrl: './admin.page.html',
-  styleUrls: ['./admin.page.scss'],
+  selector: 'app-field-admin',
+  templateUrl: './field-admin.page.html',
+  styleUrls: ['./field-admin.page.scss'],
 })
-export class AdminPage implements OnInit {
-
+export class FieldAdminPage implements OnInit {
   constructor(
     private router: Router,
     private storageService: StorageService,
@@ -25,13 +24,9 @@ export class AdminPage implements OnInit {
     this.router.navigateByUrl('/login');
   }
 
-  goTo(path: string) {
-    this.router.navigateByUrl(`${path}`);
-  }
-
   async viewProfile() {
     const viewModal = await this.popoverCtrl.create({
-      component: AdminProfilePage,
+      component: FieldAdminProfilePage,
       cssClass: 'custom-popover',
       backdropDismiss: false
     });

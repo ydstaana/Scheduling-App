@@ -25,6 +25,14 @@ export class UsersApi extends Api {
     return this.http.get(`${this.baseUrl}/users/students/${id}`).toPromise();
   }
 
+  getUMA(id: string) {
+    return this.http.get(`${this.baseUrl}/users/med-admins/${id}`).toPromise();
+  }
+
+  getFieldAdmin(id: string) {
+    return this.http.get(`${this.baseUrl}/users/field-admins/${id}`).toPromise();
+  }
+
   list() {
     return this.http.get(`${this.baseUrl}/users`).toPromise();
   }

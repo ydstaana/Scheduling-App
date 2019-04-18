@@ -242,9 +242,22 @@ async function listAssignmentsByFieldAdmin(req ,res) {
     field : field._id
   })
   .populate('student')
-  .populate('rotation')
+  .populate({
+    path: 'rotation',
+    populate: [
+      { path: 'schedule' },
+      { path: 'field' },
+      { 
+        path: 'fieldGroup', 
+        populate: {
+          path: 'fields'
+        } 
+      }
+    ]
+  })
   .populate('group')
   .populate('admin')
+  .populate('field')
   .exec(function (err, assignments) {
     if (err) {
       res.status(422).json({
