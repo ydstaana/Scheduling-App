@@ -98,7 +98,7 @@
                 placeholder="Select Group"
                 formControlName="group">
                 <ng-container *ngFor="let group of groups">
-                  <ion-select-option [value]="group._id" *ngIf="group.name !== 'Unassigned'">
+                  <ion-select-option [value]="group._id">
                     {{ group.name }}
                   </ion-select-option>
                 </ng-container>

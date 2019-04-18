@@ -323,6 +323,94 @@ async function updateUser(req, res) {
   }
 }
 
+async function updateStudent(req, res) {
+  console.log(req.body);
+  const doc = await Student.findById(req.params.id);
+
+  if(doc.group != req.body.group) {
+    const newGroup = await Group.findById(req.body.group);
+    var counter = 0;
+    
+    if(newGroup == null) {
+      return res.status(422).json({code:'422', message: "Group does not exist"});
+    }
+
+    if(doc.group != null) {
+      const oldGroup = await Group.findById(doc.group);
+      oldGroup.students.splice(oldGroup.students.indexOf(doc.id), 1)
+      oldGroup.save();
+    }
+
+    if(newGroup.rotations.length == 0) {
+      newGroup.students.push(doc.id);
+      newGroup.save();
+      doc.set(req.body);
+      doc.save().then(() => {
+        res.status(200).send(doc);
+      })
+      .catch(err => {
+        return res.status(422).json({code:'422', message: err});
+      })
+    }
+    newGroup.rotations.forEach(async rotation => {
+      var rot = await Rotation.findById(rotation);
+      switch(rot.rotationType) {
+        case RotationType.SINGLE :
+          createNewAssignment(newGroup, doc, rot, rot.field)
+          .then(result => {
+            counter++;
+            doc.assignments.push(result);
+            if(counter == newGroup.rotations.length) {
+              doc.save().then(async () => {
+                newGroup.save().then(result => {
+                  res.status(200).send(doc);
+                });
+              })
+              .catch(err => {
+                return res.status(422).json({code:'422', message: err});
+              }) 
+            }
+          })
+          break;
+        default :
+          var fieldGroup = await FieldGroup.findById(rot.fieldGroup)
+          var fieldCtr = 0;
+          fieldGroup.fields.forEach(field => {
+            createNewAssignment(newGroup, doc, rot, field)
+            .then(result => {
+              fieldCtr++;
+              doc.assignments.push(result);
+              if(fieldCtr == fieldGroup.fields.length) {
+                counter++;
+                if(counter == newGroup.rotations.length) {
+                  doc.save().then(async () => {
+                    newGroup.save().then(result => {
+                      res.status(200).send(doc);
+                    });
+                  })
+                  .catch(err => {
+                    return res.status(422).json({code:'422', message: err});
+                  }) 
+                }
+              }
+            })
+          })
+          break;
+      }
+    })
+  }
+  else {
+    doc.set(req.body)
+
+    doc.save().then(() => {
+      res.status(200).send(doc);
+    })
+    .catch(err => {
+      res.status(422).json({code:'422',message:err});
+    })
+  }
+}
+
 module.exports = {
   login : login,
   getUser : getUser,
@@ -336,5 +424,6 @@ module.exports = {
   listStudents : listStudents,
   listUnassignedStudents : listUnassignedStudents,
   updateUser : updateUser,
-  updateUserProfile: updateUserProfile
+  updateUserProfile: updateUserProfile,
+  updateStudent: updateStudent
 }

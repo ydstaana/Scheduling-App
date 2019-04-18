@@ -13,6 +13,8 @@ export class StudentProfilePage implements OnInit {
   callInProgress = false;
   accountForm: FormGroup;
   currentUser: any;
+  groups = [];
+  currentGroup = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -20,24 +22,30 @@ export class StudentProfilePage implements OnInit {
     private popoverCtrl: PopoverController,
     private toastCtrl: ToastController,
     private storageService: StorageService
-  ) { }
+  ) {
+    this.currentUser = JSON.parse(this.storageService.getItem(Storage.CURRENT_USER));
+    this.currentGroup = this.currentUser.group ? this.currentUser.group._id : '';
+  }
 
   ngOnInit() {
-    // Promise.resolve(
-    //   JSON.parse(this.storageService.getItem(Storage.CURRENT_USER))
-    // ).then(u => {
-    //   this.currentUser = u;
-    //   this.buildForm();
-    // });
+    this.userService.listUserGroups().then((data: any) => {
+      this.groups = data.map(group => {
+        return {
+          ...group,
+          order: +group.name.split(' ')[1]
+        };
+      })
+      .sort((a, b) => ((a.order === b.order) ? 0 : ((a.order > b.order) ? 1 : -1)) );
+    });
 
-    this.currentUser = JSON.parse(this.storageService.getItem(Storage.CURRENT_USER));
-    console.log(this.currentUser);
     this.buildForm();
   }
 
   buildForm() {
     this.accountForm = this.formBuilder.group({
-      studentId: [this.currentUser.studentId, [Validators.required]],
+      studentId: [this.currentUser.studentId, [
+        Validators.required
+      ]],
       firstName: [this.currentUser.firstName, [
         Validators.required
       ]],
@@ -51,35 +59,37 @@ export class StudentProfilePage implements OnInit {
         Validators.required,
         Validators.pattern('^[a-zA-Z0-9_.+-]+@[a-zA-Z0-9-]+.[a-zA-Z0-9-.]+$')
       ]],
-      mobileNumber: [this.currentUser.mobileNumber, [
+      mobileNumber: [this.currentUser.mobileNumber ? this.currentUser.mobileNumber : '', [
         Validators.required,
         Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
       ]],
-      contactPersonName: [this.currentUser.contactPersonName, [
+      contactPersonName: [this.currentUser.contactPersonName ? this.currentUser.contactPersonName : '', [
         Validators.required
       ]],
-      contactPersonNumber: [this.currentUser.contactPersonNumber, [
-        Validators.required,
-        Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+      contactPersonNumber: [this.currentUser.contactPersonNumber ? this.currentUser.contactPersonNumber : '', [
+        Validators.required
+      ]],
+      group: [this.currentGroup, [
+        Validators.required
       ]]
     });
   }
 
-  updateAccount() {
+  updateProfile() {
     if (this.accountForm.valid) {
-      console.log({
-        ...this.currentUser,
-        ...this.accountForm.value
-      });
-      this.userService.update({
-        ...this.currentUser,
-        ...this.accountForm.value
+      this.callInProgress = true;
+      this.userService.updateStudent({
+        ...this.accountForm.value,
+        id: this.currentUser._id
       }).then(data => {
-        console.log(data);
-        this.popoverCtrl.dismiss();
-        this.success('Successfully updated profile');
+        this.userService.getStudent(this.currentUser._id).then(res => {
+          this.callInProgress = false;
+          this.storageService.setItem(Storage.CURRENT_USER, JSON.stringify(res));
+          this.success('Successfully update profile information');
+        });
       }, error => {
-        this.error('Unable to update profile. Please try again');
+        this.callInProgress = false;
+        this.error('Unable to update profile information. Please try again');
       });
     }
   }

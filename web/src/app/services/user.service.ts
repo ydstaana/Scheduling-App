@@ -48,6 +48,10 @@ export class UserService {
     return User.updateProfile(user);
   }
 
+  updateStudent(user: any) {
+    return User.updateStudent(user);
+  }
+
   updateUserGroups(userGroup: any) {
     return User.updateUserGroups(userGroup);
   }

@@ -57,7 +57,6 @@ export class UsersApi extends Api {
   }
 
   update(user: any) {
-    console.log(user);
     return this.http.put(
       `${this.baseUrl}/users/${user._id}`,
       user,
@@ -66,9 +65,16 @@ export class UsersApi extends Api {
   }
 
   updateProfile(user: any) {
-    console.log(user);
     return this.http.put(
       `${this.baseUrl}/users/profile/update/${user.id}`,
+      user,
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
+  }
+
+  updateStudent(user: any) {
+    return this.http.put(
+      `${this.baseUrl}/users/students/${user.id}`,
       user,
       { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
     ).toPromise();
