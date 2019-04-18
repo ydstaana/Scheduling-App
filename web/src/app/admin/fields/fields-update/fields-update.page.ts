@@ -59,7 +59,7 @@ export class FieldsUpdatePage implements OnInit {
     if (this.fieldForm.valid) {
       this.fieldService.update(updatedField).then(data => {
         console.log(data);
-        this.popoverCtrl.dismiss(updatedField);
+        this.popoverCtrl.dismiss(data);
         this.success('Successfully updated field');
       }, error => {
         this.error('Unable to update field. Please try again');
