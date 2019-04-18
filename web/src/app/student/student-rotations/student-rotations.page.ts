@@ -29,7 +29,7 @@ export class StudentRotationsPage implements OnInit {
     this.assignmentService.listByStudent(
       currentUser._id
     ).then((data: any) => {
-      this.assignments = data;
+      this.assignments = data.filter(d => d.isActive);
       console.log(this.assignments);
     });
   }

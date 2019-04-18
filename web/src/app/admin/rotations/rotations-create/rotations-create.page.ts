@@ -95,7 +95,7 @@ export class RotationsCreatePage implements OnInit {
     this.fieldGroupsDisplay = this.fieldGroups.filter(fg => {
       // return fg.rotationType === this.rotationType;
       return this.rotationType === RotationType.Multiple && fg.fieldGroupType === FieldGroupType.MINOR ||
-        this.rotationType === RotationType.Elective && fg.fieldGroupType === FieldGroupType.ELECTIVE;
+        this.rotationType === RotationType.Special && fg.fieldGroupType === FieldGroupType.ELECTIVE;
     });
 
     if (this.rotationType === RotationType.Single) {

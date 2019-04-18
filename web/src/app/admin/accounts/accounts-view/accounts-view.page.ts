@@ -25,7 +25,7 @@ export class AccountsViewPage implements OnInit {
   ionViewWillEnter() {
     if (this.user.userType === UserType.STUDENT) {
       this.assignmentService.listByStudent(this.user._id).then((data: any) => {
-        this.assignments = data;
+        this.assignments = data.filter(d => d.isActive);
         console.log(this.assignments);
       });
     }

@@ -3,7 +3,7 @@ import { Model } from './model';
 export enum RotationType {
   Single = 'Single',
   Multiple = 'Multiple',
-  Elective = 'Elective'
+  Special = 'Special'
 }
 
 export class Rotation extends Model {
