@@ -71,9 +71,9 @@ function createFieldGroup(req, res) {
             message: err
           });
         }
-          else{
-            res.status(200).send(group);
-          }
+        else{
+          res.status(200).send(group);
+        }
       })
       break; 
     case FieldGroupTypes.MINOR:
@@ -83,9 +83,14 @@ function createFieldGroup(req, res) {
             message: err
           });
         }
-          else{
-            res.status(200).send(group);
-          }
+        else{
+          group.fields.forEach(async field => {
+            var f = await Field.findById(field);
+            f.fieldGroup = group._id;
+            f.save();
+          })
+          res.status(200).send(group);
+        }
       })
       break; 
     case FieldGroupTypes.ELECTIVE:
@@ -95,9 +100,14 @@ function createFieldGroup(req, res) {
             message: err
           });
         }
-          else{
-            res.status(200).send(group);
-          }
+        else{
+          group.fields.forEach(async field => {
+            var f = await Field.findById(field);
+            f.fieldGroup = group._id;
+            f.save();
+          })
+          res.status(200).send(group);
+        }
       })
       break;
   }
@@ -107,6 +117,7 @@ function createFieldGroup(req, res) {
 function listFields(req, res) {
   Field.find(req.query)
   .populate('admin')
+  .populate('fieldGroup')
   .exec(function(err, fields) {
     if (err) {
       res.status(422).json({

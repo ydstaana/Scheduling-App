@@ -24,6 +24,7 @@ var AssignmentSchema = mongoose.Schema({
     ref: 'User'
   },
   isCompleted: { type : Boolean, default : false },
+  isCustom: { type : Boolean, default : false },
   isApproved: { type : Boolean, default : false },
   isActive: { type : Boolean, default : true }
 })
