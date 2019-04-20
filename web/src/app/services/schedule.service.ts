@@ -14,6 +14,10 @@ export class ScheduleService {
     return Schedule.list();
   }
 
+  listSwitchRequestsByStudent(id: string) {
+    return Schedule.listSwitchRequestsByStudent(id);
+  }
+
   update(sched: any) {
     return Schedule.update(sched);
   }

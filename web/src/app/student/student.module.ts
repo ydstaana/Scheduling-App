@@ -1,3 +1,6 @@
+import { ChangeScheduleRequestsUpdatePage } from './change-schedule-requests/change-schedule-requests-update/change-schedule-requests-update.page';
+import { ChangeScheduleRequestsCreatePage } from './change-schedule-requests/change-schedule-requests-create/change-schedule-requests-create.page';
+import { ChangeScheduleRequestsPage } from './change-schedule-requests/change-schedule-requests.page';
 import { ViewStudentAssignmentPage } from './student-rotations/view-student-assignment/view-student-assignment.page';
 import { AssignmentService } from './../services/assignment.service';
 import { StudentRotationsPage } from './student-rotations/student-rotations.page';
@@ -26,6 +29,10 @@ const routes: Routes = [
       {
         path: 'rotations',
         component: StudentRotationsPage
+      },
+      {
+        path: 'change-schedule-requests',
+        component: ChangeScheduleRequestsPage
       }
     ]
   }
@@ -44,12 +51,17 @@ const routes: Routes = [
     StudentPage,
     StudentRotationsPage,
     StudentProfilePage,
-    ViewStudentAssignmentPage
+    ViewStudentAssignmentPage,
+    ChangeScheduleRequestsPage,
+    ChangeScheduleRequestsCreatePage,
+    ChangeScheduleRequestsUpdatePage
   ],
   entryComponents: [
     StudentProfilePage,
     ViewStudentAssignmentPage,
-    UpdatePasswordModalPage
+    UpdatePasswordModalPage,
+    ChangeScheduleRequestsCreatePage,
+    ChangeScheduleRequestsUpdatePage
   ],
   providers: [
     AssignmentService

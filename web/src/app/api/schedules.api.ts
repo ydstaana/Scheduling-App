@@ -24,6 +24,10 @@ export class SchedulesApi extends Api {
     return this.http.get(`${this.baseUrl}/schedules`).toPromise();
   }
 
+  listSwitchRequestsByStudent(id: string) {
+    return this.http.get(`${this.baseUrl}/requests/switch/student/${id}`).toPromise();
+  }
+
   update(schedules: any) {
     return this.http.put(
       `${this.baseUrl}/schedules/${schedules.id}`,

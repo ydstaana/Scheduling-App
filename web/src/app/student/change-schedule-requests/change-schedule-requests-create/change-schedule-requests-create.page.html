@@ -1,0 +1,61 @@
+<ion-content padding>
+  <ion-grid fixed>
+    <form [formGroup]="requestForm">
+      <ion-list>
+        <ion-row>
+          <ion-col>
+            <h3>Add new change schedule request</h3>
+          </ion-col>
+          <ion-col text-right>
+            <ion-button fill="clear" color="dark" (click)="dismiss()">
+              <ion-icon name="close"></ion-icon>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Current Schedule</ion-label>
+              <ion-select 
+                interface="action-sheet" 
+                placeholder="Select Schedule"
+                [(ngModel)]="selectedAssignment"
+                formControlName="assignment">
+                <ion-select-option [value]="assignment._id" *ngFor="let assignment of assignments">
+                  {{ assignment.rotation.schedule.startDate | date: 'MMM dd, yyyy' }} - {{ assignment.rotation.schedule.endDate | date: 'MMM dd, yyyy' }} / {{ assignment.group.name }} / {{ assignment.field.name }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Proposed Schedule</ion-label>
+              <ion-select 
+                interface="action-sheet" 
+                placeholder="Proposed Schedule"
+                [(ngModel)]="selectedRotation"
+                formControlName="rotation">
+                <ion-select-option [value]="rotation._id" *ngFor="let rotation of rotations">
+                  {{ rotation.schedule.startDate | date: 'MMM dd, yyyy' }} - {{ rotation.schedule.endDate | date: 'MMM dd, yyyy' }} / {{ rotation.group.name }} / {{ rotation.field ? rotation.field.name : rotation.fieldGroup.name }}
+                </ion-select-option>
+              </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row text-right>
+          <ion-col size="12">
+            <ion-button color="light" (click)="dismiss()">
+              <ion-label>Cancel</ion-label>
+            </ion-button>
+            <ion-button [disabled]="requestForm.invalid || callInProgress" (click)="createRequest()">
+              <ion-label>Save</ion-label>
+            </ion-button>
+          </ion-col>
+        </ion-row>
+      </ion-list>
+    </form>
+  </ion-grid>
+</ion-content>
+  

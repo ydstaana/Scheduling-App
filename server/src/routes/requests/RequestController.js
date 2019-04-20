@@ -51,6 +51,22 @@ function listSwitchRequests(req, res) {
   })
 }
 
+function listSwitchRequestsByStudent(req, res) {
+  SwitchRequest.find({
+    student: req.params.id
+  })
+  .populate('student')
+  .populate('admin')
+  .populate('oldRotation')
+  .populate('newRotation')
+  .exec(function(err, requests) {
+    if(err)
+      res.status(422).json({code:'422',message:err});
+    else
+      res.status(200).send(requests);
+  });
+}
+
 function listElectiveRequests(req, res) {
   ElectiveRequest.find({})
   .populate('student')
@@ -104,6 +120,7 @@ async function approveElectiveRequest(req, res) {
 module.exports = {
   createRequest : createRequest,
   listSwitchRequests : listSwitchRequests,
+  listSwitchRequestsByStudent: listSwitchRequestsByStudent,
   listElectiveRequests : listElectiveRequests,
   approveElectiveRequest : approveElectiveRequest
 }
