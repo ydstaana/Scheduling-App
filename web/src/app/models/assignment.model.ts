@@ -12,4 +12,8 @@ export class Assignment extends Model {
   static update(assignment: any) {
     return this.api().assignments().update(assignment);
   }
+
+  static switchAssignments(request: any) {
+    return this.api().assignments().switchAssignments(request);
+  }
 }

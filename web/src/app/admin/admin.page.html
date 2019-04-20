@@ -3,7 +3,7 @@
     <ion-buttons slot="start">
     <img class="logo" src="./../../../../../assets/images/logo.png">
     </ion-buttons>
-    <ion-title>Track Me</ion-title>
+    <ion-title>UST Med Clerkship Tracker</ion-title>
     <ion-buttons slot="end">
       <ion-button title="Profile" (click)="viewProfile()">
         <ion-icon name="contact"></ion-icon>
@@ -41,6 +41,9 @@
             </ion-item>
             <ion-item a [routerLink]="['/admin/rotations']">
               <ion-label>Rotations</ion-label>
+            </ion-item>
+            <ion-item a [routerLink]="['/admin/change-schedule-requests']">
+              <ion-label>Change Schedule Requests</ion-label>
             </ion-item>
           </ion-menu-toggle>
         </ion-list>

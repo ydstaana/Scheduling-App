@@ -16,4 +16,8 @@ export class AssignmentService {
   update(assignment: any) {
     return Assignment.update(assignment);
   }
+
+  switchAssignments(request: any) {
+    return Assignment.switchAssignments(request);
+  }
 }

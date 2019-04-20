@@ -18,6 +18,10 @@ export class ScheduleService {
     return Schedule.list();
   }
 
+  listSwitchRequests() {
+    return Schedule.listSwitchRequests();
+  }
+
   listSwitchRequestsByStudent(id: string) {
     return Schedule.listSwitchRequestsByStudent(id);
   }

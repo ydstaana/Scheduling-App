@@ -11,6 +11,10 @@ var SwitchRequest = Request.discriminator('SwitchRequest',
     newRotation: {
       type: mongoose.Schema.Types.ObjectId,
       ref: 'Rotation'
+    },
+    field : {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Field'
     }
   })
 )

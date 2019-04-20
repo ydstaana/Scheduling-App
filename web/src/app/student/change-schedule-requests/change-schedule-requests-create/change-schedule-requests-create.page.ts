@@ -49,7 +49,8 @@ export class ChangeScheduleRequestsCreatePage implements OnInit {
       oldRotation: this.selectedAssignment.rotation._id,
       newRotation: this.selectedRotation._id,
       student: this.selectedAssignment.student._id,
-      message: this.message
+      message: this.message,
+      field: this.selectedAssignment.field._id
     };
 
     this.scheduleService.createSwitchScheduleRequest(req).then(data => {

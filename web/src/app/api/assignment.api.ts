@@ -18,10 +18,18 @@ export class AssignmentsApi extends Api {
   }
 
   update(assignment: any) {
-    // return Promise.resolve(assignment);
     return this.http.put(
       `${this.baseUrl}/assignments/${assignment.id}`,
       assignment,
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
+  }
+
+  switchAssignments(request: any) {
+    console.log(request);
+    return this.http.post(
+      `${this.baseUrl}/assignments/switch`,
+      request,
       { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
     ).toPromise();
   }

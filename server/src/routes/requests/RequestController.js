@@ -31,18 +31,30 @@ function createRequest(req, res) {
 
 function listSwitchRequests(req, res) {
   SwitchRequest.find({})
-  .populate('student')
+  .populate({
+    path: 'student',
+    populate: { path: 'group' }
+  })
   .populate('admin')
   .populate('oldRotation')
   .populate({
-    path : 'oldRotation',
-    populate : { path : 'field'}
+    path: 'oldRotation',
+    populate: [
+      { path: 'schedule' },
+      { path: 'group' },
+      { path: 'field'}
+    ]
   })
   .populate('newRotation')
   .populate({
     path : 'newRotation',
-    populate : { path : 'field'}
+    populate: [
+      { path: 'schedule' },
+      { path: 'group' },
+      { path: 'field'}
+    ]
   })
+  .populate('field')
   .exec(function(err, requests) {
     if(err)
       res.status(422).json({code:'422',message:err});
@@ -71,6 +83,7 @@ function listSwitchRequestsByStudent(req, res) {
       { path: 'group' }
     ]
   })
+  .populate('field')
   .exec(function(err, requests) {
     if(err)
       res.status(422).json({code:'422',message:err});

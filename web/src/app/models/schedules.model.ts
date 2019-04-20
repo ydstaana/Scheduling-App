@@ -13,6 +13,10 @@ export class Schedule extends Model {
         return this.api().schedules().list();
     }
 
+    static listSwitchRequests() {
+        return this.api().schedules().listSwitchRequests();
+    }
+
     static listSwitchRequestsByStudent(id: string) {
         return this.api().schedules().listSwitchRequestsByStudent(id);
     }

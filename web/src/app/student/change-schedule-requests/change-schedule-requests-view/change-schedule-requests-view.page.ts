@@ -1,3 +1,4 @@
+import { PopoverController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 
 @Component({
@@ -6,10 +7,16 @@ import { Component, OnInit } from '@angular/core';
   styleUrls: ['./change-schedule-requests-view.page.scss'],
 })
 export class ChangeScheduleRequestsViewPage implements OnInit {
+  request: any;
 
-  constructor() { }
+  constructor(
+    private popoverCtrl: PopoverController
+  ) { }
 
   ngOnInit() {
   }
 
+  dismiss() {
+    this.popoverCtrl.dismiss();
+  }
 }

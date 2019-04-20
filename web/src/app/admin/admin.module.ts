@@ -1,4 +1,3 @@
-import { ChangeScheduleRequestsPage } from './../student/change-schedule-requests/change-schedule-requests.page';
 import { UpdatePasswordModalPage } from 'src/app/update-password-modal/update-password-modal.page';
 import { AdminProfilePage } from './admin-profile/admin-profile.page';
 import { FieldGroupsUpdatePage } from './field-groups/field-groups-update/field-groups-update.page';
@@ -77,7 +76,7 @@ const routes: Routes = [
       },
       {
         path: 'change-schedule-requests',
-        component: ChangeScheduleRequestsPage
+        component: StudentChangeScheduleRequestsPage
       }
     ]
   }

@@ -1,9 +1,100 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>student-change-schedule-request-update</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+  <ion-grid fixed class="p-25">
+    <ion-row>
+      <ion-col>
+        <h3>Schedule Request Information</h3>
+      </ion-col>
+      <ion-col text-right>
+        <ion-button fill="clear" color="dark" (click)="dismiss()">
+          <ion-icon name="close"></ion-icon>
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="border-bottom">
+      <ion-col size="3">
+        <b>Field</b>
+      </ion-col>
+      <ion-col size="3">
+        <b>Start Date</b>
+      </ion-col>
+      <ion-col size="3">
+        <b>End Date</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>Group</b>
+      </ion-col>
+      <ion-col size="1">
+        <b>Count</b>
+      </ion-col>
+    </ion-row>
+    <ion-row class="border-bottom p-t-b-10">
+      <ion-col>
+        <b>Current Schedule</b>
+      </ion-col>
+    </ion-row>
+    <ion-row class="border-bottom p-t-b-10">
+      <ion-col size="3">
+        {{ request.field.name }}
+      </ion-col>
+      <ion-col size="3">
+        {{ request.oldRotation.schedule.startDate | date: 'MMM dd, yyyy' }}
+      </ion-col>
+      <ion-col size="3">
+        {{ request.oldRotation.schedule.endDate | date: 'MMM dd, yyyy' }}
+      </ion-col>
+      <ion-col size="2">
+        {{ request.oldRotation.group.name }}
+      </ion-col>
+      <ion-col size="1">
+        --
+      </ion-col>
+    </ion-row>
+    <ion-row class="border-bottom p-t-b-10">
+      <ion-col>
+        <b>Proposed Schedule</b>
+      </ion-col>
+    </ion-row>
+    <ion-row class="border-bottom p-t-b-10">
+      <ion-col size="3">
+        {{ request.field.name }}
+      </ion-col>
+      <ion-col size="3">
+        {{ request.newRotation.schedule.startDate | date: 'MMM dd, yyyy' }}
+      </ion-col>
+      <ion-col size="3">
+        {{ request.newRotation.schedule.endDate | date: 'MMM dd, yyyy' }}
+      </ion-col>
+      <ion-col size="2">
+        {{ request.newRotation.group.name }}
+      </ion-col>
+      <ion-col size="1">
+        --
+      </ion-col>
+    </ion-row>
+    <ion-row class="p-t-15 p-b-15">
+      <ion-col size="4">
+        <ion-label>
+          <b>Student Message</b>
+        </ion-label>
+      </ion-col>
+      <ion-col size="8">
+        <ion-label>{{ request.message }}</ion-label>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col>
+        <ion-item>
+          <ion-label position="floating">Acknowledgement Message</ion-label>
+          <ion-textarea [(ngModel)]="remarks"></ion-textarea>
+        </ion-item>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <ion-button [disabled]="remarks === ''" (click)="accept()">Accept</ion-button>
+        <ion-button [disabled]="remarks === ''" color="danger" (click)="decline()">Decline</ion-button>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+  
