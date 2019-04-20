@@ -1,3 +1,6 @@
+import { AdminViewAssignmentPage } from './admin-grades-management/admin-view-assignment/admin-view-assignment.page';
+import { AdminUpdateGradePage } from './admin-grades-management/admin-update-grade/admin-update-grade.page';
+import { AdminGradesManagementPage } from './admin-grades-management/admin-grades-management.page';
 import { UpdatePasswordModalPage } from 'src/app/update-password-modal/update-password-modal.page';
 import { AdminProfilePage } from './admin-profile/admin-profile.page';
 import { FieldGroupsUpdatePage } from './field-groups/field-groups-update/field-groups-update.page';
@@ -77,6 +80,10 @@ const routes: Routes = [
       {
         path: 'change-schedule-requests',
         component: StudentChangeScheduleRequestsPage
+      },
+      {
+        path: 'grades',
+        component: AdminGradesManagementPage
       }
     ]
   }
@@ -115,7 +122,10 @@ const routes: Routes = [
     RotationsCreatePage,
     AdminProfilePage,
     StudentChangeScheduleRequestsPage,
-    StudentChangeScheduleRequestUpdatePage
+    StudentChangeScheduleRequestUpdatePage,
+    AdminGradesManagementPage,
+    AdminUpdateGradePage,
+    AdminViewAssignmentPage
   ],
   providers: [
     FieldService,
@@ -139,7 +149,9 @@ const routes: Routes = [
     RotationsCreatePage,
     AdminProfilePage,
     UpdatePasswordModalPage,
-    StudentChangeScheduleRequestUpdatePage
+    StudentChangeScheduleRequestUpdatePage,
+    AdminUpdateGradePage,
+    AdminViewAssignmentPage
   ]
 })
 export class AdminPageModule {}

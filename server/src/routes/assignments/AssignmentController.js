@@ -261,6 +261,39 @@ async function switchAssignments(req, res) {
   // }
 }
 
+async function listAssignmentsByUMA(req ,res) {
+  Assignment.find({
+    admin: req.params.id
+  })
+  .populate('student')
+  .populate({
+    path: 'rotation',
+    populate: [
+      { path: 'schedule' },
+      { path: 'field' },
+      { 
+        path: 'fieldGroup', 
+        populate: {
+          path: 'fields'
+        } 
+      }
+    ]
+  })
+  .populate('group')
+  .populate('admin')
+  .populate('field')
+  .exec(function (err, assignments) {
+    if (err) {
+      res.status(422).json({
+        message: err
+      });
+    }
+    else{
+      res.status(200).send(assignments);
+    }
+  })
+}
+
 async function listAssignmentsByFieldAdmin(req ,res) {
   var field = await Field.findOne({
     admin: req.params.id
@@ -312,5 +345,6 @@ module.exports = {
   listAssignmentsByStudent : listAssignmentsByStudent,
   listAssignmentsByRotation : listAssignmentsByRotation,
   listAssignmentsByFieldAdmin : listAssignmentsByFieldAdmin,
-  switchAssignments : switchAssignments
+  switchAssignments : switchAssignments,
+  listAssignmentsByUMA: listAssignmentsByUMA
 } 

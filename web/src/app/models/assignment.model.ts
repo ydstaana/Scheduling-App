@@ -9,6 +9,10 @@ export class Assignment extends Model {
     return this.api().assignments().listByStudent(id);
   }
 
+  static listByUMA(id: string) {
+    return this.api().assignments().listByUMA(id);
+  }
+
   static update(assignment: any) {
     return this.api().assignments().update(assignment);
   }

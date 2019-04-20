@@ -13,6 +13,10 @@ export class AssignmentService {
     return Assignment.listByStudent(id);
   }
 
+  listByUMA(id: string) {
+    return Assignment.listByUMA(id);
+  }
+
   update(assignment: any) {
     return Assignment.update(assignment);
   }

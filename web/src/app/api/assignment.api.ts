@@ -17,6 +17,10 @@ export class AssignmentsApi extends Api {
     return this.http.get(`${this.baseUrl}/assignments/students/${id}`).toPromise();
   }
 
+  listByUMA(id: string) {
+    return this.http.get(`${this.baseUrl}/assignments/admin/${id}`).toPromise();
+  }
+
   update(assignment: any) {
     return this.http.put(
       `${this.baseUrl}/assignments/${assignment.id}`,
