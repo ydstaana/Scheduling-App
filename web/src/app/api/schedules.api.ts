@@ -47,4 +47,12 @@ export class SchedulesApi extends Api {
       { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
     ).toPromise();
   }
+
+  updateRequest(id: string, req: any) {
+    return this.http.post(
+      `${this.baseUrl}/requests/${id}`,
+      req,
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
+  }
 }

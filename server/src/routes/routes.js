@@ -69,6 +69,7 @@ router.post('/assignments/switch', assignmentController.switchAssignments);
 
 //Requests
 router.post('/requests', requestController.createRequest);
+router.post('/requests/:id', requestController.updateRequest);
 router.get('/requests/switch', requestController.listSwitchRequests);
 router.get('/requests/switch/student/:id', requestController.listSwitchRequestsByStudent);
 router.get('/requests/elective', requestController.listElectiveRequests);

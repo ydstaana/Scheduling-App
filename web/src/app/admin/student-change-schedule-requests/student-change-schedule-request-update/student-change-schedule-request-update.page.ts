@@ -1,3 +1,4 @@
+import { ScheduleService } from './../../../services/schedule.service';
 import { PopoverController, ToastController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
 import { AssignmentService } from 'src/app/services/assignment.service';
@@ -14,6 +15,7 @@ export class StudentChangeScheduleRequestUpdatePage implements OnInit {
   constructor(
     private popoverCtrl: PopoverController,
     private assignmentService: AssignmentService,
+    private scheduleService: ScheduleService,
     private toastCtrl: ToastController
   ) { }
 
@@ -28,13 +30,25 @@ export class StudentChangeScheduleRequestUpdatePage implements OnInit {
 
     this.assignmentService.switchAssignments(req).then(data => {
       this.success('Successfully approved request');
+      this.dismiss();
     }, error => {
       this.error('Unable to approve request. Please try again.');
     });
   }
 
   decline() {
+    const req = {
+      remarks: this.remarks,
+      isApproved: false,
+      isPending: false
+    };
 
+    this.scheduleService.updateRequest(this.request._id, req).then(data => {
+      this.success('Successfully declined request');
+      this.dismiss();
+    }, error => {
+      this.error('Unable to decline request. Please try again.');
+    });
   }
 
   dismiss() {

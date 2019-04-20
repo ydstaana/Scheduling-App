@@ -29,6 +29,21 @@ function createRequest(req, res) {
   }
 }
 
+async function updateRequest(req, res) {
+  var request = await Request.findById(req.params.id)
+
+  request.set(req.body); 
+
+  request.save().then(() => {
+    res.status(200).send(request);
+  })
+  .catch(err => {
+    res.status(422).json({
+      message: err
+    });
+  }) 
+}
+
 function listSwitchRequests(req, res) {
   SwitchRequest.find({})
   .populate({
@@ -147,5 +162,6 @@ module.exports = {
   listSwitchRequests : listSwitchRequests,
   listSwitchRequestsByStudent: listSwitchRequestsByStudent,
   listElectiveRequests : listElectiveRequests,
-  approveElectiveRequest : approveElectiveRequest
+  approveElectiveRequest : approveElectiveRequest,
+  updateRequest: updateRequest
 }

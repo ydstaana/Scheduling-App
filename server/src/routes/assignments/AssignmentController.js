@@ -186,6 +186,7 @@ async function switchAssignments(req, res) {
   }
 
   // get UMA for new assignment admin
+  // TODO: SET ASSIGNMENT TO SUPER ADMIN
   var admin = await MedAdmin.findOne({});
 
   var newRotation = await Rotation.findById(request.newRotation);

@@ -29,4 +29,8 @@ export class ScheduleService {
   update(sched: any) {
     return Schedule.update(sched);
   }
+
+  updateRequest(id: string, req: any) {
+    return Schedule.updateRequest(id, req);
+  }
 }

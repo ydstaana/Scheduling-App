@@ -24,4 +24,8 @@ export class Schedule extends Model {
     static update(schedule: any) {
         return this.api().schedules().update(schedule);
     }
+
+    static updateRequest(id: string, req: any) {
+        return this.api().schedules().updateRequest(id, req);
+    }
 }
