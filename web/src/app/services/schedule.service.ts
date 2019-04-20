@@ -10,6 +10,10 @@ export class ScheduleService {
     return Schedule.create(sched);
   }
 
+  createSwitchScheduleRequest(request: any) {
+    return Schedule.createSwitchScheduleRequest(request);
+  }
+
   list() {
     return Schedule.list();
   }

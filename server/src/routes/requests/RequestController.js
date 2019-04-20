@@ -57,8 +57,20 @@ function listSwitchRequestsByStudent(req, res) {
   })
   .populate('student')
   .populate('admin')
-  .populate('oldRotation')
-  .populate('newRotation')
+  .populate({
+    path: 'oldRotation',
+    populate: [
+      { path: 'schedule' },
+      { path: 'group' }
+    ]
+  })
+  .populate({
+    path: 'newRotation',
+    populate: [
+      { path: 'schedule' },
+      { path: 'group' }
+    ]
+  })
   .exec(function(err, requests) {
     if(err)
       res.status(422).json({code:'422',message:err});

@@ -1,3 +1,4 @@
+import { ChangeScheduleRequestsViewPage } from './change-schedule-requests-view/change-schedule-requests-view.page';
 import { AssignmentService } from 'src/app/services/assignment.service';
 import { ChangeScheduleRequestsCreatePage } from './change-schedule-requests-create/change-schedule-requests-create.page';
 import { PopoverController } from '@ionic/angular';
@@ -60,6 +61,19 @@ export class ChangeScheduleRequestsPage implements OnInit {
     viewModal.onDidDismiss().then(data => {
       this.listRequests();
       this.listAssignments();
+    });
+
+    return await viewModal.present();
+  }
+
+  async viewRequest(request) {
+    const viewModal = await this.popoverCtrl.create({
+      component: ChangeScheduleRequestsViewPage,
+      componentProps: {
+        request: request
+      },
+      cssClass: 'custom-popover',
+      backdropDismiss: false
     });
 
     return await viewModal.present();

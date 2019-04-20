@@ -1,3 +1,4 @@
+import { ChangeScheduleRequestsPage } from './../student/change-schedule-requests/change-schedule-requests.page';
 import { UpdatePasswordModalPage } from 'src/app/update-password-modal/update-password-modal.page';
 import { AdminProfilePage } from './admin-profile/admin-profile.page';
 import { FieldGroupsUpdatePage } from './field-groups/field-groups-update/field-groups-update.page';
@@ -33,6 +34,8 @@ import { RotationsPage } from './rotations/rotations.page';
 import { RotationsCreatePage } from './rotations/rotations-create/rotations-create.page';
 import { RotationService } from '../services/rotation.service';
 import { UpdatePasswordModalPageModule } from '../update-password-modal/update-password-modal.module';
+import { StudentChangeScheduleRequestUpdatePage } from './student-change-schedule-requests/student-change-schedule-request-update/student-change-schedule-request-update.page';
+import { StudentChangeScheduleRequestsPage } from './student-change-schedule-requests/student-change-schedule-requests.page';
 
 const routes: Routes = [
   {
@@ -71,6 +74,10 @@ const routes: Routes = [
       {
         path: 'rotations',
         component: RotationsPage
+      },
+      {
+        path: 'change-schedule-requests',
+        component: ChangeScheduleRequestsPage
       }
     ]
   }
@@ -107,7 +114,9 @@ const routes: Routes = [
     GroupAssignmentsPage,
     RotationsPage,
     RotationsCreatePage,
-    AdminProfilePage
+    AdminProfilePage,
+    StudentChangeScheduleRequestsPage,
+    StudentChangeScheduleRequestUpdatePage
   ],
   providers: [
     FieldService,
@@ -130,7 +139,8 @@ const routes: Routes = [
     SchedulesViewPage,
     RotationsCreatePage,
     AdminProfilePage,
-    UpdatePasswordModalPage
+    UpdatePasswordModalPage,
+    StudentChangeScheduleRequestUpdatePage
   ]
 })
 export class AdminPageModule {}

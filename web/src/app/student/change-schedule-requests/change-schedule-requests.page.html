@@ -12,10 +12,10 @@
         <b>Field</b>
       </ion-col>
       <ion-col size="4">
-        <b>Current Schedule (Group)</b>
+        <b>Current Schedule / Group</b>
       </ion-col>
       <ion-col size="4">
-        <b>Proposed Schedule (Group)</b>
+        <b>Proposed Schedule / Group</b>
       </ion-col>
       <ion-col size="2">
         <b>Status</b>
@@ -30,18 +30,18 @@
         - Field Name -
       </ion-col>
       <ion-col size="4">
-        {{ (request.oldRotation.schedule.startDate | date: 'MMM dd, yyyy') }} - {{ (request.oldRotation.schedule.endDate | date: 'MMM dd, yyyy') }} ({{ request.oldRotation.group.name }})
+        {{ (request.oldRotation.schedule.startDate | date: 'MMM dd, yyyy') }} - {{ (request.oldRotation.schedule.endDate | date: 'MMM dd, yyyy') }} / {{ request.oldRotation.group.name }}
       </ion-col>
       <ion-col size="4">
-        {{ (request.newRotation.schedule.startDate | date: 'MMM dd, yyyy') }} - {{ (request.newRotation.schedule.endDate | date: 'MMM dd, yyyy') }} ({{ request.newRotation.group.name }})
+        {{ (request.newRotation.schedule.startDate | date: 'MMM dd, yyyy') }} - {{ (request.newRotation.schedule.endDate | date: 'MMM dd, yyyy') }} / {{ request.newRotation.group.name }}
       </ion-col>
-      <ion-col size="2" *ngIf="!rotation.isPending && rotation.isApproved">
+      <ion-col size="2" *ngIf="!request.isPending && request.isApproved">
         Approved
       </ion-col>
-      <ion-col size="2" *ngIf="!rotation.isPending && !rotation.isApproved">
+      <ion-col size="2" *ngIf="!request.isPending && !request.isApproved">
         Declined
       </ion-col>
-      <ion-col size="2" *ngIf="rotation.isPending">
+      <ion-col size="2" *ngIf="request.isPending">
         Pending
       </ion-col>
     </ion-row>

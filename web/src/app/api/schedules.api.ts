@@ -20,6 +20,14 @@ export class SchedulesApi extends Api {
     ).toPromise();
   }
 
+  createSwitchScheduleRequest(request: any) {
+    return this.http.post(
+      `${this.baseUrl}/requests`,
+      request,
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
+  }
+
   list() {
     return this.http.get(`${this.baseUrl}/schedules`).toPromise();
   }

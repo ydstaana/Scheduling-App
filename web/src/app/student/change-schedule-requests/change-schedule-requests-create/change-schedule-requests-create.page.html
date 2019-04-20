@@ -21,7 +21,7 @@
                 placeholder="Select Schedule"
                 [(ngModel)]="selectedAssignment"
                 formControlName="assignment">
-                <ion-select-option [value]="assignment._id" *ngFor="let assignment of assignments">
+                <ion-select-option [value]="assignment" *ngFor="let assignment of assignments">
                   {{ assignment.rotation.schedule.startDate | date: 'MMM dd, yyyy' }} - {{ assignment.rotation.schedule.endDate | date: 'MMM dd, yyyy' }} / {{ assignment.group.name }} / {{ assignment.field.name }}
                 </ion-select-option>
               </ion-select>
@@ -37,10 +37,21 @@
                 placeholder="Proposed Schedule"
                 [(ngModel)]="selectedRotation"
                 formControlName="rotation">
-                <ion-select-option [value]="rotation._id" *ngFor="let rotation of rotations">
+                <ion-select-option [value]="rotation" *ngFor="let rotation of rotations">
                   {{ rotation.schedule.startDate | date: 'MMM dd, yyyy' }} - {{ rotation.schedule.endDate | date: 'MMM dd, yyyy' }} / {{ rotation.group.name }} / {{ rotation.field ? rotation.field.name : rotation.fieldGroup.name }}
                 </ion-select-option>
               </ion-select>
+            </ion-item>
+          </ion-col>
+        </ion-row>
+        <ion-row>
+          <ion-col>
+            <ion-item>
+              <ion-label position="floating">Message</ion-label>
+              <ion-textarea 
+                placeholder="Enter message"
+                [(ngModel)]="message"
+                formControlName="message"></ion-textarea>
             </ion-item>
           </ion-col>
         </ion-row>
