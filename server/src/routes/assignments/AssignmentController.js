@@ -154,17 +154,101 @@ function createNewAssignment(admin, group, student, rotation, field) {
   })
 }
 
+// async function switchAssignments(req, res) {
+//   /*
+//     Expected Payload
+//     {
+//       request : //Id of request
+//       remarks : 
+//     }
+//   */
+//   // Deactivate previous assignments of the student from the old rotation
+//   // Create new assignments from the Fields of the New Rotation
+//   // Approve the request
+
+//   var request = await Request.findById(req.body.request);
+//   var student = await Student.findById(request.student);
+  
+//   if(student.assignments.length != 0) {
+//     Assignment.find({
+//       student : student._id,
+//       rotation : request.oldRotation
+//     })
+//     .then(assignments => {
+//       assignments.forEach(assign => {
+//         assign.isActive = false;
+//         assign.save();
+//       })
+//     })
+//   }
+
+//   var newRotation = await Rotation.findById(request.newRotation);
+  
+//   switch(newRotation.rotationType) {
+//     case RotationType.SINGLE :
+//       createNewAssignment(newRotation.group, student, newRotation, newRotation.field)
+//       .then(assign => {
+//         student.assignments.push(assign);
+//         student.save().then(() => {
+//           res.status(200).send(student);
+//         })
+//         .catch(err => {
+//           console.log(err);
+//           res.status(422).json({
+//             message: err
+//           });
+//         })
+//       })
+//       break;
+//     default :
+//       var counter = 0;
+//       var fieldGroup = FieldGroup.findById(newRotation.fieldGroup);
+//       fieldGroup.fields.forEach(field => {
+//         createNewAssignment(newRotation.group, student, newRotation, field)
+//         .then(assign => {
+//           counter++;
+//           student.assignments.push(assign);
+//           if(counter == fieldGroup.fields.length) {
+//             student.save().then(() => {
+//               var request = Request.findById(req.body.request);
+//               request.isApproved = true;
+//               request.remarks = req.body.remarks;
+//               request.save().then(() => {
+//                 res.status(200).send(student);
+//               })
+//             })
+//             .catch(err => {
+//               console.log("NOT HERE???")
+//               res.status(422).json({
+//                 message: err
+//               });
+//           })
+//         }
+//       })
+//     })
+//     break;
+//   }
+// }
+
 async function switchAssignments(req, res) {
   /*
-    Expected Payload
     {
-      request : //Id of request
-      remarks : 
+      oldAssignment1: <assignment_id>,
+      oldAssignment2: <assignment_id>,
+      newAssignment1: {
+          student: <id>
+          rotation: <rotation>,
+          group: <group>,
+          field: <field>
+      },
+      newAssignment2: {
+          student: <id>
+          rotation: <rotation>,
+          group: <group>,
+          field: <field>
+      }
     }
   */
-  // Deactivate previous assignments of the student from the old rotation
-  // Create new assignments from the Fields of the New Rotation
-  // Approve the request
 
   var request = await SwitchRequest.findById(req.body.request);
   var student = await Student.findById(request.student);

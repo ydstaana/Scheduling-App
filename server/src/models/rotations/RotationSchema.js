@@ -5,6 +5,7 @@ const baseOptions = {
 };
 
 var RotationSchema = mongoose.Schema({
+  studentCount : Number,
   schedule : {
     type: mongoose.Schema.Types.ObjectId,
     ref: 'Schedule'
