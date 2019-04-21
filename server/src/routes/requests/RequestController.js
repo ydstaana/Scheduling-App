@@ -114,28 +114,6 @@ function listSwitchRequestsByStudent(req, res) {
   })
   .populate('student')
   .populate('admin')
-<<<<<<< HEAD
-  .populate('oldAssignments')
-  // .populate({
-  //   path: 'oldAssignments',
-  //   populate: [
-  //     { path: 'rotation' },
-  //     { path: 'group' },
-  //     { path: 'student' },
-  //     { path: 'field' }
-  //   ]
-  // })
-  // .populate({
-  //   path: 'newRotations',
-  //   populate: [
-  //     { path: 'student' },
-  //     { path: 'group' },
-  //     { path: 'rotation' },
-  //     { path: 'field' }
-  //   ]
-  // })
-  .populate('field')
-=======
   .populate('field')
   .populate('oldAssignments')
   .populate({
@@ -147,7 +125,6 @@ function listSwitchRequestsByStudent(req, res) {
       { path: 'field'}
     ]
   })
->>>>>>> listElectives by student, approveSwitch
   .exec(function(err, requests) {
     if(err)
       res.status(422).json({code:'422',message:err});
