@@ -9,6 +9,10 @@ export class AssignmentsApi extends Api {
     super(baseUrl);
   }
 
+  listCustom() {
+    return this.http.get(`${this.baseUrl}/assignments/custom`).toPromise();
+  }
+
   listByFieldAdmin(id: string) {
     return this.http.get(`${this.baseUrl}/assignments/field-admin/${id}`).toPromise();
   }

@@ -81,7 +81,7 @@
         <ion-label>{{ request.message }}</ion-label>
       </ion-col>
     </ion-row>
-    <ion-row>
+    <ion-row *ngIf="request.isPending">
       <ion-col>
         <ion-item>
           <ion-label position="floating">Acknowledgement Message</ion-label>
@@ -90,7 +90,7 @@
       </ion-col>
     </ion-row>
     <ion-row>
-      <ion-col text-center>
+      <ion-col text-center *ngIf="request.isPending">
         <ion-button [disabled]="remarks === ''" (click)="accept()">Accept</ion-button>
         <ion-button [disabled]="remarks === ''" color="danger" (click)="decline()">Decline</ion-button>
       </ion-col>

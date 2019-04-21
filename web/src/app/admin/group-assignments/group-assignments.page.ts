@@ -12,6 +12,7 @@ export class GroupAssignmentsPage implements OnInit {
   currentGroup: any;
   currentStudents = [];
   unassignedStudents = [];
+  callInProgress = false;
 
   constructor(
     private userService: UserService,
@@ -111,12 +112,15 @@ export class GroupAssignmentsPage implements OnInit {
   }
 
   updateGroups() {
+    this.callInProgress = true;
     console.log(this.currentStudents);
     this.userService.updateUserGroups(this.currentStudents).then(data => {
+      this.callInProgress = false;
       this.listUserGroups();
 
       this.success('Successfully updated group assigments.');
     }, error => {
+      this.callInProgress = false;
       this.error('Unable to update group assigments. Please try again.');
     });
   }

@@ -60,6 +60,7 @@ router.post('/rotations/lookup', rotationController.rotationLookup);
 //Assignments
 router.get('/assignments', assignmentController.listAssignments);
 router.post('/assignments', assignmentController.createAssignment);
+router.get('/assignments/custom', assignmentController.listCustomAssignments);
 router.put('/assignments/:id', assignmentController.updateAssignment);
 router.get('/assignments/:id', assignmentController.getAssignment);
 router.get('/assignments/students/:id', assignmentController.listAssignmentsByStudent);

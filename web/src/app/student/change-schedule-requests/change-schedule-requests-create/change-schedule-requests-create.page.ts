@@ -4,6 +4,7 @@ import { PopoverController, ToastController } from '@ionic/angular';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { RotationService } from 'src/app/services/rotation.service';
+import { StorageService, Storage } from 'src/app/services/storage.service';
 
 @Component({
   selector: 'app-change-schedule-requests-create',
@@ -27,13 +28,17 @@ export class ChangeScheduleRequestsCreatePage implements OnInit {
   oldAssignments = [];
   newAssignments = [];
 
+  currentUser: any;
   constructor(
     private formBuilder: FormBuilder,
     private rotationService: RotationService,
     private popoverCtrl: PopoverController,
     private toastCtrl: ToastController,
-    private scheduleService: ScheduleService
-  ) { }
+    private scheduleService: ScheduleService,
+    private storageService: StorageService
+  ) {
+    this.currentUser = JSON.parse(this.storageService.getItem(Storage.CURRENT_USER));
+  }
 
   ngOnInit() {
     this.buildForm();
@@ -46,6 +51,8 @@ export class ChangeScheduleRequestsCreatePage implements OnInit {
           return assignment.rotation;
         })
       );
+
+      console.log(this.assignmentRotations);
     }
     this.listRotations();
   }
@@ -70,7 +77,8 @@ export class ChangeScheduleRequestsCreatePage implements OnInit {
         };
       }),
       oldAssignments: this.oldAssignments.map(oa => oa._id),
-      message: this.message
+      message: this.message,
+      student: this.currentUser._id
     };
 
     this.scheduleService.createSwitchScheduleRequest(req).then(data => {

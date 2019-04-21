@@ -31,7 +31,7 @@ export class AdminGradesManagementPage implements OnInit {
   }
 
   listAssignments() {
-    this.assignmentService.listByUMA(this.currentUser._id).then((data: any) => {
+    this.assignmentService.listCustom().then((data: any) => {
       this.assignments = data;
     }, error => {
       console.log(error);

@@ -26,7 +26,7 @@ export class StudentChangeScheduleRequestsPage implements OnInit {
 
   listRequests() {
     this.scheduleService.listSwitchRequests().then((data: any) => {
-      this.requests = data.filter(d => d.isPending);
+      this.requests = data;
     });
   }
 

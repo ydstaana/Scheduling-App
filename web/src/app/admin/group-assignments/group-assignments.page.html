@@ -109,7 +109,7 @@
             <ion-col text-right>
               <ion-button 
                 (click)="updateGroups()" 
-                [disabled]="currentGroup === 'Unassigned' && unassignedStudents.length === 0 || currentGroup !== 'Unassigned' && currentGroup?.students.length === 0">
+                [disabled]="currentGroup === 'Unassigned' && unassignedStudents.length === 0 || currentGroup !== 'Unassigned' && currentGroup?.students.length === 0 || callInProgress">
                 Update Groups
               </ion-button>
             </ion-col>

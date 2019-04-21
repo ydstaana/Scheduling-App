@@ -79,6 +79,40 @@ function listAssignments(req, res) {
   })
 }
 
+function listCustomAssignments(req ,res) {
+  Assignment.find({
+    isCustom: true
+  })
+  .populate('student')
+  .populate({
+    path: 'rotation',
+    populate: [
+      { path: 'schedule' },
+      { path: 'field' },
+      { 
+        path: 'fieldGroup', 
+        populate: {
+          path: 'fields'
+        } 
+      },
+      { path: 'group' }
+    ]
+  })
+  .populate('group')
+  .populate('admin')
+  .populate('field')
+  .exec(function (err, assignments) {
+    if (err) {
+      res.status(422).json({
+        message: err
+      });
+    }
+    else{
+      res.status(200).send(assignments);
+    }
+  })
+}
+
 function listAssignmentsByStudent(req ,res) {
   Assignment.find({
     student : req.params.id
@@ -135,14 +169,15 @@ function listAssignmentsByRotation(req ,res) {
   })
 }
 
-function createNewAssignment(groupId, studentId, rotationId, fieldId) {
+function createNewAssignment(groupId, studentId, rotationId, fieldId, isCustom = false) {
   return new Promise(function(resolve, reject) {
     console.log("Creating a new doc...");
     new Assignment({
       student : studentId,
       rotation : rotationId,
       group : groupId,
-      field : fieldId
+      field : fieldId,
+      isCustom: isCustom
     })
     .save().then(async assign => {
       console.log("Creating a new doc finished executing...");
@@ -163,24 +198,29 @@ async function approveSwitchRequest(req, res) {
     })
   }
 
- request.oldAssignments.forEach(async oldAssign => {
-   var tempAssign = await Assignment.findById(oldAssign);
+  request.remarks = req.body.remarks;
+  request.isApproved = true;
+  request.isPending = false;
+  request.save();
 
-   if(tempAssign == null) {
+  request.oldAssignments.forEach(async oldAssign => {
+    var tempAssign = await Assignment.findById(oldAssign);
+
+    if(tempAssign == null) {
     return res.status(422).json({
       message: err
     });
-   }
+    }
 
-   tempAssign.isActive = false;
+    tempAssign.isActive = false;
 
-   tempAssign.save();
+    tempAssign.save();
    
- })
- 
+  });
+
   var counter = 0;
   request.newAssignments.forEach(assignment => {
-    createNewAssignment(assignment.group, assignment.student, assignment.rotation, assignment.field)
+    createNewAssignment(assignment.group, assignment.student, assignment.rotation, assignment.field, true)
     .then(newAssign => {
       counter++;
       if(counter == request.newAssignments.length) {
@@ -283,5 +323,6 @@ module.exports = {
   listAssignmentsByRotation : listAssignmentsByRotation,
   listAssignmentsByFieldAdmin : listAssignmentsByFieldAdmin,
   approveSwitchRequest : approveSwitchRequest,
-  listAssignmentsByUMA: listAssignmentsByUMA
+  listAssignmentsByUMA: listAssignmentsByUMA,
+  listCustomAssignments: listCustomAssignments
 } 

@@ -84,20 +84,25 @@ function listSwitchRequestsByStudent(req, res) {
   })
   .populate('student')
   .populate('admin')
-  .populate({
-    path: 'oldRotation',
-    populate: [
-      { path: 'schedule' },
-      { path: 'group' }
-    ]
-  })
-  .populate({
-    path: 'newRotation',
-    populate: [
-      { path: 'schedule' },
-      { path: 'group' }
-    ]
-  })
+  .populate('oldAssignments')
+  // .populate({
+  //   path: 'oldAssignments',
+  //   populate: [
+  //     { path: 'rotation' },
+  //     { path: 'group' },
+  //     { path: 'student' },
+  //     { path: 'field' }
+  //   ]
+  // })
+  // .populate({
+  //   path: 'newRotations',
+  //   populate: [
+  //     { path: 'student' },
+  //     { path: 'group' },
+  //     { path: 'rotation' },
+  //     { path: 'field' }
+  //   ]
+  // })
   .populate('field')
   .exec(function(err, requests) {
     if(err)

@@ -1,6 +1,10 @@
 import { Model } from './model';
 
 export class Assignment extends Model {
+  static listCustom() {
+    return this.api().assignments().listCustom();
+  }
+
   static listByFieldAdmin(id: string) {
     return this.api().assignments().listByFieldAdmin(id);
   }

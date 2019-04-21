@@ -5,6 +5,10 @@ import { Assignment } from '../models/assignment.model';
   providedIn: 'root'
 })
 export class AssignmentService {
+  listCustom() {
+    return Assignment.listCustom();
+  }
+
   listByFieldAdmin(id: string) {
     return Assignment.listByFieldAdmin(id);
   }
