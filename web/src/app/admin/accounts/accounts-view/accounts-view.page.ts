@@ -3,6 +3,7 @@ import { AccountsUpdatePage } from './../accounts-update/accounts-update.page';
 import { Component, OnInit } from '@angular/core';
 import { PopoverController } from '@ionic/angular';
 import { UserType } from 'src/app/models/user.model';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-accounts-view',
@@ -25,8 +26,11 @@ export class AccountsViewPage implements OnInit {
   ionViewWillEnter() {
     if (this.user.userType === UserType.STUDENT) {
       this.assignmentService.listByStudent(this.user._id).then((data: any) => {
-        this.assignments = data.filter(d => d.isActive);
-        console.log(this.assignments);
+        this.assignments = data
+          .filter(d => d.isActive)
+          .sort((a, b) => {
+            return moment(a.rotation.schedule.startDate).isAfter(moment(b.rotation.schedule.startDate)) ? 1 : -1;
+          });
       });
     }
   }

@@ -33,10 +33,8 @@ export class StudentRotationsPage implements OnInit {
       this.assignments = data
         .filter(d => d.isActive)
         .sort((a, b) => {
-          console.log(`${moment(a.rotation.schedule.startDate).isAfter(moment(b.rotation.schedule.startDate))}`);
           return moment(a.rotation.schedule.startDate).isAfter(moment(b.rotation.schedule.startDate)) ? 1 : -1;
         });
-      console.log(this.assignments);
     });
   }
 
