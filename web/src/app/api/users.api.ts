@@ -81,6 +81,7 @@ export class UsersApi extends Api {
   }
 
   updateUserGroups(userGroup: any) {
+    console.log(userGroup);
     return this.http.post(
       `${this.baseUrl}/groups/addStudent`,
       userGroup,

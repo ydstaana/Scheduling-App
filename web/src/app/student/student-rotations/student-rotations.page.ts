@@ -3,6 +3,7 @@ import { StorageService, Storage } from './../../services/storage.service';
 import { Component, OnInit } from '@angular/core';
 import { AssignmentService } from 'src/app/services/assignment.service';
 import { ViewStudentAssignmentPage } from './view-student-assignment/view-student-assignment.page';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-student-rotations',
@@ -29,7 +30,12 @@ export class StudentRotationsPage implements OnInit {
     this.assignmentService.listByStudent(
       currentUser._id
     ).then((data: any) => {
-      this.assignments = data.filter(d => d.isActive);
+      this.assignments = data
+        .filter(d => d.isActive)
+        .sort((a, b) => {
+          console.log(`${moment(a.rotation.schedule.startDate).isAfter(moment(b.rotation.schedule.startDate))}`);
+          return moment(a.rotation.schedule.startDate).isAfter(moment(b.rotation.schedule.startDate)) ? 1 : -1;
+        });
       console.log(this.assignments);
     });
   }

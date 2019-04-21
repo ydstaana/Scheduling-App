@@ -38,18 +38,7 @@ export class GroupAssignmentsPage implements OnInit {
         };
       })
       .sort((a, b) => ((a.order === b.order) ? 0 : ((a.order > b.order) ? 1 : -1)) );
-      // this.currentGroup = this.groups[0];
 
-      // if (this.currentGroup.students) {
-      //   this.currentGroup.students.forEach(student => {
-      //     this.currentStudents.push({
-      //       studentId: student._id,
-      //       groupId: this.currentGroup._id
-      //     });
-      //   });
-      // }
-
-      // console.log(this.groups);
       // get unassigned students
       this.userService.listUnassignedStudents().then((res: any) => {
         this.unassignedStudents = res;
@@ -61,8 +50,6 @@ export class GroupAssignmentsPage implements OnInit {
               groupId: this.groups[0]._id
             });
           });
-
-          console.log(this.currentStudents);
         }
       }, error => {
         console.log(error);
@@ -71,7 +58,6 @@ export class GroupAssignmentsPage implements OnInit {
   }
 
   resolveGroup() {
-    console.log(this.currentGroup);
     if (this.currentGroup === 'Unassigned') {
       this.currentStudents = [];
       this.unassignedStudents.forEach(student => {
@@ -89,7 +75,6 @@ export class GroupAssignmentsPage implements OnInit {
         });
       });
     }
-    console.log(this.currentStudents);
   }
 
   setGroup(student, event) {
@@ -107,13 +92,10 @@ export class GroupAssignmentsPage implements OnInit {
         }
       ];
     }
-
-    console.log(this.currentStudents);
   }
 
   updateGroups() {
     this.callInProgress = true;
-    console.log(this.currentStudents);
     this.userService.updateUserGroups(this.currentStudents).then(data => {
       this.callInProgress = false;
       this.listUserGroups();

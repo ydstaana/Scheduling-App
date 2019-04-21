@@ -69,9 +69,6 @@ export class StudentProfilePage implements OnInit {
       ]],
       contactPersonNumber: [this.currentUser.contactPersonNumber ? this.currentUser.contactPersonNumber : '', [
         Validators.required
-      ]],
-      group: [this.currentGroup, [
-        Validators.required
       ]]
     });
   }

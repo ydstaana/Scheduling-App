@@ -60,22 +60,12 @@
             </ion-item>
           </ion-col>
         </ion-row>
-        <ion-row>
-          <ion-col>
-            <ion-item>
-              <ion-label position="floating">Group</ion-label>
-              <ion-select 
-                interface="popover" 
-                placeholder="Select Group"
-                formControlName="group"
-                [(ngModel)]="currentGroup">
-                <ng-container *ngFor="let group of groups">
-                  <ion-select-option [value]="group._id">
-                    {{ group.name }}
-                  </ion-select-option>
-                </ng-container>
-              </ion-select>
-            </ion-item>
+        <ion-row class="m-t-20">
+          <ion-col size="2">
+            <b>Group: </b>
+          </ion-col>
+          <ion-col size="10">
+            {{ currentUser?.group ? currentUser?.group?.name : ' -- ' }}
           </ion-col>
         </ion-row>
         <ion-row class="m-t-20">
