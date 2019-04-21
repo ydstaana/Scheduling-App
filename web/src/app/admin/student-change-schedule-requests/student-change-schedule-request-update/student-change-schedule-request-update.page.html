@@ -32,18 +32,18 @@
         <b>Current Schedule</b>
       </ion-col>
     </ion-row>
-    <ion-row class="border-bottom p-t-b-10">
+    <ion-row class="border-bottom p-t-b-10" *ngFor="let assignment of request.oldAssignments">
       <ion-col size="3">
-        {{ request.field.name }}
+        {{ assignment.field.name }}
       </ion-col>
       <ion-col size="3">
-        {{ request.oldRotation.schedule.startDate | date: 'MMM dd, yyyy' }}
+        {{ assignment.rotation.schedule.startDate | date: 'MMM dd, yyyy' }}
       </ion-col>
       <ion-col size="3">
-        {{ request.oldRotation.schedule.endDate | date: 'MMM dd, yyyy' }}
+        {{ assignment.rotation.schedule.endDate | date: 'MMM dd, yyyy' }}
       </ion-col>
       <ion-col size="2">
-        {{ request.oldRotation.group.name }}
+        {{ assignment.group.name }}
       </ion-col>
       <ion-col size="1">
         --
@@ -54,18 +54,18 @@
         <b>Proposed Schedule</b>
       </ion-col>
     </ion-row>
-    <ion-row class="border-bottom p-t-b-10">
+    <ion-row class="border-bottom p-t-b-10" *ngFor="let assignment of request.newAssignments">
       <ion-col size="3">
-        {{ request.field.name }}
+        {{ assignment.field.name }}
       </ion-col>
       <ion-col size="3">
-        {{ request.newRotation.schedule.startDate | date: 'MMM dd, yyyy' }}
+        {{ assignment.rotation.schedule.startDate | date: 'MMM dd, yyyy' }}
       </ion-col>
       <ion-col size="3">
-        {{ request.newRotation.schedule.endDate | date: 'MMM dd, yyyy' }}
+        {{ assignment.rotation.schedule.endDate | date: 'MMM dd, yyyy' }}
       </ion-col>
       <ion-col size="2">
-        {{ request.newRotation.group.name }}
+        {{ assignment.group.name }}
       </ion-col>
       <ion-col size="1">
         --

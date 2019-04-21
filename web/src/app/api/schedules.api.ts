@@ -50,7 +50,7 @@ export class SchedulesApi extends Api {
   }
 
   updateRequest(id: string, req: any) {
-    return this.http.post(
+    return this.http.put(
       `${this.baseUrl}/requests/${id}`,
       req,
       { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }

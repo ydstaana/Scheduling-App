@@ -84,14 +84,19 @@ async function updateRequest(req, res) {
 
 function listSwitchRequests(req, res) {
   SwitchRequest.find({})
-  .populate('student')
+  .populate({
+    path: 'student',
+    populate: {
+      path: 'group'
+    }
+  })
   .populate('admin')
   .populate('field')
   .populate({
     path: 'oldAssignments',
     populate: [
       { path: 'student' },
-      { path: 'rotation' },
+      { path: 'rotation', populate: { path: 'schedule' } },
       { path: 'group' },
       { path: 'field'}
     ]
