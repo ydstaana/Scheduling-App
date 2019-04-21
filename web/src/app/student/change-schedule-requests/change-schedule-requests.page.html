@@ -8,40 +8,47 @@
       </ion-col>
     </ion-row>
     <ion-row class="border-bottom">
-      <ion-col size="2">
+      <ion-col size="3">
         <b>Field</b>
       </ion-col>
-      <ion-col size="4">
-        <b>Current Schedule / Group</b>
+      <ion-col size="5">
+        <b>Schedule</b>
       </ion-col>
-      <ion-col size="4">
-        <b>Proposed Schedule / Group</b>
+      <ion-col size="2">
+        <b>Group</b>
       </ion-col>
       <ion-col size="2">
         <b>Status</b>
       </ion-col>
     </ion-row>
-    <ion-row 
-      class="border-bottom log p-t-b-10" 
-      align-items-center *ngFor="let request of requests"
+    <ion-row  
+      class="border-bottom log p-t-b-10"
+      *ngFor="let request of requests"
       (click)="viewRequest(request)">
-      <ion-col size="2">
-        <!-- {{ request.field.name }} -->
-      </ion-col>
-      <ion-col size="4">
-        <!-- {{ (request.oldRotation.schedule.startDate | date: 'MMM dd, yyyy') }} - {{ (request.oldRotation.schedule.endDate | date: 'MMM dd, yyyy') }} / {{ request.oldRotation.group.name }} -->
-      </ion-col>
-      <ion-col size="4">
-        <!-- {{ (request.newRotation.schedule.startDate | date: 'MMM dd, yyyy') }} - {{ (request.newRotation.schedule.endDate | date: 'MMM dd, yyyy') }} / {{ request.newRotation.group.name }} -->
-      </ion-col>
-      <ion-col size="2" *ngIf="!request.isPending && request.isApproved">
-        Approved
-      </ion-col>
-      <ion-col size="2" *ngIf="!request.isPending && !request.isApproved">
-        Declined
-      </ion-col>
-      <ion-col size="2" *ngIf="request.isPending">
-        Pending
+      <ion-col>
+        <ion-grid fixed no-padding no-margin>
+          <ion-row  
+            align-items-center *ngFor="let assignment of request.newAssignments">
+            <ion-col size="3">
+              {{ assignment.field.name }}
+            </ion-col>
+            <ion-col size="5">
+              {{ (assignment.rotation.schedule.startDate | date: 'MMM dd, yyyy') }} - {{ (assignment.rotation.schedule.endDate | date: 'MMM dd, yyyy') }}
+            </ion-col>
+            <ion-col size="2">
+              {{ assignment.group.name }}
+            </ion-col>
+            <ion-col size="2" *ngIf="!request.isPending && request.isApproved">
+              Approved
+            </ion-col>
+            <ion-col size="2" *ngIf="!request.isPending && !request.isApproved">
+              Declined
+            </ion-col>
+            <ion-col size="2" *ngIf="request.isPending">
+              Pending
+            </ion-col>
+          </ion-row>
+        </ion-grid>
       </ion-col>
     </ion-row>
   </ion-grid>

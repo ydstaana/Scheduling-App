@@ -84,14 +84,11 @@ async function updateRequest(req, res) {
 
 function listSwitchRequests(req, res) {
   SwitchRequest.find({})
-  .populate({
-    path: 'student',
-    populate: { path: 'group' }
-  })
+  .populate('student')
   .populate('admin')
-  .populate('newAssignments')
+  .populate('field')
   .populate({
-    path: 'newAssignments',
+    path: 'oldAssignments',
     populate: [
       { path: 'student' },
       { path: 'rotation' },
@@ -99,7 +96,15 @@ function listSwitchRequests(req, res) {
       { path: 'field'}
     ]
   })
-  .populate('field')
+  .populate({
+    path: 'newAssignments',
+    populate: [
+      { path: 'student' },
+      { path: 'rotation', populate: { path: 'schedule' } },
+      { path: 'group' },
+      { path: 'field'}
+    ]
+  })
   .exec(function(err, requests) {
     if(err)
       res.status(422).json({code:'422',message:err});
@@ -115,12 +120,20 @@ function listSwitchRequestsByStudent(req, res) {
   .populate('student')
   .populate('admin')
   .populate('field')
-  .populate('oldAssignments')
+  .populate({
+    path: 'oldAssignments',
+    populate: [
+      { path: 'student' },
+      { path: 'rotation', populate: { path: 'schedule' } },
+      { path: 'group' },
+      { path: 'field'}
+    ]
+  })
   .populate({
     path: 'newAssignments',
     populate: [
       { path: 'student' },
-      { path: 'rotation' },
+      { path: 'rotation', populate: { path: 'schedule' } },
       { path: 'group' },
       { path: 'field'}
     ]
