@@ -19,10 +19,11 @@
               <ion-select 
                 interface="action-sheet" 
                 placeholder="Select Schedule"
-                [(ngModel)]="selectedAssignment"
-                formControlName="assignment">
-                <ion-select-option [value]="assignment" *ngFor="let assignment of assignments">
-                  {{ assignment.rotation.schedule.startDate | date: 'MMM dd, yyyy' }} - {{ assignment.rotation.schedule.endDate | date: 'MMM dd, yyyy' }} / {{ assignment.group.name }} / {{ assignment.field.name }}
+                [(ngModel)]="selectedCurrentRotation"
+                formControlName="assignment"
+                (ionChange)="resolveCurrentRotation()">
+                <ion-select-option [value]="rotation" *ngFor="let rotation of assignmentRotations">
+                  {{ rotation.schedule.startDate | date: 'MMM dd, yyyy' }} - {{ rotation.schedule.endDate | date: 'MMM dd, yyyy' }} / {{ rotation.group.name }} / {{ rotation.field ? rotation.field.name : rotation.fieldGroup.name }}
                 </ion-select-option>
               </ion-select>
             </ion-item>
@@ -35,9 +36,11 @@
               <ion-select 
                 interface="action-sheet" 
                 placeholder="Proposed Schedule"
-                [(ngModel)]="selectedRotation"
-                formControlName="rotation">
-                <ion-select-option [value]="rotation" *ngFor="let rotation of rotations">
+                [(ngModel)]="selectedProposedRotation"
+                formControlName="rotation"
+                (ionChange)="resolveSelectedRotation()"
+                [disabled]="!selectedCurrentRotation || rotations.length === 0">
+                <ion-select-option [value]="rotation" *ngFor="let rotation of availableRotations">
                   {{ rotation.schedule.startDate | date: 'MMM dd, yyyy' }} - {{ rotation.schedule.endDate | date: 'MMM dd, yyyy' }} / {{ rotation.group.name }} / {{ rotation.field ? rotation.field.name : rotation.fieldGroup.name }}
                 </ion-select-option>
               </ion-select>
@@ -55,8 +58,13 @@
             </ion-item>
           </ion-col>
         </ion-row>
-        <ion-row text-right>
-          <ion-col size="12">
+        <ion-row>
+          <ion-col size="3">
+            <ion-button fill="clear" (click)="viewChanges()" *ngIf="newAssignments.length > 0">
+              <ion-label>View Changes</ion-label>
+            </ion-button>
+          </ion-col>
+          <ion-col size="9" text-right>
             <ion-button color="light" (click)="dismiss()">
               <ion-label>Cancel</ion-label>
             </ion-button>

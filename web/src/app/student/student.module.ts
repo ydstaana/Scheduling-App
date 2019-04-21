@@ -16,6 +16,7 @@ import { StudentPage } from './student.page';
 import { StudentProfilePage } from './student-profile/student-profile.page';
 import { UpdatePasswordModalPageModule } from '../update-password-modal/update-password-modal.module';
 import { UpdatePasswordModalPage } from '../update-password-modal/update-password-modal.page';
+import { ScheduleChangesPage } from './change-schedule-requests/schedule-changes/schedule-changes.page';
 
 const routes: Routes = [
   {
@@ -56,7 +57,8 @@ const routes: Routes = [
     ChangeScheduleRequestsPage,
     ChangeScheduleRequestsCreatePage,
     ChangeScheduleRequestsUpdatePage,
-    ChangeScheduleRequestsViewPage
+    ChangeScheduleRequestsViewPage,
+    ScheduleChangesPage
   ],
   entryComponents: [
     StudentProfilePage,
@@ -64,7 +66,8 @@ const routes: Routes = [
     UpdatePasswordModalPage,
     ChangeScheduleRequestsCreatePage,
     ChangeScheduleRequestsUpdatePage,
-    ChangeScheduleRequestsViewPage
+    ChangeScheduleRequestsViewPage,
+    ScheduleChangesPage
   ],
   providers: [
     AssignmentService

@@ -21,11 +21,13 @@ export class SchedulesApi extends Api {
   }
 
   createSwitchScheduleRequest(request: any) {
-    return this.http.post(
-      `${this.baseUrl}/requests`,
-      request,
-      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
-    ).toPromise();
+    console.log(request);
+    return Promise.resolve(request);
+    // return this.http.post(
+    //   `${this.baseUrl}/requests`,
+    //   request,
+    //   { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    // ).toPromise();
   }
 
   list() {

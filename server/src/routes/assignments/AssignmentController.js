@@ -94,7 +94,8 @@ function listAssignmentsByStudent(req ,res) {
         populate: {
           path: 'fields'
         } 
-      }
+      },
+      { path: 'group' }
     ]
   })
   .populate('group')
