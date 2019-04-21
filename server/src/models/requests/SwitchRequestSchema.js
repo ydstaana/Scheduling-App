@@ -4,18 +4,32 @@ var Request = require('./RequestSchema')
 
 var SwitchRequest = Request.discriminator('SwitchRequest', 
   new mongoose.Schema({
-    oldRotation: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Rotation'
-    },
-    newRotation: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Rotation'
-    },
-    field : {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: 'Field'
-    }
+    oldAssignments : [
+      {
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'Assignment'
+      }
+    ],
+    newAssignments : [
+      {
+        student : {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'User'
+        },
+        rotation : {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Rotation'
+        },
+        group : {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Group'
+        },
+        field : {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: 'Field'
+        }
+      }
+    ]
   })
 )
 

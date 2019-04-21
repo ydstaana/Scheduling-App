@@ -66,7 +66,7 @@ router.get('/assignments/students/:id', assignmentController.listAssignmentsBySt
 router.get('/assignments/rotations/:id', assignmentController.listAssignmentsByRotation);
 router.get('/assignments/field-admin/:id', assignmentController.listAssignmentsByFieldAdmin);
 router.get('/assignments/admin/:id', assignmentController.listAssignmentsByUMA);
-router.post('/assignments/switch', assignmentController.switchAssignments);
+router.post('/assignments/switch', assignmentController.approveSwitchRequest);
 
 //Requests
 router.post('/requests', requestController.createRequest);

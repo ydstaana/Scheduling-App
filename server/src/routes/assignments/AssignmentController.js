@@ -153,8 +153,16 @@ function createNewAssignment(groupId, studentId, rotationId, fieldId) {
   })
 }
 
-async function switchAssignments(req, res) {
- req.body.oldAssignments.forEach(async oldAssign => {
+async function approveSwitchRequest(req, res) {
+  var request = await Request.findById(req.body.request);
+
+  if(request == null) {
+    return res.status(422).json({
+      message : "Request does not exist"
+    })
+  }
+
+ request.oldAssignments.forEach(async oldAssign => {
    var tempAssign = await Assignment.findById(oldAssign);
 
    if(tempAssign == null) {
@@ -170,11 +178,11 @@ async function switchAssignments(req, res) {
  })
  
   var counter = 0;
-  req.body.newAssignments.forEach(assignment => {
+  request.newAssignments.forEach(assignment => {
     createNewAssignment(assignment.group, assignment.student, assignment.rotation, assignment.field)
     .then(newAssign => {
       counter++;
-      if(counter == req.body.newAssignments.length) {
+      if(counter == request.newAssignments.length) {
         res.status(200).send({
           message : "Successfully switched assignments"
         });
@@ -273,6 +281,6 @@ module.exports = {
   listAssignmentsByStudent : listAssignmentsByStudent,
   listAssignmentsByRotation : listAssignmentsByRotation,
   listAssignmentsByFieldAdmin : listAssignmentsByFieldAdmin,
-  switchAssignments : switchAssignments,
+  approveSwitchRequest : approveSwitchRequest,
   listAssignmentsByUMA: listAssignmentsByUMA
 } 
