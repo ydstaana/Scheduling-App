@@ -221,8 +221,8 @@ async function approveSwitchRequest(req, res) {
   });
 
   var counter = 0;
-  request.newAssignments.forEach(assignment => {
-    var requestAssignment = RequestAssignment.findById(assignment)
+  request.newAssignments.forEach(async assignment => {
+    var requestAssignment = await RequestAssignment.findById(assignment)
     createNewAssignment(requestAssignment.group, requestAssignment.student, requestAssignment.rotation, requestAssignment.field)
     .then(newAssign => {
       counter++;
