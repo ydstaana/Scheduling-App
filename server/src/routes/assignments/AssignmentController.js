@@ -1,5 +1,7 @@
 var Assignment = require('../../models/assignments/AssignmentSchema.js');
+var RequestAssignment = require('../../models/requests/RequestAssignmentSchema.js');
 var Field = require('../../models/fields/FieldSchema.js');
+var ElectiveField = require('../../models/fields/ElectiveFieldSchema.js');
 var FieldGroup = require('../../models/fields/FieldGroupSchema.js');
 var Student = require('../../models/users/StudentSchema.js');
 var Rotation = require('../../models/rotations/RotationSchema.js');
@@ -220,7 +222,8 @@ async function approveSwitchRequest(req, res) {
 
   var counter = 0;
   request.newAssignments.forEach(assignment => {
-    createNewAssignment(assignment.group, assignment.student, assignment.rotation, assignment.field, true)
+    var requestAssignment = RequestAssignment.findById(assignment)
+    createNewAssignment(requestAssignment.group, requestAssignment.student, requestAssignment.rotation, requestAssignment.field)
     .then(newAssign => {
       counter++;
       if(counter == request.newAssignments.length) {
@@ -267,6 +270,24 @@ async function listAssignmentsByUMA(req ,res) {
     }
     else{
       res.status(200).send(assignments);
+    }
+  })
+}
+
+function listElectivesByStudent(req, res) {
+  Assignment.find({
+    student : req.params.id
+  })
+  .populate('field')
+  .exec(function(err, electives) {
+    electives = electives.filter(assign => assign.field.fieldType == 'Elective');
+    if (err) {
+      res.status(422).json({
+        message: err
+      });
+    }
+    else{
+      res.status(200).send(electives);
     }
   })
 }
@@ -319,6 +340,7 @@ module.exports = {
   listAssignments : listAssignments,
   getAssignment : getAssignment,
   updateAssignment : updateAssignment,
+  listElectivesByStudent : listElectivesByStudent,
   listAssignmentsByStudent : listAssignmentsByStudent,
   listAssignmentsByRotation : listAssignmentsByRotation,
   listAssignmentsByFieldAdmin : listAssignmentsByFieldAdmin,

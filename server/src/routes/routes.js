@@ -64,6 +64,7 @@ router.get('/assignments/custom', assignmentController.listCustomAssignments);
 router.put('/assignments/:id', assignmentController.updateAssignment);
 router.get('/assignments/:id', assignmentController.getAssignment);
 router.get('/assignments/students/:id', assignmentController.listAssignmentsByStudent);
+router.get('/assignments/students/elective/:id', assignmentController.listElectivesByStudent);
 router.get('/assignments/rotations/:id', assignmentController.listAssignmentsByRotation);
 router.get('/assignments/field-admin/:id', assignmentController.listAssignmentsByFieldAdmin);
 router.get('/assignments/admin/:id', assignmentController.listAssignmentsByUMA);
@@ -71,7 +72,8 @@ router.post('/assignments/switch', assignmentController.approveSwitchRequest);
 
 //Requests
 router.post('/requests', requestController.createRequest);
-router.post('/requests/:id', requestController.updateRequest);
+router.get('/requests/:id', requestController.getRequest);
+router.put('/requests/:id', requestController.updateRequest);
 router.get('/requests/switch', requestController.listSwitchRequests);
 router.get('/requests/switch/student/:id', requestController.listSwitchRequestsByStudent);
 router.get('/requests/elective', requestController.listElectiveRequests);

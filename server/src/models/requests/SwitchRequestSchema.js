@@ -1,36 +1,23 @@
 var mongoose = require('mongoose');
 
 var Request = require('./RequestSchema')
+var RequestAssignment = require('./RequestAssignmentSchema')
 
-var SwitchRequest = Request.discriminator('SwitchRequest', 
-  new mongoose.Schema({
-    oldAssignments : [
-      {
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'Assignment'
-      }
-    ],
-    newAssignments : [
-      {
-        student : {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'User'
-        },
-        rotation : {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Rotation'
-        },
-        group : {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Group'
-        },
-        field : {
-          type: mongoose.Schema.Types.ObjectId,
-          ref: 'Field'
-        }
-      }
-    ]
-  })
-)
+var SwitchRequestSchema = new mongoose.Schema({
+  oldAssignments : [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'Assignment'
+    }
+  ],
+  newAssignments : [
+    {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: 'RequestAssignment'
+    }
+  ]
+});
+
+var SwitchRequest = Request.discriminator('SwitchRequest', SwitchRequestSchema);
 
 module.exports = SwitchRequest;
