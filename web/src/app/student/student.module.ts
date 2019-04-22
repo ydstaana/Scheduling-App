@@ -38,6 +38,10 @@ const routes: Routes = [
       {
         path: 'change-schedule-requests',
         component: ChangeScheduleRequestsPage
+      },
+      {
+        path: 'change-elective-requests',
+        component: ChangeElectiveRequestsPage
       }
     ]
   }

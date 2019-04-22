@@ -10,8 +10,8 @@ export class ScheduleService {
     return Schedule.create(sched);
   }
 
-  createSwitchScheduleRequest(request: any) {
-    return Schedule.createSwitchScheduleRequest(request);
+  createChangeRequest(request: any) {
+    return Schedule.createChangeRequest(request);
   }
 
   list() {

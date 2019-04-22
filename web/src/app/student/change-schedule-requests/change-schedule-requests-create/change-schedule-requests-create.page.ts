@@ -81,7 +81,7 @@ export class ChangeScheduleRequestsCreatePage implements OnInit {
       student: this.currentUser._id
     };
 
-    this.scheduleService.createSwitchScheduleRequest(req).then(data => {
+    this.scheduleService.createChangeRequest(req).then(data => {
       console.log(data);
       this.success('Successfully created switch schedule request.');
       this.dismiss();

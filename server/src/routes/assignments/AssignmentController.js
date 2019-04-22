@@ -286,6 +286,19 @@ function listElectivesByStudent(req, res) {
     student : req.params.id
   })
   .populate('field')
+  .populate({
+    path: 'rotation',
+    populate: [
+      { path: 'schedule' },
+      { path: 'field' },
+      { 
+        path: 'fieldGroup', 
+        populate: {
+          path: 'fields'
+        } 
+      }
+    ]
+  })
   .exec(function(err, electives) {
     electives = electives.filter(assign => assign.field.fieldType == 'Elective');
     if (err) {

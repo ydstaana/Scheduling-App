@@ -1,9 +1,49 @@
-<ion-header>
-  <ion-toolbar>
-    <ion-title>change-elective-requests</ion-title>
-  </ion-toolbar>
-</ion-header>
-
 <ion-content>
-
+  <ion-grid fixed class="p-25">
+    <ion-row class="m-b-15">
+      <ion-col>
+        <ion-button (click)="createRequest()">
+          Add new request
+        </ion-button>
+      </ion-col>
+    </ion-row>
+    <ion-row class="border-bottom">
+      <ion-col size="2">
+        <b>Field</b>
+      </ion-col>
+      <ion-col size="4">
+        <b>Message</b>
+      </ion-col>
+      <ion-col size="4">
+        <b>Remarks</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>Status</b>
+      </ion-col>
+    </ion-row>
+    <ion-row  
+      class="border-bottom log p-t-b-10"
+      *ngFor="let request of requests"
+      (click)="viewRequest(request)">
+      <ion-col size="2">
+        {{ request.assignment.field.name }}
+      </ion-col>
+      <ion-col size="4">
+        {{ request.message }}
+      </ion-col>
+      <ion-col size="4">
+        {{ request.remarks ? request.remarks : '--' }}
+      </ion-col>
+      <ion-col size="2" *ngIf="!request.isPending && request.isApproved">
+        Approved
+      </ion-col>
+      <ion-col size="2" *ngIf="!request.isPending && !request.isApproved">
+        Declined
+      </ion-col>
+      <ion-col size="2" *ngIf="request.isPending">
+        Pending
+      </ion-col>
+    </ion-row>
+  </ion-grid>
 </ion-content>
+  

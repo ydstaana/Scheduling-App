@@ -21,6 +21,14 @@ export class AssignmentService {
     return Assignment.listByUMA(id);
   }
 
+  listElectivesByStudent(id: string) {
+    return Assignment.listElectivesByStudent(id);
+  }
+
+  listElectiveRequestsByStudent(id: string) {
+    return Assignment.listElectiveRequestsByStudent(id);
+  }
+
   update(assignment: any) {
     return Assignment.update(assignment);
   }

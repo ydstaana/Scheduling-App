@@ -20,7 +20,7 @@ export class SchedulesApi extends Api {
     ).toPromise();
   }
 
-  createSwitchScheduleRequest(request: any) {
+  createChangeRequest(request: any) {
     console.log(request);
     return this.http.post(
       `${this.baseUrl}/requests`,

@@ -155,6 +155,28 @@ function listElectiveRequests(req, res) {
   ElectiveRequest.find({})
   .populate('student')
   .populate('admin')
+  .populate({
+    path: 'assignment',
+    populate: { path: 'field' }
+  })
+  .exec(function(err, requests) {
+    if(err)
+      res.status(422).json({code:'422',message:err});
+    else
+      res.status(200).send(requests);
+  });
+}
+
+function listElectiveRequestsByStudent(req, res) {
+  ElectiveRequest.find({
+    student: req.params.id
+  })
+  .populate('student')
+  .populate('admin')
+  .populate({
+    path: 'assignment',
+    populate: { path: 'field' }
+  })
   .exec(function(err, requests) {
     if(err)
       res.status(422).json({code:'422',message:err});
@@ -206,5 +228,6 @@ module.exports = {
   listSwitchRequestsByStudent: listSwitchRequestsByStudent,
   listElectiveRequests : listElectiveRequests,
   approveElectiveRequest : approveElectiveRequest,
-  updateRequest: updateRequest
+  updateRequest: updateRequest,
+  listElectiveRequestsByStudent: listElectiveRequestsByStudent
 }

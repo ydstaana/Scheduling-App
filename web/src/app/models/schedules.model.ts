@@ -5,8 +5,8 @@ export class Schedule extends Model {
         return this.api().schedules().create(schedule);
     }
 
-    static createSwitchScheduleRequest(request: any) {
-        return this.api().schedules().createSwitchScheduleRequest(request);
+    static createChangeRequest(request: any) {
+        return this.api().schedules().createChangeRequest(request);
     }
 
     static list() {

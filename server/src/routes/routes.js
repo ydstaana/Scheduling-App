@@ -78,6 +78,8 @@ router.get('/requests/elective', requestController.listElectiveRequests);
 router.get('/requests/:id', requestController.getRequest);
 router.put('/requests/:id', requestController.updateRequest);
 router.get('/requests/switch/student/:id', requestController.listSwitchRequestsByStudent);
+router.get('/requests/elective', requestController.listElectiveRequests);
+router.get('/requests/elective/student/:id', requestController.listElectiveRequestsByStudent);
 router.post('/requests/elective/approve', requestController.approveElectiveRequest);
 
 module.exports = router;
