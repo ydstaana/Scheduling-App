@@ -207,11 +207,15 @@ async function approveSwitchRequest(req, res) {
 
   request.oldAssignments.forEach(async oldAssign => {
     var tempAssign = await Assignment.findById(oldAssign);
+    var tempRot = await Rotation.findById(tempAssign.rotation);
+
+    tempRot.studentCount--;
+    tempRot.save();
 
     if(tempAssign == null) {
-    return res.status(422).json({
-      message: err
-    });
+      return res.status(422).json({
+        message: err
+      });
     }
 
     tempAssign.isActive = false;
@@ -223,9 +227,12 @@ async function approveSwitchRequest(req, res) {
   var counter = 0;
   request.newAssignments.forEach(async assignment => {
     var requestAssignment = await RequestAssignment.findById(assignment)
-    createNewAssignment(requestAssignment.group, requestAssignment.student, requestAssignment.rotation, requestAssignment.field, true)
-    .then(newAssign => {
+    createNewAssignment(requestAssignment.group, requestAssignment.student, requestAssignment.rotation, requestAssignment.field)
+    .then(async newAssign => {
       counter++;
+      var rotation = await Rotation.findById(requestAssignment.rotation);
+      rotation.studentCount++;
+      rotation.save();
       if(counter == request.newAssignments.length) {
         res.status(200).send({
           message : "Successfully switched assignments"
