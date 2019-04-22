@@ -1,3 +1,6 @@
+import { UpdateChangeElectiveRequestPage } from './change-elective-requests/update-change-elective-request/update-change-elective-request.page';
+import { CreateChangeElectiveRequestPage } from './change-elective-requests/create-change-elective-request/create-change-elective-request.page';
+import { ChangeElectiveRequestsPage } from './change-elective-requests/change-elective-requests.page';
 import { ChangeScheduleRequestsViewPage } from './change-schedule-requests/change-schedule-requests-view/change-schedule-requests-view.page';
 import { ChangeScheduleRequestsUpdatePage } from './change-schedule-requests/change-schedule-requests-update/change-schedule-requests-update.page';
 import { ChangeScheduleRequestsCreatePage } from './change-schedule-requests/change-schedule-requests-create/change-schedule-requests-create.page';
@@ -58,7 +61,10 @@ const routes: Routes = [
     ChangeScheduleRequestsCreatePage,
     ChangeScheduleRequestsUpdatePage,
     ChangeScheduleRequestsViewPage,
-    ScheduleChangesPage
+    ScheduleChangesPage,
+    ChangeElectiveRequestsPage,
+    CreateChangeElectiveRequestPage,
+    UpdateChangeElectiveRequestPage
   ],
   entryComponents: [
     StudentProfilePage,
@@ -67,7 +73,9 @@ const routes: Routes = [
     ChangeScheduleRequestsCreatePage,
     ChangeScheduleRequestsUpdatePage,
     ChangeScheduleRequestsViewPage,
-    ScheduleChangesPage
+    ScheduleChangesPage,
+    CreateChangeElectiveRequestPage,
+    UpdateChangeElectiveRequestPage
   ],
   providers: [
     AssignmentService
