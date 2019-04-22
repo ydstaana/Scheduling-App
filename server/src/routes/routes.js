@@ -23,6 +23,7 @@ router.get('/users/students/:id', userController.getStudent);
 router.put('/users/students/:id', userController.updateStudent);
 router.put('/users/profile/update/:id', userController.updateUserProfile);
 router.get('/users/:id', userController.getUser);
+router.post('/users/reset', userController.resetPassword);
 
 router.put('/users/:id', userController.updateUser);
 

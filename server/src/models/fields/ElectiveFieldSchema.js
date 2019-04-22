@@ -6,6 +6,7 @@ var ElectiveField = Field.discriminator('Elective',
   new mongoose.Schema({
     fieldGroup : {
       type: mongoose.Schema.Types.ObjectId,
+      required : true,
       ref: 'FieldGroup'
     }
   })

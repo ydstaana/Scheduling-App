@@ -109,6 +109,23 @@ function getUser(req, res) {
   })
 }
 
+async function resetPassword(req, res) {
+  var user = await User.findOne({
+    email : req.body.email
+  })
+
+  user.password = "user123";
+
+  user.save().then((err,result) => {
+    if(err)
+      res.status(422).json({
+        message: err
+      })
+    else
+      res.status(200).send(result);
+  })
+}
+
 async function createUser(req, res) {
   // TODO: Improve setting default password
   const defaultPassword = 'user123';
@@ -141,7 +158,6 @@ async function createUser(req, res) {
       break;
     case UserTypes.FIELD_ADMIN :
       FieldAdmin.create(req.body, function (err, user) {
-        console.log(req.body);
         if (err) {
           res.status(422).json({
             message: err
@@ -425,6 +441,7 @@ module.exports = {
   getMedAdmin : getMedAdmin,
   createUser: createUser,
   listUsers: listUsers,
+  resetPassword : resetPassword,
   listMedAdmins : listMedAdmins,
   listFieldAdmins : listFieldAdmins,
   listStudents : listStudents,

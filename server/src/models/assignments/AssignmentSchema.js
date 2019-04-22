@@ -3,24 +3,29 @@ var mongoose = require('mongoose');
 var AssignmentSchema = mongoose.Schema({
   student: {
     type: mongoose.Schema.Types.ObjectId,
+    required : true,
     ref: 'User'
   },
   rotation: {
     type: mongoose.Schema.Types.ObjectId,
+    required : true,
     ref: 'Rotation'
   },
   group: {
     type: mongoose.Schema.Types.ObjectId,
+    required : true,
     ref: 'Group'
   },
   field : {
     type: mongoose.Schema.Types.ObjectId,
+    required : true,
     ref: 'Field'
   },
   grade : Number,
   remarks: String,
   admin : {
     type: mongoose.Schema.Types.ObjectId,
+    required : true,
     ref: 'User'
   },
   message : String,

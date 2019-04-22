@@ -8,10 +8,12 @@ var RotationSchema = mongoose.Schema({
   studentCount : Number,
   schedule : {
     type: mongoose.Schema.Types.ObjectId,
+    required : true,
     ref: 'Schedule'
   },
   group : {
     type: mongoose.Schema.Types.ObjectId,
+    required : true,
     ref: 'Group'
   },
   isActive: Boolean

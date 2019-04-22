@@ -3,6 +3,7 @@ var mongoose = require('mongoose');
 var RequestSchema = mongoose.Schema({
   student : {
     type: mongoose.Schema.Types.ObjectId,
+    required : true,
     ref: 'User'
   },
   dateCreated : { type: Date , default : new Date()},

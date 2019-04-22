@@ -1,8 +1,8 @@
 var mongoose = require('mongoose');
 
 var ScheduleSchema = new mongoose.Schema({
-  startDate : Date,
-  endDate : Date,
+  startDate : { type : Date, required : true},
+  endDate : { type : Date, required : true},
   isActive : Boolean
 });
 
