@@ -1,5 +1,7 @@
 var mongoose = require('mongoose');
 const moment = require('moment');
+const bcrypt = require('bcrypt');
+const saltRounds = 10;
 
 const baseOptions = {
   discriminatorKey: 'userType',
@@ -43,6 +45,15 @@ UserSchema.statics.authenticate = function (email, password, callback) {
       
     });
 }
+
+UserSchema.pre('save', function(next) {
+  bcrypt.hash(this.password, saltRounds, function(err, hash) {
+    console.log(hash);
+    this.password = hash;
+    // Store hash in your password DB.
+  });
+  next();
+})
 
 var User = mongoose.model('User', UserSchema)
 module.exports = User;

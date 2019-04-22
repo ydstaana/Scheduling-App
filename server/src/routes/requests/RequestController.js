@@ -178,15 +178,13 @@ async function approveElectiveRequest(req, res) {
     return res.status(422).json({code:'422',message:"Request does not exist"});
   }
 
-  var assignment = await Assignment.findOne({
-    student : request.student,
-    field : request.field
-  })
+  var assignment = await Assignment.findById(request.assignment);
 
   request.isApproved = true;
   request.remarks = req.body.remarks;
 
   assignment.isCustom = true;
+  assigment.message = request.message;
   
   request.save().then(() => {
     assignment.save().then(assignment => {

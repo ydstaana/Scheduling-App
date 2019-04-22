@@ -4,9 +4,9 @@ var Request = require('./RequestSchema')
 
 var ElectiveRequest = Request.discriminator('ElectiveRequest', 
   new mongoose.Schema({
-    field : {
+    assignment : {
       type: mongoose.Schema.Types.ObjectId,
-      ref: 'Field'
+      ref: 'Assignment'
     }
   })
 )

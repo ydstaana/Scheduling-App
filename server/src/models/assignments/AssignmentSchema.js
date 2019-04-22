@@ -23,6 +23,7 @@ var AssignmentSchema = mongoose.Schema({
     type: mongoose.Schema.Types.ObjectId,
     ref: 'User'
   },
+  message : String,
   isCompleted: { type : Boolean, default : false },
   isCustom: { type : Boolean, default : false },
   isApproved: { type : Boolean, default : false },
