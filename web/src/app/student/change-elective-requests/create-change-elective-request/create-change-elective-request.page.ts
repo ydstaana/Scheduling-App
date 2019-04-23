@@ -25,10 +25,18 @@ export class CreateChangeElectiveRequestPage implements OnInit {
   ) { }
 
   ngOnInit() {
+    this.listElectives();
+    this.buildForm();
+  }
+
+  ionViewWillEnter() {
+    this.listElectives();
+  }
+
+  listElectives() {
     this.assignmentService.listElectivesByStudent(this.currentUser._id).then((data: any) => {
       this.electives = data;
     });
-    this.buildForm();
   }
 
   buildForm() {

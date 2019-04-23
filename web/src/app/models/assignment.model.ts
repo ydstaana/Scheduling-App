@@ -1,6 +1,10 @@
 import { Model } from './model';
 
 export class Assignment extends Model {
+  static approveElectiveRequest(request: any) {
+    return this.api().assignments().approveElectiveRequest(request);
+  }
+
   static listCustom() {
     return this.api().assignments().listCustom();
   }

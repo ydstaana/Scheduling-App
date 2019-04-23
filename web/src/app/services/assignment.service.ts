@@ -5,6 +5,10 @@ import { Assignment } from '../models/assignment.model';
   providedIn: 'root'
 })
 export class AssignmentService {
+  approveElectiveRequest(request: any) {
+    return Assignment.approveElectiveRequest(request);
+  }
+
   listCustom() {
     return Assignment.listCustom();
   }

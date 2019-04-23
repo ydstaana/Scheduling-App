@@ -1,4 +1,6 @@
-import { UpdateStudentChangeElectiveRequestPage } from './update-student-change-elective-request/update-student-change-elective-request.page';
+import {
+  UpdateStudentChangeElectiveRequestPage
+} from './update-student-change-elective-request/update-student-change-elective-request.page';
 import { PopoverController } from '@ionic/angular';
 import { AssignmentService } from 'src/app/services/assignment.service';
 import { Component, OnInit } from '@angular/core';

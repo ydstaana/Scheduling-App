@@ -9,6 +9,15 @@ export class AssignmentsApi extends Api {
     super(baseUrl);
   }
 
+  approveElectiveRequest(request: any) {
+    console.log(request);
+    return this.http.post(
+      `${this.baseUrl}/requests/elective/approve`,
+      request,
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
+  }
+
   listCustom() {
     return this.http.get(`${this.baseUrl}/assignments/custom`).toPromise();
   }

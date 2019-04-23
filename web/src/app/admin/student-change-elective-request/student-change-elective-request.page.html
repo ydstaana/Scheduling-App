@@ -7,11 +7,14 @@
       <ion-col size="3">
         <b>Email</b>
       </ion-col>
-      <ion-col size="3">
+      <ion-col size="2">
         <b>Student Number</b>
       </ion-col>
-      <ion-col size="3">
-        <b>group</b>
+      <ion-col size="2">
+        <b>Group</b>
+      </ion-col>
+      <ion-col size="2">
+        <b>Status</b>
       </ion-col>
     </ion-row>
     <ion-row  
@@ -24,11 +27,20 @@
       <ion-col size="3">
         {{ request.student.email }}
       </ion-col>
-      <ion-col size="3">
+      <ion-col size="2">
         {{ request.student.studentId }}
       </ion-col>
-      <ion-col size="3">
-        {{ request.group.name }}
+      <ion-col size="2">
+        {{ request.student.group.name }}
+      </ion-col>
+      <ion-col size="2" *ngIf="!request.isPending && request.isApproved">
+        Approved
+      </ion-col>
+      <ion-col size="2" *ngIf="!request.isPending && !request.isApproved">
+        Declined
+      </ion-col>
+      <ion-col size="2" *ngIf="request.isPending">
+        Pending
       </ion-col>
     </ion-row>
   </ion-grid>

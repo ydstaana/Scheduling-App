@@ -153,12 +153,16 @@ function listSwitchRequestsByStudent(req, res) {
 
 function listElectiveRequests(req, res) {
   ElectiveRequest.find({})
-  .populate('student')
+  .populate({
+    path: 'student',
+    populate: { path: 'group' }
+  })
   .populate('admin')
   .populate({
     path: 'assignment',
     populate: { path: 'field' }
   })
+  .populate('')
   .exec(function(err, requests) {
     if(err)
       res.status(422).json({code:'422',message:err});
@@ -195,6 +199,7 @@ async function approveElectiveRequest(req, res) {
   */
   
   var request = await Request.findById(req.body.request);
+  console.log(request);
 
   if(request == null) {
     return res.status(422).json({code:'422',message:"Request does not exist"});
@@ -203,10 +208,11 @@ async function approveElectiveRequest(req, res) {
   var assignment = await Assignment.findById(request.assignment);
 
   request.isApproved = true;
+  request.isPending = false;
   request.remarks = req.body.remarks;
 
   assignment.isCustom = true;
-  assigment.message = request.message;
+  assignment.message = request.message;
   
   request.save().then(() => {
     assignment.save().then(assignment => {
