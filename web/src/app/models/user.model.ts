@@ -54,4 +54,8 @@ export class User extends Model {
   static updateUserGroups(userGroup: any) {
     return this.api().users().updateUserGroups(userGroup);
   }
+
+  static resetPassword(email: string) {
+    return this.api().users().resetPassword(email);
+  }
 }

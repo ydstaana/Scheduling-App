@@ -43,6 +43,7 @@
               <ion-row>
                 <ion-col text-right>
                   <ion-button (click)="login()" [disabled]="loginForm.invalid || callInProgress">Login</ion-button>
+                  <ion-button fill="clear" size="small" (click)="openModal()">Forget Password</ion-button>
                 </ion-col>
               </ion-row>
             </ion-grid>

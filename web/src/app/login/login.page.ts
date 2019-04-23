@@ -4,6 +4,8 @@ import { FormGroup, FormBuilder, Validators, AbstractControl } from '@angular/fo
 import { Router } from '@angular/router';
 import { UserService } from '../services/user.service';
 import { UserType } from '../models/user.model';
+import { ModalController, PopoverController } from '@ionic/angular';
+import { LostPasswordModalPage } from '../lost-password-modal/lost-password-modal.page';
 
 @Component({
   selector: 'app-login',
@@ -19,7 +21,8 @@ export class LoginPage implements OnInit {
     private formBuilder: FormBuilder,
     private router: Router,
     private userService: UserService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private popoverCtrl : PopoverController
   ) { }
 
   ngOnInit() {
@@ -83,5 +86,13 @@ export class LoginPage implements OnInit {
       case UserType.FIELD_ADMIN:
         return this.userService.getFieldAdmin(response.id);
     }
+  }
+
+  async openModal() {
+    var modal = await this.popoverCtrl.create({
+      component: LostPasswordModalPage
+    });
+
+    return await modal.present();
   }
 }

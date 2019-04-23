@@ -121,7 +121,8 @@ async function addStudentToGroup(req, res) {
       return res.status(422).json({code:'422', message: "Group does not exist"});
     }
 
-    newGroup.students.push(student.id);
+    if(newGroup.students.indexOf(student.id) == -1)
+      newGroup.students.push(student.id);
 
     var counter = 0;
 

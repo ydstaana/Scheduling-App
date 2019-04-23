@@ -16,6 +16,10 @@ export class UserService {
     return User.getStudent(id);
   }
 
+  resetPassword(email : string) {
+    return User.resetPassword(email);
+  }
+
   getUMA(id: string) {
     return User.getUMA(id);
   }

@@ -88,4 +88,13 @@ export class UsersApi extends Api {
       { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
     ).toPromise();
   }
+
+  resetPassword(email: string) {
+    return this.http.post(
+      `${this.baseUrl}/users/reset`, {
+        email : email
+      },
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
+  }
 }

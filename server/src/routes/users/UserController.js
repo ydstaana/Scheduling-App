@@ -114,6 +114,12 @@ async function resetPassword(req, res) {
     email : req.body.email
   })
 
+  if(user == null) {
+    res.status(422).json({
+      message: "Email isn't recognized"
+    })
+  }
+
   user.password = "user123";
 
   user.save().then(result => {
