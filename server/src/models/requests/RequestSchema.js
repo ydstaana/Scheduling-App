@@ -14,7 +14,7 @@ var RequestSchema = mongoose.Schema({
   },
   isApproved: { type : Boolean, default : false},
   isPending: { type : Boolean, default : true},
-  message : String
+  message : { type : String, minlength : 20 }
 }, {
   discriminatorKey : "requestType"
 })

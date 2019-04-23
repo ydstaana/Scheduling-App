@@ -30,7 +30,7 @@ async function createRotation(req, res) {
       SingleRotation.create(req.body, async function (err, rotation) {
         if (err) {
           res.status(422).json({
-            message: err
+            message: err.message
           });
         }
         else {
