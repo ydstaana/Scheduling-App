@@ -25,7 +25,6 @@ var AssignmentSchema = mongoose.Schema({
   remarks: String,
   admin : {
     type: mongoose.Schema.Types.ObjectId,
-    required : true,
     ref: 'User'
   },
   message : String,

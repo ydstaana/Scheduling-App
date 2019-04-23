@@ -116,13 +116,13 @@ async function resetPassword(req, res) {
 
   user.password = "user123";
 
-  user.save().then((err,result) => {
-    if(err)
-      res.status(422).json({
-        message: err
-      })
-    else
-      res.status(200).send(result);
+  user.save().then(result => {
+    res.status(200).send(result);    
+  })
+  .catch(err => {
+    res.status(422).json({
+      message: err
+    })
   })
 }
 
