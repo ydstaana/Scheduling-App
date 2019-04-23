@@ -74,10 +74,10 @@ router.post('/assignments/switch', assignmentController.approveSwitchRequest);
 //Requests
 router.post('/requests', requestController.createRequest);
 router.get('/requests/switch', requestController.listSwitchRequests);
+router.get('/requests/elective', requestController.listElectiveRequests);
 router.get('/requests/:id', requestController.getRequest);
 router.put('/requests/:id', requestController.updateRequest);
 router.get('/requests/switch/student/:id', requestController.listSwitchRequestsByStudent);
-router.get('/requests/elective', requestController.listElectiveRequests);
 router.post('/requests/elective/approve', requestController.approveElectiveRequest);
 
 module.exports = router;
