@@ -61,7 +61,7 @@ export class ChangeScheduleRequestsCreatePage implements OnInit {
     this.requestForm = this.formBuilder.group({
       rotation: ['', [Validators.required]],
       assignment: [null, [Validators.required]],
-      message: ['', [Validators.required]]
+      message: ['', [Validators.required, Validators.minLength(20)]]
     });
   }
 

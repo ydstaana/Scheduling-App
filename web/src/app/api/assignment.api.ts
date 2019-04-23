@@ -29,6 +29,10 @@ export class AssignmentsApi extends Api {
     return this.http.get(`${this.baseUrl}/assignments/students/elective/${id}`).toPromise();
   }
 
+  listElectiveRequests() {
+    return this.http.get(`${this.baseUrl}/requests/elective`).toPromise();
+  }
+
   listElectiveRequestsByStudent(id: string) {
     return this.http.get(`${this.baseUrl}/requests/elective/student/${id}`).toPromise();
   }

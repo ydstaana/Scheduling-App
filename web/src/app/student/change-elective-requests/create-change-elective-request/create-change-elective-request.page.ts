@@ -34,17 +34,11 @@ export class CreateChangeElectiveRequestPage implements OnInit {
   buildForm() {
     this.requestForm = this.formBuilder.group({
       elective: ['', [Validators.required]],
-      message: ['', [Validators.required]]
+      message: ['', [Validators.required, Validators.minLength(20)]]
     });
   }
 
   createRequest() {
-    console.log({
-      assignment: this.selectedElective._id,
-      message: this.message,
-      requestType: 'ElectiveRequest'
-    });
-
     this.scheduleService.createChangeRequest({
       assignment: this.selectedElective._id,
       message: this.message,

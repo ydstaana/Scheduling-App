@@ -21,6 +21,10 @@ export class Assignment extends Model {
     return this.api().assignments().listElectivesByStudent(id);
   }
 
+  static listElectiveRequests() {
+    return this.api().assignments().listElectiveRequests();
+  }
+
   static listElectiveRequestsByStudent(id: string) {
     return this.api().assignments().listElectiveRequestsByStudent(id);
   }

@@ -3,6 +3,7 @@ import { StorageService, Storage } from 'src/app/services/storage.service';
 import { AssignmentService } from 'src/app/services/assignment.service';
 import { Component, OnInit } from '@angular/core';
 import { CreateChangeElectiveRequestPage } from './create-change-elective-request/create-change-elective-request.page';
+import { UpdateChangeElectiveRequestPage } from './update-change-elective-request/update-change-elective-request.page';
 
 @Component({
   selector: 'app-change-elective-requests',
@@ -39,6 +40,24 @@ export class ChangeElectiveRequestsPage implements OnInit {
     const viewModal = await this.popoverCtrl.create({
       component: CreateChangeElectiveRequestPage,
       componentProps: {
+        currentUser: this.currentUser
+      },
+      cssClass: 'custom-popover',
+      backdropDismiss: false
+    });
+
+    viewModal.onDidDismiss().then(data => {
+      this.listElectiveRequestsByStudent();
+    });
+
+    return await viewModal.present();
+  }
+
+  async viewRequest(request) {
+    const viewModal = await this.popoverCtrl.create({
+      component: UpdateChangeElectiveRequestPage,
+      componentProps: {
+        request: request,
         currentUser: this.currentUser
       },
       cssClass: 'custom-popover',

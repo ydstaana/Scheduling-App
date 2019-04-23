@@ -1,3 +1,4 @@
+import { UpdateStudentChangeElectiveRequestPage } from './student-change-elective-request/update-student-change-elective-request/update-student-change-elective-request.page';
 import { AdminViewAssignmentPage } from './admin-grades-management/admin-view-assignment/admin-view-assignment.page';
 import { AdminUpdateGradePage } from './admin-grades-management/admin-update-grade/admin-update-grade.page';
 import { AdminGradesManagementPage } from './admin-grades-management/admin-grades-management.page';
@@ -38,6 +39,7 @@ import { RotationService } from '../services/rotation.service';
 import { UpdatePasswordModalPageModule } from '../update-password-modal/update-password-modal.module';
 import { StudentChangeScheduleRequestUpdatePage } from './student-change-schedule-requests/student-change-schedule-request-update/student-change-schedule-request-update.page';
 import { StudentChangeScheduleRequestsPage } from './student-change-schedule-requests/student-change-schedule-requests.page';
+import { StudentChangeElectiveRequestPage } from './student-change-elective-request/student-change-elective-request.page';
 
 const routes: Routes = [
   {
@@ -76,6 +78,10 @@ const routes: Routes = [
       {
         path: 'rotations',
         component: RotationsPage
+      },
+      {
+        path: 'change-elective-requests',
+        component: StudentChangeElectiveRequestPage
       },
       {
         path: 'change-schedule-requests',
@@ -125,7 +131,9 @@ const routes: Routes = [
     StudentChangeScheduleRequestUpdatePage,
     AdminGradesManagementPage,
     AdminUpdateGradePage,
-    AdminViewAssignmentPage
+    AdminViewAssignmentPage,
+    StudentChangeElectiveRequestPage,
+    UpdateStudentChangeElectiveRequestPage
   ],
   providers: [
     FieldService,
@@ -151,7 +159,8 @@ const routes: Routes = [
     UpdatePasswordModalPage,
     StudentChangeScheduleRequestUpdatePage,
     AdminUpdateGradePage,
-    AdminViewAssignmentPage
+    AdminViewAssignmentPage,
+    UpdateStudentChangeElectiveRequestPage
   ]
 })
 export class AdminPageModule {}

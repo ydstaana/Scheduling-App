@@ -25,6 +25,10 @@ export class AssignmentService {
     return Assignment.listElectivesByStudent(id);
   }
 
+  listElectiveRequests() {
+    return Assignment.listElectiveRequests();
+  }
+
   listElectiveRequestsByStudent(id: string) {
     return Assignment.listElectiveRequestsByStudent(id);
   }
