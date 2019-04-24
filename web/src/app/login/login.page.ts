@@ -22,7 +22,7 @@ export class LoginPage implements OnInit {
     private router: Router,
     private userService: UserService,
     private storageService: StorageService,
-    private popoverCtrl : PopoverController
+    private popoverCtrl: PopoverController
   ) { }
 
   ngOnInit() {
@@ -89,8 +89,10 @@ export class LoginPage implements OnInit {
   }
 
   async openModal() {
-    var modal = await this.popoverCtrl.create({
-      component: LostPasswordModalPage
+    const modal = await this.popoverCtrl.create({
+      component: LostPasswordModalPage,
+      cssClass: 'smaller-custom-popover',
+      backdropDismiss: false
     });
 
     return await modal.present();

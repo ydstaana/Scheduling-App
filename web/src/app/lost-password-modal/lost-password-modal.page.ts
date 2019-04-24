@@ -12,10 +12,10 @@ export class LostPasswordModalPage implements OnInit {
   form: FormGroup;
 
   constructor(
-    private formBuilder : FormBuilder,
-    private userService : UserService,
-    private toastCtrl : ToastController,
-    private popoverCtrl : PopoverController
+    private formBuilder: FormBuilder,
+    private userService: UserService,
+    private toastCtrl: ToastController,
+    private popoverCtrl: PopoverController
   ) { }
 
   ngOnInit() {
@@ -24,14 +24,18 @@ export class LostPasswordModalPage implements OnInit {
     });
   }
 
+  dismiss() {
+    this.popoverCtrl.dismiss();
+  }
+
   resetPassword() {
     this.userService.resetPassword(this.form.get('email').value).then(() => {
-      this.success("Successfully reset password");
-      this.popoverCtrl.dismiss();
+      this.success('Successfully reset password');
+      this.dismiss();
     })
     .catch(err => {
-      this.error("Reset password unsuccessful");
-    })
+      this.error('Reset password unsuccessful');
+    });
   }
 
   async success(message: string) {
