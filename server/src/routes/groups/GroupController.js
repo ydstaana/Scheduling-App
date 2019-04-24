@@ -75,14 +75,14 @@ function listGroups(req, res) {
     })
 }
 
-function createNewAssignment(group, student, rotation, field) {
+function createNewAssignment(groupId, studentId, rotationId, fieldId) {
   return new Promise(function(resolve, reject) {
     console.log("Creating a new doc...");
     new Assignment({
-      student : student.id,
-      rotation : rotation.id,
-      group : group.id,
-      field : field
+      student : studentId,
+      rotation : rotationId,
+      group : groupId,
+      field : fieldId
     })
     .save().then(async assign => {
       console.log("Creating a new doc finished executing...");
@@ -93,102 +93,131 @@ function createNewAssignment(group, student, rotation, field) {
     })
   })
 }
-async function addStudentToGroup(req, res) {
-  const requests = req.body;
-  console.log(requests);
-  if (requests.length === 0) {
-    return res.status(200).send({});
-  }
 
-  requests.forEach(async request => {
-    var student = await Student.findById(request.studentId);
-    if(student == null) {
-      return res.status(422).json({code:'422', message: "Student does not exist"});
-    }
-
-    if(student.group != null) {
-      const oldGroup = await Group.findById(student.group);
-      oldGroup.students.splice(oldGroup.students.indexOf(student.id), 1)
-      oldGroup.save();
-    }
-    student.group = request.groupId;
-    
-    if(student.assignments.length != 0)
-      student.assignments.forEach(async assign => {
-        var tempAssign = await Assignment.findById(assign)
-        tempAssign.isActive = false;
-        tempAssign.save();
-      })
-
-    const newGroup = await Group.findById(student.group);
-    
-    if(newGroup == null) {
-      return res.status(422).json({code:'422', message: "Group does not exist"});
-    }
-
-    if(newGroup.students.indexOf(student.id) == -1)
-      newGroup.students.push(student.id);
-
+async function createAssignments(group, student) {
+  return new Promise(function(resolve, reject) {
+    //Create assignments of the student from the group
     var counter = 0;
+    group.rotations.forEach(async rot => {
+      var rotation = await Rotation.findById(rot);
+      rotation.studentCount += 1;
 
-    if(newGroup.rotations.length == 0) {
-      student.save().then(async () => {
-        newGroup.save().then(result => {
-          return res.status(200).send(student);
-        });
-      })
-      .catch(err => {
-        return res.status(422).json({code:'422', message: err});
-      }) 
-    }
-
-    newGroup.rotations.forEach(async rotation => {
-      var rot = await Rotation.findById(rotation);
-      switch(rot.rotationType) {
-        case RotationType.SINGLE :
-          createNewAssignment(newGroup, student, rot, rot.field)
-          .then(result => {
+      switch(rotation.rotationType) {
+        case RotationType.SINGLE:
+          await createNewAssignment(student.group, student.id, rotation.id, rotation.field)
+          .then(() => {
+            console.log("Created an assignment");
             counter++;
-            student.assignments.push(result);
-            if(counter == newGroup.rotations.length) {
-              student.save().then(async () => {
-                newGroup.save().then(result => {
-                  res.status(200).send(student);
-                });
+            if(counter == group.rotations.length) {
+              rotation.save().then(newRotation => {
+                console.log("Should have ended here");
+                console.log(`Rotation now has ${newRotation.studentCount} students`);
+                resolve();
               })
-              .catch(err => {
-                return res.status(422).json({code:'422', message: err});
-              }) 
+              
             }
           })
+          .catch(error => {
+            console.error(error);
+            reject(err);
+          });
           break;
-        default :
-          var fieldGroup = await FieldGroup.findById(rot.fieldGroup)
+        default : //For RotationType Elective and Multiple
+          var fieldGroup = await FieldGroup.findById(rotation.fieldGroup)
           var fieldCtr = 0;
-          fieldGroup.fields.forEach(field => {
-            createNewAssignment(newGroup, student, rot, field)
-            .then(result => {
+
+          fieldGroup.fields.forEach(async field => {
+            await createNewAssignment(student.group, student.id, rotation.id, field)
+            .then(assign => {
               fieldCtr++;
-              student.assignments.push(result);
+
+              //Add created assignment to student
+              student.assignments.push(assign);
               if(fieldCtr == fieldGroup.fields.length) {
-                counter++;
-                if(counter == newGroup.rotations.length) {
-                  student.save().then(async () => {
-                    newGroup.save().then(result => {
-                      res.status(200).send(student);
-                    });
-                  })
-                  .catch(err => {
-                    return res.status(422).json({code:'422', message: err});
-                  }) 
-                }
+                console.log("Should have ended here for FieldGroup")
+                resolve();
               }
+            })
+            .catch(err => {
+              reject(err);
             })
           })
           break;
       }
-    })    
+    })
+  }) 
+}
+
+async function removeStudentFromGroup(studentId, groupId) {
+  return new Promise(async function(resolve, reject) {
+    var group = await Group.findById(groupId);
+
+    group.students = group.students.splice(group.students.indexOf(studentId), 1)
+    group.save().then(() => {
+      console.log("Removed student from group");
+      resolve();
+    })
+    .catch(err => {
+      reject(err);
+    })
   })
+}
+
+function addStudentToGroup(req, res) {
+  /*
+    [
+      {
+        "studentId": "5cb6c75591a3bd08bec4d5e8",
+        "groupId": "5cb6c74991a3bd08bec4d5db"
+      }
+    ]
+  */
+  var requests = req.body;
+  try {
+    requests.forEach(async request => {
+      var student = await Student.findById(request.studentId);
+      var group = await Group.findById(request.groupId);
+  
+      if(group == null) {
+        throw new Exception("Group does not exist");
+      }
+  
+      if(student == null) {
+        throw new Exception("Student does not exist");
+      }
+  
+      //Remove the student from group
+      if(student.group != null) {
+        await removeStudentFromGroup(student.id, student.group)
+        console.log("PUMASOK BA DITO?")
+      }
+  
+      //Change student's group
+      student.group = request.groupId;
+  
+      //Add student to Group
+      if(group.students.indexOf(student.id) == -1)  {
+        group.students.push(student.id);
+        createAssignments(group, student).then(() => {
+          student.save().then(() => {
+            group.save().then(() => {
+              res.status(200).send({
+                message : "Add student to group successful"
+              });
+            })
+          })
+        })
+      }
+      else {
+        throw new Error("Student already in group");
+      }
+    })
+  }
+  catch(err) {
+    return res.status(422).json({
+      message : err.message
+    });
+  }
 }
 
 module.exports = {
