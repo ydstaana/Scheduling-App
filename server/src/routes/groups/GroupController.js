@@ -77,7 +77,6 @@ function listGroups(req, res) {
 
 function createNewAssignment(groupId, studentId, rotationId, fieldId) {
   return new Promise(function(resolve, reject) {
-    console.log("Creating a new doc...");
     new Assignment({
       student : studentId,
       rotation : rotationId,
@@ -85,7 +84,6 @@ function createNewAssignment(groupId, studentId, rotationId, fieldId) {
       field : fieldId
     })
     .save().then(async assign => {
-      console.log("Creating a new doc finished executing...");
       resolve(assign._id)
     })
     .catch(err => {
@@ -106,11 +104,9 @@ async function createAssignments(group, student) {
         case RotationType.SINGLE:
           await createNewAssignment(student.group, student.id, rotation.id, rotation.field)
           .then(() => {
-            console.log("Created an assignment");
             counter++;
             if(counter == group.rotations.length) {
               rotation.save().then(newRotation => {
-                console.log("Should have ended here");
                 console.log(`Rotation now has ${newRotation.studentCount} students`);
                 resolve();
               })
@@ -134,7 +130,6 @@ async function createAssignments(group, student) {
               //Add created assignment to student
               student.assignments.push(assign);
               if(fieldCtr == fieldGroup.fields.length) {
-                console.log("Should have ended here for FieldGroup")
                 resolve();
               }
             })
@@ -151,11 +146,10 @@ async function createAssignments(group, student) {
 async function removeStudentFromGroup(studentId, groupId) {
   return new Promise(async function(resolve, reject) {
     var group = await Group.findById(groupId);
-
-    group.students = group.students.splice(group.students.indexOf(studentId), 1)
-    group.save().then(() => {
+    group.students.splice(group.students.indexOf(studentId), 1)
+    group.save().then(result => {
       console.log("Removed student from group");
-      resolve();
+      resolve(result);
     })
     .catch(err => {
       reject(err);
@@ -173,51 +167,73 @@ function addStudentToGroup(req, res) {
     ]
   */
   var requests = req.body;
-  try {
-    requests.forEach(async request => {
-      var student = await Student.findById(request.studentId);
-      var group = await Group.findById(request.groupId);
-  
-      if(group == null) {
-        throw new Exception("Group does not exist");
-      }
-  
-      if(student == null) {
-        throw new Exception("Student does not exist");
-      }
-  
-      //Remove the student from group
-      if(student.group != null) {
-        await removeStudentFromGroup(student.id, student.group)
-        console.log("PUMASOK BA DITO?")
-      }
-  
-      //Change student's group
-      student.group = request.groupId;
-  
-      //Add student to Group
-      if(group.students.indexOf(student.id) == -1)  {
-        group.students.push(student.id);
-        createAssignments(group, student).then(() => {
-          student.save().then(() => {
-            group.save().then(() => {
-              res.status(200).send({
-                message : "Add student to group successful"
-              });
+  var reqCounter = 0;
+  requests.forEach(async request => {
+    console.log(request);
+    var student = await Student.findById(request.studentId);
+    console.log(student);    
+    var newGroup = await Group.findById(request.groupId);
+    console.log(newGroup.name);
+
+    if(newGroup == null) {
+      throw new Exception("Group does not exist");
+    }
+
+    if(student == null) {
+      throw new Exception("Student does not exist");
+    }
+
+    if(student.group != null) {
+      if(student.group != request.groupId) {
+        var oldGroup = await Group.findById(student.group);
+        removeStudentFromGroup(student.id, oldGroup.id)
+        .then(() => {
+          // Change group of student
+          student.group = request.groupId;
+          newGroup.students.push(student.id);
+          
+          //Create assignments 
+          createAssignments(newGroup, student).then(() => {
+            student.save().then(() => {
+              newGroup.save().then(() => {
+                reqCounter++;
+                if(reqCounter == requests.length) {
+                  res.status(200).send({
+                    message : "Add student to group successful"
+                  });
+                }
+              })
             })
           })
         })
       }
       else {
-        throw new Error("Student already in group");
+        reqCounter++;
+        if(reqCounter == requests.length) {
+          res.status(200).send({
+            message : "Add student to group successful"
+          });
+        }
       }
-    })
-  }
-  catch(err) {
-    return res.status(422).json({
-      message : err.message
-    });
-  }
+    }
+    else {
+      student.group = request.groupId;
+      newGroup.students.push(student.id);
+      //Create assignments 
+      createAssignments(newGroup, student).then(() => {
+        student.save().then(() => {
+          newGroup.save().then(() => {
+            reqCounter++;
+            if(reqCounter == requests.length) {
+              res.status(200).send({
+                message : "Add student to group successful"
+              });
+            }
+          })
+        })
+      })
+    }
+  }) 
 }
 
 module.exports = {
