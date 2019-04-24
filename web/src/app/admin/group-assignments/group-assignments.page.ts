@@ -43,14 +43,14 @@ export class GroupAssignmentsPage implements OnInit {
       this.userService.listUnassignedStudents().then((res: any) => {
         this.unassignedStudents = res;
 
-        if (res) {
-          this.unassignedStudents.forEach(student => {
-            this.currentStudents.push({
-              studentId: student._id,
-              groupId: this.groups[0]._id
-            });
-          });
-        }
+        // if (res) {
+        //   this.unassignedStudents.forEach(student => {
+        //     this.currentStudents.push({
+        //       studentId: student._id,
+        //       groupId: this.groups[0]._id
+        //     });
+        //   });
+        // }
       }, error => {
         console.log(error);
       });
@@ -58,23 +58,24 @@ export class GroupAssignmentsPage implements OnInit {
   }
 
   resolveGroup() {
-    if (this.currentGroup === 'Unassigned') {
-      this.currentStudents = [];
-      this.unassignedStudents.forEach(student => {
-        this.currentStudents.push({
-          studentId: student._id,
-          groupId: this.groups[0]._id
-        });
-      });
-    } else if (this.currentGroup.students) {
-      this.currentStudents = [];
-      this.currentGroup.students.forEach(student => {
-        this.currentStudents.push({
-          studentId: student._id,
-          groupId: this.currentGroup._id
-        });
-      });
-    }
+    this.currentStudents = [];
+    // if (this.currentGroup === 'Unassigned') {
+    //   this.currentStudents = [];
+    //   this.unassignedStudents.forEach(student => {
+    //     this.currentStudents.push({
+    //       studentId: student._id,
+    //       groupId: this.groups[0]._id
+    //     });
+    //   });
+    // } else if (this.currentGroup.students) {
+    //   this.currentStudents = [];
+    //   this.currentGroup.students.forEach(student => {
+    //     this.currentStudents.push({
+    //       studentId: student._id,
+    //       groupId: this.currentGroup._id
+    //     });
+    //   });
+    // }
   }
 
   setGroup(student, event) {
@@ -83,7 +84,13 @@ export class GroupAssignmentsPage implements OnInit {
       return i.studentId === student._id;
     });
 
-    if (index > -1) {
+    // check if selected unassigned, remove from current list of selected students
+    if (selectedGroup === 'Unassigned') {
+      if (index > -1) {
+        this.currentStudents = this.currentStudents.filter(stud => stud.studentId !== student._id);
+      }
+    } else if (index > -1) {
+      // remove then add again if user is already on edit list
       this.currentStudents = [
         ...this.currentStudents.filter(stud => stud.studentId !== student._id),
         {
@@ -91,6 +98,12 @@ export class GroupAssignmentsPage implements OnInit {
           groupId: selectedGroup._id
         }
       ];
+    } else {
+      // add student directly to edit student list
+      this.currentStudents.push({
+        studentId: student._id,
+        groupId: selectedGroup._id
+      });
     }
   }
 

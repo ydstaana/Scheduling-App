@@ -95,6 +95,11 @@ function createNewAssignment(group, student, rotation, field) {
 }
 async function addStudentToGroup(req, res) {
   const requests = req.body;
+  console.log(requests);
+  if (requests.length === 0) {
+    return res.status(200).send({});
+  }
+
   requests.forEach(async request => {
     var student = await Student.findById(request.studentId);
     if(student == null) {
