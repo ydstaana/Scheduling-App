@@ -15,6 +15,7 @@ export class CreateChangeElectiveRequestPage implements OnInit {
   selectedElective: any;
   message = '';
   requestForm: FormGroup;
+  callInProgress = false;
 
   constructor(
     private formBuilder: FormBuilder,
@@ -47,15 +48,18 @@ export class CreateChangeElectiveRequestPage implements OnInit {
   }
 
   createRequest() {
+    this.callInProgress = true;
     this.scheduleService.createChangeRequest({
       assignment: this.selectedElective._id,
       message: this.message,
       requestType: 'ElectiveRequest',
       student: this.currentUser._id
     }).then(data => {
+      this.callInProgress = false;
       this.success('Successfully create change elective request.');
       this.dismiss();
     }, error => {
+      this.callInProgress = false;
       this.error('Unable to create change elective request. Please try again');
     });
   }

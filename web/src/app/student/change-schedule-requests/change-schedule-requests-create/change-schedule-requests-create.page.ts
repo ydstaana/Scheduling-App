@@ -20,6 +20,7 @@ export class ChangeScheduleRequestsCreatePage implements OnInit {
   selectedProposedRotation: any;
   requestForm: FormGroup;
   message = '';
+  callInProgress = false;
 
   // filtered selections
   availableRotations = [];
@@ -66,6 +67,7 @@ export class ChangeScheduleRequestsCreatePage implements OnInit {
   }
 
   createRequest() {
+    this.callInProgress = true;
     const req = {
       requestType: 'SwitchRequest',
       newAssignments: this.newAssignments.map(na => {
@@ -83,9 +85,11 @@ export class ChangeScheduleRequestsCreatePage implements OnInit {
 
     this.scheduleService.createChangeRequest(req).then(data => {
       console.log(data);
+      this.callInProgress = false;
       this.success('Successfully created switch schedule request.');
       this.dismiss();
     }, error => {
+      this.callInProgress = false;
       this.error('Unable to create switch schedule request. Please try again.');
     });
   }

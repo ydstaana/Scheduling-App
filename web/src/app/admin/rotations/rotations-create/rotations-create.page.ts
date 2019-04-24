@@ -20,6 +20,7 @@ export class RotationsCreatePage implements OnInit {
   fieldGroupsDisplay = [];
   groups = [];
   rotationForm: FormGroup;
+  callInProgress = false;
 
   // rotation type variables
   rotationType: string = RotationType.Single;
@@ -73,13 +74,16 @@ export class RotationsCreatePage implements OnInit {
   }
 
   createFieldGroup() {
+    this.callInProgress = true;
     console.log(this.rotationForm.value);
     if (this.rotationForm.valid) {
       this.rotationService.create(this.rotationForm.value).then(data => {
         console.log(data);
+        this.callInProgress = false;
         this.popoverCtrl.dismiss();
         this.success('Successfully created a rotation');
       }, error => {
+        this.callInProgress = false;
         this.error('Unable to create rotation. Please try again');
       });
     }
