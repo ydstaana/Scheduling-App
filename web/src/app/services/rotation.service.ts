@@ -13,7 +13,7 @@ export class RotationService {
     return Rotation.list();
   }
 
-  update(rotation: any) {
-    return Rotation.update(rotation);
+  update(id: string, rotation: any) {
+    return Rotation.update(id, rotation);
   }
 }

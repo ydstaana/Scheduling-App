@@ -3,6 +3,7 @@ import { RotationService } from './../../services/rotation.service';
 import { Component, OnInit } from '@angular/core';
 import { RotationsCreatePage } from './rotations-create/rotations-create.page';
 import { RotationType } from 'src/app/models/rotation.model';
+import { RotationsUpdatePage } from './rotations-update/rotations-update.page';
 
 @Component({
   selector: 'app-rotations',
@@ -29,23 +30,6 @@ export class RotationsPage implements OnInit {
       console.log(this.rotations);
     });
   }
-
-  // async viewFieldGroup(fieldGroup) {
-  //   const viewModal = await this.popoverCtrl.create({
-  //     component: FieldGroupsViewPage,
-  //     componentProps: {
-  //       fieldGroup: fieldGroup
-  //     },
-  //     cssClass: 'custom-popover',
-  //     backdropDismiss: false
-  //   });
-
-  //   viewModal.onDidDismiss().then(data => {
-  //     this.listRotations();
-  //   });
-
-  //   return await viewModal.present();
-  // }
 
   getFieldName(rotation: any) {
     return rotation.rotationType === RotationType.Single ? rotation.field.name : rotation.fieldGroup.name;
@@ -75,8 +59,22 @@ export class RotationsPage implements OnInit {
     return name;
   }
 
-  viewRotation(rotation) {
-    alert('coming soon!');
+
+  async viewRotation(rotation) {
+    const viewModal = await this.popoverCtrl.create({
+      component: RotationsUpdatePage,
+      componentProps: {
+        rotation: rotation
+      },
+      cssClass: 'custom-popover',
+      backdropDismiss: false
+    });
+
+    viewModal.onDidDismiss().then(data => {
+      this.listRotations();
+    });
+
+    return await viewModal.present();
   }
 
   async createRotation() {

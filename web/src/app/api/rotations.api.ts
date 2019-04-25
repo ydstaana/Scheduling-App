@@ -25,7 +25,12 @@ export class RotationsApi extends Api {
     return this.http.get(`${this.baseUrl}/rotations`).toPromise();
   }
 
-  update(rotation: any) {
-    return Promise.resolve(rotation);
+  update(id: string, rotation: any) {
+    console.log(rotation);
+    return this.http.put(
+      `${this.baseUrl}/rotations/${id}`,
+      rotation,
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
   }
 }

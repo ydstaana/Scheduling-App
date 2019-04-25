@@ -39,7 +39,7 @@ export class AccountsPage implements OnInit {
       componentProps: {
         user: user
       },
-      cssClass: 'custom-popover',
+      cssClass: 'fixed-custom-popover',
       backdropDismiss: false
     });
 

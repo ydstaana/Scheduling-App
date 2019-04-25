@@ -27,6 +27,11 @@
     width: 60%;
 }
 
+.fixed-custom-popover .popover-content {
+    width: 60%;
+    max-height: 60vh;
+}
+
 .smaller-custom-popover .popover-content {
     width: 40%;
 }

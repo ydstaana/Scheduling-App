@@ -1,3 +1,4 @@
+import { RotationsUpdatePage } from './rotations/rotations-update/rotations-update.page';
 import { UpdateStudentChangeElectiveRequestPage } from './student-change-elective-request/update-student-change-elective-request/update-student-change-elective-request.page';
 import { AdminViewAssignmentPage } from './admin-grades-management/admin-view-assignment/admin-view-assignment.page';
 import { AdminUpdateGradePage } from './admin-grades-management/admin-update-grade/admin-update-grade.page';
@@ -126,6 +127,7 @@ const routes: Routes = [
     GroupAssignmentsPage,
     RotationsPage,
     RotationsCreatePage,
+    RotationsUpdatePage,
     AdminProfilePage,
     StudentChangeScheduleRequestsPage,
     StudentChangeScheduleRequestUpdatePage,
@@ -155,6 +157,7 @@ const routes: Routes = [
     SchedulesUpdatePage,
     SchedulesViewPage,
     RotationsCreatePage,
+    RotationsUpdatePage,
     AdminProfilePage,
     UpdatePasswordModalPage,
     StudentChangeScheduleRequestUpdatePage,
