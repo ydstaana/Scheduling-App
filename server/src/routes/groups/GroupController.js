@@ -145,14 +145,17 @@ async function createAssignments(group, student) {
 
 async function removeStudentFromGroup(studentId, groupId) {
   return new Promise(async function(resolve, reject) {
-    var group = await Group.findById(groupId);
-    group.students.splice(group.students.indexOf(studentId), 1)
-    group.save().then(result => {
-      console.log("Removed student from group");
-      resolve(result);
-    })
-    .catch(err => {
-      reject(err);
+    await Group.findById(groupId).then(result => {
+      var group = result;
+      group.students = group.students.filter(stud => stud != studentId);
+      console.log(group.students);
+      group.save().then(result => {
+        console.log("Removed student from group");
+        resolve(result);
+      })
+      .catch(err => {
+        reject(err);
+      })
     })
   })
 }
