@@ -147,8 +147,7 @@ async function removeStudentFromGroup(studentId, groupId) {
   return new Promise(async function(resolve, reject) {
     await Group.findById(groupId).then(result => {
       var group = result;
-      group.students = group.students.filter(stud => stud != studentId);
-      console.log(group.students);
+      group.students.pull(studentId);
       group.save().then(result => {
         console.log("Removed student from group");
         resolve(result);
