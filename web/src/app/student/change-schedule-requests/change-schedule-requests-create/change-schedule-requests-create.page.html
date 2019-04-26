@@ -21,6 +21,7 @@
                 placeholder="Select Schedule"
                 [(ngModel)]="selectedCurrentRotation"
                 formControlName="assignment"
+                [disabled]="assignmentRotations.length === 0"
                 (ionChange)="resolveCurrentRotation()">
                 <ion-select-option [value]="rotation" *ngFor="let rotation of assignmentRotations">
                   {{ rotation.schedule.startDate | date: 'MMM dd, yyyy' }} - {{ rotation.schedule.endDate | date: 'MMM dd, yyyy' }} / {{ rotation.group.name }} / {{ rotation.field ? rotation.field.name : rotation.fieldGroup.name }}

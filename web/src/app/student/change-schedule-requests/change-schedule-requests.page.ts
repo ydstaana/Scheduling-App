@@ -51,9 +51,6 @@ export class ChangeScheduleRequestsPage implements OnInit {
   async createRequest() {
     const viewModal = await this.popoverCtrl.create({
       component: ChangeScheduleRequestsCreatePage,
-      componentProps: {
-        assignments: this.assignments
-      },
       cssClass: 'custom-popover',
       backdropDismiss: false
     });

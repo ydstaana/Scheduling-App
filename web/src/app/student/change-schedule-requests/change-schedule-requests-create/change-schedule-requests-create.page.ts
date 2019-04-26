@@ -1,3 +1,4 @@
+import { AssignmentService } from 'src/app/services/assignment.service';
 import { ScheduleChangesPage } from './../schedule-changes/schedule-changes.page';
 import { ScheduleService } from './../../../services/schedule.service';
 import { PopoverController, ToastController } from '@ionic/angular';
@@ -13,7 +14,7 @@ import { StorageService, Storage } from 'src/app/services/storage.service';
 })
 export class ChangeScheduleRequestsCreatePage implements OnInit {
   rotations = [];
-  assignments: any;
+  assignments = [];
   assignmentRotations = [];
   selectedAssignment: any;
   selectedCurrentRotation: any;
@@ -36,25 +37,20 @@ export class ChangeScheduleRequestsCreatePage implements OnInit {
     private popoverCtrl: PopoverController,
     private toastCtrl: ToastController,
     private scheduleService: ScheduleService,
-    private storageService: StorageService
+    private storageService: StorageService,
+    private assignmentService: AssignmentService
   ) {
     this.currentUser = JSON.parse(this.storageService.getItem(Storage.CURRENT_USER));
   }
 
   ngOnInit() {
     this.buildForm();
+    this.listAssignments();
+    this.listRotations();
   }
 
   ionViewWillEnter() {
-    if (this.assignments) {
-      this.assignmentRotations = this.removeDuplicates(
-        this.assignments.map(assignment => {
-          return assignment.rotation;
-        })
-      );
-
-      console.log(this.assignmentRotations);
-    }
+    this.listAssignments();
     this.listRotations();
   }
 
@@ -94,9 +90,26 @@ export class ChangeScheduleRequestsCreatePage implements OnInit {
     });
   }
 
+  listAssignments() {
+    this.assignmentService.listByStudent(
+      this.currentUser._id
+    ).then((data: any) => {
+      this.assignments = data.filter(d => d.isActive);
+      if (this.assignments) {
+        this.assignmentRotations = this.removeDuplicates(
+          this.assignments.map(assignment => {
+            return assignment.rotation;
+          })
+        );
+
+        console.log(this.assignmentRotations);
+      }
+    });
+  }
+
   listRotations() {
     this.rotationService.list().then((data: any) => {
-      this.rotations = data;
+      this.rotations = data.filter(d => d.isActive);
     });
   }
 

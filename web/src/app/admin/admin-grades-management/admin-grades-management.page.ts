@@ -3,6 +3,7 @@ import { PopoverController } from '@ionic/angular';
 import { StorageService, Storage } from './../../services/storage.service';
 import { AssignmentService } from './../../services/assignment.service';
 import { Component, OnInit } from '@angular/core';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-admin-grades-management',
@@ -32,7 +33,11 @@ export class AdminGradesManagementPage implements OnInit {
 
   listAssignments() {
     this.assignmentService.listCustom().then((data: any) => {
-      this.assignments = data;
+      this.assignments = data
+        .filter(d => d.isActive)
+        .sort((a, b) => {
+          return moment(a.rotation.schedule.startDate).isAfter(moment(b.rotation.schedule.startDate)) ? 1 : -1;
+        });
     }, error => {
       console.log(error);
     });
