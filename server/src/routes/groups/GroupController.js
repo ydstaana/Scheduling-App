@@ -110,7 +110,7 @@ async function createAssignments(group, student) {
               rotation.save().then(newRotation => {
                 console.log(`Rotation now has ${newRotation.studentCount} students`);
                 resolve();
-              })
+              });
               
             }
           })
@@ -131,7 +131,10 @@ async function createAssignments(group, student) {
               //Add created assignment to student
               student.assignments.push(assign);
               if(fieldCtr == fieldGroup.fields.length) {
-                resolve();
+                rotation.save().then(newRotation => {
+                  console.log(`Rotation now has ${newRotation.studentCount} students`);
+                  resolve();
+                });
               }
             })
             .catch(err => {
