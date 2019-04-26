@@ -1,3 +1,4 @@
+import { AccountsViewAssignmentPage } from './../accounts-view-assignment/accounts-view-assignment.page';
 import { AssignmentService } from 'src/app/services/assignment.service';
 import { AccountsUpdatePage } from './../accounts-update/accounts-update.page';
 import { Component, OnInit } from '@angular/core';
@@ -41,6 +42,19 @@ export class AccountsViewPage implements OnInit {
 
   toggleView(tab) {
     this.currentTab = tab;
+  }
+
+  async viewAssignment(assignment) {
+    const viewModal = await this.popoverCtrl.create({
+      component: AccountsViewAssignmentPage,
+      componentProps: {
+        assignment: assignment
+      },
+      cssClass: 'custom-popover',
+      backdropDismiss: false
+    });
+
+    return await viewModal.present();
   }
 
   async updateUser() {

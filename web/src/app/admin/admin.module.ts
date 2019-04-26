@@ -1,3 +1,4 @@
+import { AccountsViewAssignmentPage } from './accounts/accounts-view-assignment/accounts-view-assignment.page';
 import { RotationsUpdatePage } from './rotations/rotations-update/rotations-update.page';
 import { UpdateStudentChangeElectiveRequestPage } from './student-change-elective-request/update-student-change-elective-request/update-student-change-elective-request.page';
 import { AdminViewAssignmentPage } from './admin-grades-management/admin-view-assignment/admin-view-assignment.page';
@@ -108,6 +109,7 @@ const routes: Routes = [
   declarations: [
     AccountsCreatePage,
     AccountsViewPage,
+    AccountsViewAssignmentPage,
     AccountsUpdatePage,
     AccountsPage,
     AdminPage,
@@ -146,6 +148,7 @@ const routes: Routes = [
   entryComponents: [
     AccountsCreatePage,
     AccountsViewPage,
+    AccountsViewAssignmentPage,
     AccountsUpdatePage,
     FieldsCreatePage,
     FieldsUpdatePage,

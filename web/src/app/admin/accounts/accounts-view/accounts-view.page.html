@@ -175,8 +175,9 @@
       </ion-col>
     </ion-row>
     <ion-row 
-      class="border-bottom p-t-b-10" 
-      align-items-center *ngFor="let assignment of assignments">
+      class="border-bottom log p-t-b-10" 
+      align-items-center *ngFor="let assignment of assignments"
+      (click)="viewAssignment(assignment)">
       <ion-col size="2">
         {{ assignment.field.name }}
       </ion-col>
