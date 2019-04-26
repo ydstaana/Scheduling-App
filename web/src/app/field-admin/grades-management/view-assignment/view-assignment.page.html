@@ -103,6 +103,9 @@
         <ion-button (click)="updateGrade()" *ngIf="!assignment.isCompleted">
           Add Grade
         </ion-button>
+        <ion-button (click)="updateGrade()" *ngIf="assignment.isCompleted">
+          Update Grade
+        </ion-button>
       </ion-col>
     </ion-row>
   </ion-grid>

@@ -21,13 +21,14 @@ export class UpdateGradePage implements OnInit {
   ) { }
 
   ngOnInit() {
+    console.log(this.assignment);
     this.buildForm();
   }
 
   buildForm() {
     this.gradeForm = this.formBuilder.group({
-      grade: ['', [Validators.required, Validators.max(100), Validators.min(0)]],
-      remarks: ['', [Validators.required]]
+      grade: [this.assignment.grade, [Validators.required, Validators.max(100), Validators.min(0)]],
+      remarks: [this.assignment.remarks, [Validators.required]]
     });
   }
 

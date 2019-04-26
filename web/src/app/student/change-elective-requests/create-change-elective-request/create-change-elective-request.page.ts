@@ -36,7 +36,7 @@ export class CreateChangeElectiveRequestPage implements OnInit {
 
   listElectives() {
     this.assignmentService.listElectivesByStudent(this.currentUser._id).then((data: any) => {
-      this.electives = data;
+      this.electives = data.filter(d => d.isActive);
     });
   }
 

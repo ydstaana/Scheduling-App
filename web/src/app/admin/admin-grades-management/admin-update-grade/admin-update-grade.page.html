@@ -4,7 +4,8 @@
       <ion-list>
         <ion-row>
           <ion-col>
-            <h3>Add assignment grade</h3>
+            <h3 *ngIf="!assignment.isCompleted">Add assignment grade</h3>
+            <h3 *ngIf="assignment.isCompleted">Update assignment grade</h3>
           </ion-col>
           <ion-col text-right>
             <ion-button fill="clear" color="dark" (click)="dismiss()">
@@ -30,7 +31,6 @@
         </ion-row>
         <ion-row text-right>
           <ion-col size="12">
-            {{gradeForm.errors}}
             <ion-button color="light" (click)="dismiss()">
               <ion-label>Cancel</ion-label>
             </ion-button>

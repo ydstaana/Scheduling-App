@@ -29,7 +29,7 @@ export class UpdateChangeElectiveRequestPage implements OnInit {
     this.buildForm();
     console.log(this.request);
     this.assignmentService.listElectivesByStudent(this.currentUser._id).then((data: any) => {
-      this.electives = data;
+      this.electives = data.filter(d => d.isActive);
       this.message = this.request.message;
       this.selectedElective = this.electives.find(e => e._id === this.request.assignment._id);
     });
