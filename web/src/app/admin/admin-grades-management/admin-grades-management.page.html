@@ -22,7 +22,7 @@
       align-items-center *ngFor="let assignment of assignments"
       (click)="viewAssignment(assignment)">
       <ion-col size="3">
-        {{ assignment.student.firstName + ' ' + assignment.student.middleName + assignment.student.lastName }}
+        {{ assignment.student.firstName + ' ' + assignment.student.middleName  + ' ' + assignment.student.lastName }}
       </ion-col>
       <ion-col size="3">
         {{ assignment.student.email }}
