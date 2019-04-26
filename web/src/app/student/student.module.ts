@@ -20,6 +20,7 @@ import { StudentProfilePage } from './student-profile/student-profile.page';
 import { UpdatePasswordModalPageModule } from '../update-password-modal/update-password-modal.module';
 import { UpdatePasswordModalPage } from '../update-password-modal/update-password-modal.page';
 import { ScheduleChangesPage } from './change-schedule-requests/schedule-changes/schedule-changes.page';
+import { StudentSchedulesOverviewPage } from './student-schedules-overview/student-schedules-overview.page';
 
 const routes: Routes = [
   {
@@ -42,6 +43,10 @@ const routes: Routes = [
       {
         path: 'change-elective-requests',
         component: ChangeElectiveRequestsPage
+      },
+      {
+        path: 'schedules-overview',
+        component: StudentSchedulesOverviewPage
       }
     ]
   }
@@ -68,7 +73,8 @@ const routes: Routes = [
     ScheduleChangesPage,
     ChangeElectiveRequestsPage,
     CreateChangeElectiveRequestPage,
-    UpdateChangeElectiveRequestPage
+    UpdateChangeElectiveRequestPage,
+    StudentSchedulesOverviewPage
   ],
   entryComponents: [
     StudentProfilePage,
