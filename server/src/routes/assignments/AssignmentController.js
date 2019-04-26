@@ -209,8 +209,10 @@ async function approveSwitchRequest(req, res) {
     var tempAssign = await Assignment.findById(oldAssign);
     var tempRot = await Rotation.findById(tempAssign.rotation);
 
-    tempRot.studentCount--;
-    tempRot.save();
+    if(tempRot.isActive != false) {
+      tempRot.studentCount--;
+      tempRot.save();
+    }
 
     if(tempAssign == null) {
       return res.status(422).json({
