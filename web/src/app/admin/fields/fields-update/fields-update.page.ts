@@ -60,9 +60,9 @@ export class FieldsUpdatePage implements OnInit {
       this.fieldService.update(updatedField).then(data => {
         console.log(data);
         this.popoverCtrl.dismiss(data);
-        this.success('Successfully updated field');
+        this.success('Successfully updated course');
       }, error => {
-        this.error('Unable to update field. Please try again');
+        this.error('Unable to update course. Please try again');
       });
     }
   }

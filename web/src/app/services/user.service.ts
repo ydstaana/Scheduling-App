@@ -16,7 +16,7 @@ export class UserService {
     return User.getStudent(id);
   }
 
-  resetPassword(email : string) {
+  resetPassword(email: string) {
     return User.resetPassword(email);
   }
 

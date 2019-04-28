@@ -33,6 +33,7 @@ export class UpdatePasswordModalPage implements OnInit {
   callInProgress = false;
   currentUser: any;
   newPassword = '';
+  oldPassword = '';
 
   constructor(
     private formBuilder: FormBuilder,
@@ -50,11 +51,20 @@ export class UpdatePasswordModalPage implements OnInit {
 
   buildForm() {
     this.passwordForm = this.formBuilder.group({
+      oldPassword: ['', [
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(32)
+      ]],
       password: ['', [
-        Validators.required
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(32)
       ]],
       confirmPassword: ['', [
-        Validators.required
+        Validators.required,
+        Validators.minLength(8),
+        Validators.maxLength(32)
       ]]
     }, {
       validator: MustMatch('password', 'confirmPassword')

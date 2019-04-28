@@ -31,16 +31,14 @@ export class AccountsCreatePage implements OnInit {
 
   buildForm() {
     this.accountForm = this.formBuilder.group({
-      studentId: ['', [Validators.required]],
+      studentId: ['', [Validators.required, Validators.maxLength(10)]],
       userType: ['', [
         Validators.required
       ]],
       firstName: ['', [
         Validators.required
       ]],
-      middleName: ['', [
-        Validators.required
-      ]],
+      middleName: ['', []],
       lastName: ['', [
         Validators.required
       ]],

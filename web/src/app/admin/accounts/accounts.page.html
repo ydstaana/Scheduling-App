@@ -32,7 +32,7 @@
         {{ user.email }}
       </ion-col>
       <ion-col size="3">
-        {{ user.userType }}
+        {{ user.userType === UserType.FIELD_ADMIN ? 'RCA' : user.userType }}
       </ion-col>
       <ion-col size="1" *ngIf="user.isActive">
         Active

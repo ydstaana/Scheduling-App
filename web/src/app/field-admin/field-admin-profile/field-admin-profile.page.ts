@@ -34,9 +34,7 @@ export class FieldAdminProfilePage implements OnInit {
       firstName: [this.currentUser.firstName, [
         Validators.required
       ]],
-      middleName: [this.currentUser.middleName, [
-        Validators.required
-      ]],
+      middleName: [this.currentUser.middleName, []],
       lastName: [this.currentUser.lastName, [
         Validators.required
       ]],
@@ -46,12 +44,19 @@ export class FieldAdminProfilePage implements OnInit {
       ]],
       mobileNumber: [this.currentUser.mobileNumber ? this.currentUser.mobileNumber : '', [
         Validators.required,
-        Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$')
+        Validators.pattern('^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\s\./0-9]*$'),
+        Validators.maxLength(11),
+        Validators.minLength(11)
       ]],
       contactPersonName: [this.currentUser.contactPersonName ? this.currentUser.contactPersonName : '', [
         Validators.required
       ]],
       contactPersonNumber: [this.currentUser.contactPersonNumber ? this.currentUser.contactPersonNumber : '', [
+        Validators.required,
+        Validators.maxLength(11),
+        Validators.minLength(11)
+      ]],
+      contactPersonRelationship: [this.currentUser.contactPersonRelationship ? this.currentUser.contactPersonRelationship : '', [
         Validators.required
       ]]
     });

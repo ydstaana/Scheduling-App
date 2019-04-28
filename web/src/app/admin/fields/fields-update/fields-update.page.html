@@ -4,7 +4,7 @@
       <ion-list>
         <ion-row>
           <ion-col>
-            <h3>Edit field information</h3>
+            <h3>Edit course information</h3>
           </ion-col>
           <ion-col text-right>
             <ion-button fill="clear" color="dark" (click)="dismiss()">
@@ -15,7 +15,7 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label position="floating">Field Name</ion-label>
+              <ion-label position="floating">Course</ion-label>
               <ion-input formControlName="name"></ion-input>
             </ion-item>
           </ion-col>
@@ -31,10 +31,10 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label position="floating">Field Type</ion-label>
+              <ion-label position="floating">Course Type</ion-label>
               <ion-select 
                 interface="popover" 
-                placeholder="Select Field Type"
+                placeholder="Select Course Type"
                 [value]="fieldType"
                 [(ngModel)]="fieldType"
                 formControlName="fieldType">
@@ -48,10 +48,10 @@
         <ion-row>
           <ion-col>
             <ion-item>
-              <ion-label position="floating">Field Admin</ion-label>
+              <ion-label position="floating">RCA</ion-label>
               <ion-select 
                 interface="action-sheet" 
-                placeholder="Select Field Admin"
+                placeholder="Select RCA"
                 formControlName="admin">
                 <ion-select-option [value]="admin._id" *ngFor="let admin of admins">
                   {{ admin.firstName + ' ' + admin.middleName + ' ' + admin.lastName }}

@@ -76,9 +76,9 @@ export class FieldGroupsUpdatePage implements OnInit {
       this.fieldService.updateGroup(updatedField).then(data => {
         console.log(data);
         this.popoverCtrl.dismiss(updatedField);
-        this.success('Successfully updated field group');
+        this.success('Successfully updated course group');
       }, error => {
-        this.error('Unable to update field group. Please try again');
+        this.error('Unable to update course group. Please try again');
       });
     }
   }

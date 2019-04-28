@@ -25,7 +25,7 @@
                 formControlName="userType"
                 (ionChange)="resolveAccountType()">
                 <ion-select-option [value]="USER_TYPE_VALUES[u]" *ngFor="let u of USER_TYPE_KEYS">
-                  {{ USER_TYPE_VALUES[u] }}
+                  {{ USER_TYPE_VALUES[u] === USER_TYPE_VALUES.FIELD_ADMIN ? 'RCA' : USER_TYPE_VALUES[u] }}
                 </ion-select-option>
               </ion-select>
             </ion-item>
@@ -34,7 +34,7 @@
         <ion-row class="student-number-input" [ngClass]="{'input-hidden': userType !== USER_TYPE_VALUES.STUDENT}">
           <ion-col>
             <ion-item>
-              <ion-label position="floating">Student Number</ion-label>
+              <ion-label position="floating">Student ID</ion-label>
               <ion-input formControlName="studentId" type="number"></ion-input>
             </ion-item>
           </ion-col>

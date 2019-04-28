@@ -5,6 +5,9 @@
     </ion-buttons>
     <ion-title>UST Med Clerkship Tracker</ion-title>
     <ion-buttons slot="end">
+      <ion-label class="p-l-r-5 profile-text">
+        {{ currentUser.firstName + ' ' + currentUser.middleName + ' ' + currentUser.lastName }}
+      </ion-label>
       <ion-button title="Profile" (click)="viewProfile()">
         <ion-icon name="contact"></ion-icon>
       </ion-button>

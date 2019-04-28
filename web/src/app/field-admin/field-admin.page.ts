@@ -10,11 +10,15 @@ import { StorageService, Storage } from '../services/storage.service';
   styleUrls: ['./field-admin.page.scss'],
 })
 export class FieldAdminPage implements OnInit {
+  currentUser: any;
+
   constructor(
     private router: Router,
     private storageService: StorageService,
     private popoverCtrl: PopoverController
-  ) { }
+  ) {
+    this.currentUser = JSON.parse(storageService.getItem(Storage.CURRENT_USER));
+  }
 
   ngOnInit() {
   }

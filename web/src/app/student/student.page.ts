@@ -10,12 +10,15 @@ import { StudentProfilePage } from './student-profile/student-profile.page';
   styleUrls: ['./student.page.scss'],
 })
 export class StudentPage implements OnInit {
+  currentUser: any;
 
   constructor(
     private router: Router,
     private storageService: StorageService,
     private popoverCtrl: PopoverController
-  ) { }
+  ) {
+    this.currentUser = JSON.parse(storageService.getItem(Storage.CURRENT_USER));
+  }
 
   ngOnInit() {
   }

@@ -66,9 +66,9 @@ export class FieldGroupsCreatePage implements OnInit {
       }).then(data => {
         console.log(data);
         this.popoverCtrl.dismiss();
-        this.success('Successfully created a field group');
+        this.success('Successfully created a course group');
       }, error => {
-        this.error('Unable to create field group. Please try again');
+        this.error('Unable to create course group. Please try again');
       });
     }
   }

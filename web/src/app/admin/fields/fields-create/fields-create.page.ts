@@ -53,9 +53,9 @@ export class FieldsCreatePage implements OnInit {
       this.fieldService.create(this.fieldForm.value).then(data => {
         console.log(data);
         this.popoverCtrl.dismiss();
-        this.success('Successfully created a field');
+        this.success('Successfully created a course');
       }, error => {
-        this.error('Unable to create field. Please try again');
+        this.error('Unable to create course. Please try again');
       });
     }
   }

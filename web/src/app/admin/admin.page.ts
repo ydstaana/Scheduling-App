@@ -10,12 +10,15 @@ import { StorageService, Storage } from './../services/storage.service';
   styleUrls: ['./admin.page.scss'],
 })
 export class AdminPage implements OnInit {
+  currentUser: any;
 
   constructor(
     private router: Router,
     private storageService: StorageService,
     private popoverCtrl: PopoverController
-  ) { }
+  ) {
+    this.currentUser = JSON.parse(storageService.getItem(Storage.CURRENT_USER));
+  }
 
   ngOnInit() {
   }

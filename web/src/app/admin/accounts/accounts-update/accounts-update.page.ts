@@ -44,9 +44,7 @@ export class AccountsUpdatePage implements OnInit {
       firstName: [this.user.firstName, [
         Validators.required
       ]],
-      middleName: [this.user.middleName, [
-        Validators.required
-      ]],
+      middleName: [this.user.middleName, []],
       lastName: [this.user.lastName, [
         Validators.required
       ]],
