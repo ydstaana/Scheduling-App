@@ -40,6 +40,15 @@ export class UserService {
     return User.listUserGroups();
   }
 
+  listResetPasswordRequests() {
+    return User.listResetPasswordRequests();
+  }
+
+
+  updateResetPasswordRequest(id: string, req: any) {
+    return User.updateResetPasswordRequest(id, req);
+  }
+
   login(email: string, password: string) {
     return User.login(email, password);
   }

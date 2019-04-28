@@ -56,6 +56,24 @@ export class UsersApi extends Api {
     ).toPromise();
   }
 
+  listResetPasswordRequests() {
+    return Promise.resolve([
+      {
+        _id: '12312321',
+        student: {
+          email: 'test@gmail.com'
+        },
+        isApproved: false,
+        isPending: true
+      }
+    ]);
+  }
+
+
+  updateResetPasswordRequest(id: string, req: any) {
+    return Promise.resolve(req);
+  }
+
   update(user: any) {
     return this.http.put(
       `${this.baseUrl}/users/${user._id}`,

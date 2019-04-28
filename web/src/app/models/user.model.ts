@@ -39,6 +39,15 @@ export class User extends Model {
     return this.api().users().login(email, password);
   }
 
+  static listResetPasswordRequests() {
+    return this.api().users().listResetPasswordRequests();
+  }
+
+
+  static updateResetPasswordRequest(id: string, req: any) {
+    return this.api().users().updateResetPasswordRequest(id, req);
+  }
+
   static update(user: any) {
     return this.api().users().update(user);
   }

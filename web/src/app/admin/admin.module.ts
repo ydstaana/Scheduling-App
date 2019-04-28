@@ -42,6 +42,7 @@ import { UpdatePasswordModalPageModule } from '../update-password-modal/update-p
 import { StudentChangeScheduleRequestUpdatePage } from './student-change-schedule-requests/student-change-schedule-request-update/student-change-schedule-request-update.page';
 import { StudentChangeScheduleRequestsPage } from './student-change-schedule-requests/student-change-schedule-requests.page';
 import { StudentChangeElectiveRequestPage } from './student-change-elective-request/student-change-elective-request.page';
+import { ResetPasswordRequestsPage } from './reset-password-requests/reset-password-requests.page';
 
 const routes: Routes = [
   {
@@ -92,6 +93,10 @@ const routes: Routes = [
       {
         path: 'grades',
         component: AdminGradesManagementPage
+      },
+      {
+        path: 'reset-password-requests',
+        component: ResetPasswordRequestsPage
       }
     ]
   }
@@ -137,7 +142,8 @@ const routes: Routes = [
     AdminUpdateGradePage,
     AdminViewAssignmentPage,
     StudentChangeElectiveRequestPage,
-    UpdateStudentChangeElectiveRequestPage
+    UpdateStudentChangeElectiveRequestPage,
+    ResetPasswordRequestsPage
   ],
   providers: [
     FieldService,
