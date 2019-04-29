@@ -6,6 +6,7 @@ import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { Component, OnInit } from '@angular/core';
 import { RotationService } from 'src/app/services/rotation.service';
 import { StorageService, Storage } from 'src/app/services/storage.service';
+import * as moment from 'moment';
 
 @Component({
   selector: 'app-change-schedule-requests-create',
@@ -100,9 +101,9 @@ export class ChangeScheduleRequestsCreatePage implements OnInit {
           this.assignments.map(assignment => {
             return assignment.rotation;
           })
-        );
-
-        console.log(this.assignmentRotations);
+        ).sort((a, b) => {
+          return moment(a.schedule.startDate).isAfter(moment(b.schedule.startDate)) ? 1 : -1;
+        });
       }
     });
   }
@@ -159,6 +160,22 @@ export class ChangeScheduleRequestsCreatePage implements OnInit {
 
     // filter all rotations with same schedule
     this.availableRotations = this.rotations.filter(rotation => {
+      // TODO: Implement
+      // if (rotation.field) {
+      //   if (this.selectedCurrentRotation.field) {
+      //     return rotation.schedule._id === this.selectedCurrentRotation.schedule._id &&
+      //       rotation.field._id === this.selectedCurrentRotation.field._id;
+      //   } else {
+      //     return rotation.schedule._id === this.selectedCurrentRotation.schedule._id;
+      //   }
+      // } else {
+      //   if (this.selectedCurrentRotation.field) {
+      //     return rotation.schedule._id === this.selectedCurrentRotation.schedule._id;
+      //   } else {
+      //     return rotation.schedule._id === this.selectedCurrentRotation.schedule._id &&
+      //       rotation.fieldGroup._id === this.selectedCurrentRotation.fieldGroup._id;
+      //   }
+      // }
       return rotation.schedule._id === this.selectedCurrentRotation.schedule._id;
     });
   }
