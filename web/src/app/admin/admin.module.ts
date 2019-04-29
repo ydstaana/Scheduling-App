@@ -1,3 +1,4 @@
+import { FAQPageModule } from './../faq/faq.module';
 import { FAQPage } from './../faq/faq.page';
 import { AccountsViewAssignmentPage } from './accounts/accounts-view-assignment/accounts-view-assignment.page';
 import { RotationsUpdatePage } from './rotations/rotations-update/rotations-update.page';
@@ -44,6 +45,7 @@ import { StudentChangeScheduleRequestUpdatePage } from './student-change-schedul
 import { StudentChangeScheduleRequestsPage } from './student-change-schedule-requests/student-change-schedule-requests.page';
 import { StudentChangeElectiveRequestPage } from './student-change-elective-request/student-change-elective-request.page';
 import { ResetPasswordRequestsPage } from './reset-password-requests/reset-password-requests.page';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const routes: Routes = [
   {
@@ -110,7 +112,9 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    UpdatePasswordModalPageModule
+    UpdatePasswordModalPageModule,
+    FAQPageModule,
+    NgxPaginationModule
   ],
   declarations: [
     AccountsCreatePage,
@@ -144,8 +148,7 @@ const routes: Routes = [
     AdminViewAssignmentPage,
     StudentChangeElectiveRequestPage,
     UpdateStudentChangeElectiveRequestPage,
-    ResetPasswordRequestsPage,
-    FAQPage
+    ResetPasswordRequestsPage
   ],
   providers: [
     FieldService,

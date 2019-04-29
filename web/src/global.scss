@@ -92,6 +92,10 @@
 	min-width: fit-content;
 }
 
+.ngx-pagination {
+    padding-left: 0px;
+}
+
 ion-toast.toast-success {
     --background: green !important;
 }

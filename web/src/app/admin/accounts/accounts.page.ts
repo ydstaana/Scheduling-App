@@ -28,7 +28,10 @@ export class AccountsPage implements OnInit {
 
   listUsers() {
     this.userService.listUsers().then((data: any) => {
-      this.users = data;
+      this.users = data
+        .sort((a, b) => {
+          return a.firstName > b.firstName ? 1 : -1;
+        });
     });
   }
 

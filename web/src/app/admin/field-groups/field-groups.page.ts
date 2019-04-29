@@ -25,8 +25,9 @@ export class FieldGroupsPage implements OnInit {
 
   listFieldGroups() {
     this.fieldService.listFieldGroups().then((data: any) => {
-      console.log(data);
-      this.fieldGroups = data;
+      this.fieldGroups = data.sort((a, b) => {
+        return a.name > b.name ? 1 : -1;
+      });
     });
   }
 

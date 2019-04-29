@@ -1,3 +1,4 @@
+import { FAQPageModule } from './../faq/faq.module';
 import { FAQPage } from './../faq/faq.page';
 import { UpdateChangeElectiveRequestPage } from './change-elective-requests/update-change-elective-request/update-change-elective-request.page';
 import { CreateChangeElectiveRequestPage } from './change-elective-requests/create-change-elective-request/create-change-elective-request.page';
@@ -22,6 +23,7 @@ import { UpdatePasswordModalPageModule } from '../update-password-modal/update-p
 import { UpdatePasswordModalPage } from '../update-password-modal/update-password-modal.page';
 import { ScheduleChangesPage } from './change-schedule-requests/schedule-changes/schedule-changes.page';
 import { StudentSchedulesOverviewPage } from './student-schedules-overview/student-schedules-overview.page';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const routes: Routes = [
   {
@@ -60,7 +62,9 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    UpdatePasswordModalPageModule
+    UpdatePasswordModalPageModule,
+    FAQPageModule,
+    NgxPaginationModule
   ],
   declarations: [
     StudentPage,
@@ -75,8 +79,7 @@ const routes: Routes = [
     ChangeElectiveRequestsPage,
     CreateChangeElectiveRequestPage,
     UpdateChangeElectiveRequestPage,
-    StudentSchedulesOverviewPage,
-    FAQPage
+    StudentSchedulesOverviewPage
   ],
   entryComponents: [
     StudentProfilePage,

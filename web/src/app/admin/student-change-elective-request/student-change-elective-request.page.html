@@ -19,7 +19,7 @@
     </ion-row>
     <ion-row  
       class="border-bottom log p-t-b-10"
-      *ngFor="let request of requests"
+      *ngFor="let request of requests | paginate: { itemsPerPage: 20, currentPage: p }"
       (click)="viewRequest(request)">
       <ion-col size="3">
         {{ request.student.firstName + ' ' + request.student.middleName + request.student.lastName }}
@@ -41,6 +41,11 @@
       </ion-col>
       <ion-col size="2" *ngIf="request.isPending">
         Pending
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </ion-col>
     </ion-row>
   </ion-grid>

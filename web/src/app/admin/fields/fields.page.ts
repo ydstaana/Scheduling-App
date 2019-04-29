@@ -25,8 +25,9 @@ export class FieldsPage implements OnInit {
 
   listFields() {
     this.fieldService.list().then((data: any) => {
-      console.log(data);
-      this.fields = data;
+      this.fields = data.sort((a, b) => {
+        return a.name > b.name ? 1 : -1;
+      });
     });
   }
 

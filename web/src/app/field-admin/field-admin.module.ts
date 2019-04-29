@@ -14,6 +14,8 @@ import { IonicModule } from '@ionic/angular';
 import { FieldAdminPage } from './field-admin.page';
 import { FieldAdminProfilePage } from './field-admin-profile/field-admin-profile.page';
 import { UpdateGradePage } from './grades-management/update-grade/update-grade.page';
+import { FAQPageModule } from '../faq/faq.module';
+import { NgxPaginationModule } from 'ngx-pagination';
 
 const routes: Routes = [
   {
@@ -40,15 +42,16 @@ const routes: Routes = [
     IonicModule,
     RouterModule.forChild(routes),
     ReactiveFormsModule,
-    UpdatePasswordModalPageModule
+    UpdatePasswordModalPageModule,
+    FAQPageModule,
+    NgxPaginationModule
   ],
   declarations: [
     FieldAdminPage,
     FieldAdminProfilePage,
     GradesManagementPage,
     UpdateGradePage,
-    ViewAssignmentPage,
-    FAQPage
+    ViewAssignmentPage
   ],
   entryComponents: [
     FieldAdminProfilePage,

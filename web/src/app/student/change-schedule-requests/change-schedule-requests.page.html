@@ -23,7 +23,7 @@
     </ion-row>
     <ion-row  
       class="border-bottom log p-t-b-10"
-      *ngFor="let request of requests"
+      *ngFor="let request of requests | paginate: { itemsPerPage: 20, currentPage: p }"
       (click)="viewRequest(request)">
       <ion-col>
         <ion-grid fixed no-padding no-margin>
@@ -49,6 +49,11 @@
             </ion-col>
           </ion-row>
         </ion-grid>
+      </ion-col>
+    </ion-row>
+    <ion-row>
+      <ion-col text-center>
+        <pagination-controls (pageChange)="p = $event"></pagination-controls>
       </ion-col>
     </ion-row>
   </ion-grid>
