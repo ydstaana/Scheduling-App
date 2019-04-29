@@ -17,17 +17,14 @@
       <ion-col size="3">
         <b>Schedule</b>
       </ion-col>
-      <ion-col size="2">
+      <ion-col size="3">
         <b>RCA</b>
       </ion-col>
       <ion-col size="2">
-        <b>Group</b>
+        <b>Group #</b>
       </ion-col>
       <ion-col size="2">
-        <b>Status</b>
-      </ion-col>
-      <ion-col size="1">
-        <b>Count</b>
+        <b>Student Count</b>
       </ion-col>
     </ion-row>
     <ion-row 
@@ -39,19 +36,13 @@
       <ion-col size="3">
         {{ rotation.schedule.startDate | date: 'MMM dd, yyyy' }} - {{ rotation.schedule.endDate | date: 'MMM dd, yyyy' }}
       </ion-col>
-      <ion-col size="2">
+      <ion-col size="3">
         {{ getAdminName(rotation) }}
       </ion-col>
       <ion-col size="2">
         {{ rotation.group.name }}
       </ion-col>
-      <ion-col size="2" *ngIf="rotation.isActive">
-        Active
-      </ion-col>
-      <ion-col size="2" *ngIf="!rotation.isActive">
-        Inactive
-      </ion-col>
-      <ion-col size="1">
+      <ion-col size="2">
         {{ rotation.studentCount }}
       </ion-col>
     </ion-row>

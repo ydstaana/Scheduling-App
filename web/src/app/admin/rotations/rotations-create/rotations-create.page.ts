@@ -51,13 +51,7 @@ export class RotationsCreatePage implements OnInit {
     });
 
     this.userService.listUserGroups().then((data: any) => {
-      this.groups = data.map(group => {
-        return {
-          ...group,
-          order: +group.name.split(' ')[1]
-        };
-      })
-      .sort((a, b) => ((a.order === b.order) ? 0 : ((a.order > b.order) ? 1 : -1)) );
+      this.groups = data.sort((a, b) => ((+a.name > +b.name) ? 1 : -1) );
     });
 
     this.buildForm();

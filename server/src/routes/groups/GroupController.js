@@ -27,18 +27,18 @@ function createGroup(req, res) {
 
 async function createDefaultGroups(req, res) {
   const groups = [
-    { name: 'Group 1', isActive: true, students: [] },
-    { name: 'Group 2', isActive: true, students: [] },
-    { name: 'Group 3', isActive: true, students: [] },
-    { name: 'Group 4', isActive: true, students: [] },
-    { name: 'Group 5', isActive: true, students: [] },
-    { name: 'Group 6', isActive: true, students: [] },
-    { name: 'Group 7', isActive: true, students: [] },
-    { name: 'Group 8', isActive: true, students: [] },
-    { name: 'Group 9', isActive: true, students: [] },
-    { name: 'Group 10', isActive: true, students: [] },
-    { name: 'Group 11', isActive: true, students: [] },
-    { name: 'Group 12', isActive: true, students: [] }
+    { name: '1', isActive: true, students: [] },
+    { name: '2', isActive: true, students: [] },
+    { name: '3', isActive: true, students: [] },
+    { name: '4', isActive: true, students: [] },
+    { name: '5', isActive: true, students: [] },
+    { name: '6', isActive: true, students: [] },
+    { name: '7', isActive: true, students: [] },
+    { name: '8', isActive: true, students: [] },
+    { name: '9', isActive: true, students: [] },
+    { name: '10', isActive: true, students: [] },
+    { name: '11', isActive: true, students: [] },
+    { name: '12', isActive: true, students: [] }
   ];
 
   groups.forEach(async (g) => {
