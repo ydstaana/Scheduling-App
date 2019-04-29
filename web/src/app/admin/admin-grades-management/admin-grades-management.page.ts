@@ -13,6 +13,7 @@ import * as moment from 'moment';
 export class AdminGradesManagementPage implements OnInit {
   assignments = [];
   currentUser: any;
+  p: any;
 
   constructor(
     private assignmentService: AssignmentService,

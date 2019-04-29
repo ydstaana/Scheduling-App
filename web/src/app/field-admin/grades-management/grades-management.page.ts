@@ -14,6 +14,7 @@ import * as moment from 'moment';
 export class GradesManagementPage implements OnInit {
   assignments = [];
   currentUser: any;
+  p: any;
 
   constructor(
     private assignmentService: AssignmentService,

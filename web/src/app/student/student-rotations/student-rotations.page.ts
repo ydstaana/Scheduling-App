@@ -12,6 +12,7 @@ import * as moment from 'moment';
 })
 export class StudentRotationsPage implements OnInit {
   assignments = [];
+  p: any;
 
   constructor(
     private assignmentService: AssignmentService,

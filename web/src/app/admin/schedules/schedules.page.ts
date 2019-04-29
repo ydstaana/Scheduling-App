@@ -11,6 +11,7 @@ import { SchedulesCreatePage } from './schedules-create/schedules-create.page';
 })
 export class SchedulesPage implements OnInit {
   schedules = [];
+  p: any;
 
   constructor(
     private scheduleService: ScheduleService,

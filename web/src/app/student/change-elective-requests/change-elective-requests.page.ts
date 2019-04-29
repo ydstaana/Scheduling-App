@@ -13,6 +13,7 @@ import { UpdateChangeElectiveRequestPage } from './update-change-elective-reques
 export class ChangeElectiveRequestsPage implements OnInit {
   currentUser: any;
   requests = [];
+  p: any;
 
   constructor(
     private assignmentService: AssignmentService,

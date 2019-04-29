@@ -11,6 +11,7 @@ import { FieldsCreatePage } from './fields-create/fields-create.page';
 })
 export class FieldsPage implements OnInit {
   fields = [];
+  p: any;
 
   constructor(
     private fieldService: FieldService,

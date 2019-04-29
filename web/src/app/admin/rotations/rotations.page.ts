@@ -12,6 +12,7 @@ import { RotationsUpdatePage } from './rotations-update/rotations-update.page';
 })
 export class RotationsPage implements OnInit {
   rotations = [];
+  p: any;
 
   constructor(
     private rotationService: RotationService,

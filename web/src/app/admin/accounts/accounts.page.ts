@@ -13,6 +13,7 @@ import { UserType } from 'src/app/models/user.model';
 export class AccountsPage implements OnInit {
   users = [];
   UserType = UserType;
+  p: any;
 
   constructor(
     private userService: UserService,

@@ -12,6 +12,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class StudentChangeElectiveRequestPage implements OnInit {
   requests = [];
+  p: any;
 
   constructor(
     private assignmentService: AssignmentService,

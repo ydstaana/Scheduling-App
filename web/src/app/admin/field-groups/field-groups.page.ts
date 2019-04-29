@@ -11,6 +11,7 @@ import { FieldService } from 'src/app/services/field.service';
 })
 export class FieldGroupsPage implements OnInit {
   fieldGroups = [];
+  p: any;
 
   constructor(
     private fieldService: FieldService,

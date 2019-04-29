@@ -11,6 +11,7 @@ import { StudentChangeScheduleRequestUpdatePage } from './student-change-schedul
 export class StudentChangeScheduleRequestsPage implements OnInit {
   requests = [];
   currentUser: any;
+  p: any;
 
   constructor(
     private scheduleService: ScheduleService,

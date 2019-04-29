@@ -9,6 +9,7 @@ import { UserService } from 'src/app/services/user.service';
 })
 export class ResetPasswordRequestsPage implements OnInit {
   requests = [];
+  p: any;
 
   constructor(
     private userService: UserService,

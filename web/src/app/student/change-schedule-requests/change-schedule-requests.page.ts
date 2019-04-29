@@ -16,6 +16,7 @@ export class ChangeScheduleRequestsPage implements OnInit {
   assignments = [];
   requests = [];
   currentUser: any;
+  p: any;
 
   constructor(
     private scheduleService: ScheduleService,
