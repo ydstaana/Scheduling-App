@@ -1,3 +1,4 @@
+import { FAQPage } from './../faq/faq.page';
 import { FieldAdminProfilePage } from './field-admin-profile/field-admin-profile.page';
 import { PopoverController } from '@ionic/angular';
 import { Component, OnInit } from '@angular/core';
@@ -26,6 +27,16 @@ export class FieldAdminPage implements OnInit {
   logout() {
     this.storageService.removeItem(Storage.CURRENT_USER);
     this.router.navigateByUrl('/login');
+  }
+
+  async viewFAQ() {
+    const viewModal = await this.popoverCtrl.create({
+      component: FAQPage,
+      cssClass: 'custom-popover',
+      backdropDismiss: false
+    });
+
+    return await viewModal.present();
   }
 
   async viewProfile() {

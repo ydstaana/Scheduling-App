@@ -1,3 +1,4 @@
+import { FAQPage } from './../faq/faq.page';
 import { UpdateChangeElectiveRequestPage } from './change-elective-requests/update-change-elective-request/update-change-elective-request.page';
 import { CreateChangeElectiveRequestPage } from './change-elective-requests/create-change-elective-request/create-change-elective-request.page';
 import { ChangeElectiveRequestsPage } from './change-elective-requests/change-elective-requests.page';
@@ -74,7 +75,8 @@ const routes: Routes = [
     ChangeElectiveRequestsPage,
     CreateChangeElectiveRequestPage,
     UpdateChangeElectiveRequestPage,
-    StudentSchedulesOverviewPage
+    StudentSchedulesOverviewPage,
+    FAQPage
   ],
   entryComponents: [
     StudentProfilePage,
@@ -85,7 +87,8 @@ const routes: Routes = [
     ChangeScheduleRequestsViewPage,
     ScheduleChangesPage,
     CreateChangeElectiveRequestPage,
-    UpdateChangeElectiveRequestPage
+    UpdateChangeElectiveRequestPage,
+    FAQPage
   ],
   providers: [
     AssignmentService

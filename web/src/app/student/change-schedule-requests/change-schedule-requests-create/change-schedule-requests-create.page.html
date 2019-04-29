@@ -4,7 +4,7 @@
       <ion-list>
         <ion-row>
           <ion-col>
-            <h3>Add new record</h3>
+            <h3>Add new request</h3>
           </ion-col>
           <ion-col text-right>
             <ion-button fill="clear" color="dark" (click)="dismiss()">
@@ -70,7 +70,7 @@
               <ion-label>Cancel</ion-label>
             </ion-button>
             <ion-button [disabled]="requestForm.invalid || callInProgress" (click)="createRequest()">
-              <ion-label>Save</ion-label>
+              <ion-label>Send</ion-label>
             </ion-button>
           </ion-col>
         </ion-row>

@@ -46,7 +46,8 @@ export class StudentProfilePage implements OnInit {
     this.accountForm = this.formBuilder.group({
       studentId: [this.currentUser.studentId, [
         Validators.required,
-        Validators.maxLength(10)
+        Validators.maxLength(10),
+        Validators.minLength(10)
       ]],
       firstName: [this.currentUser.firstName, [
         Validators.required

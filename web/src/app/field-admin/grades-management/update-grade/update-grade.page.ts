@@ -27,7 +27,7 @@ export class UpdateGradePage implements OnInit {
 
   buildForm() {
     this.gradeForm = this.formBuilder.group({
-      grade: [this.assignment.grade, [Validators.required, Validators.max(100), Validators.min(0)]],
+      grade: [this.assignment.grade, [Validators.required, Validators.max(100), Validators.min(1)]],
       remarks: [this.assignment.remarks, [Validators.required]]
     });
   }

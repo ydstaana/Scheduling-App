@@ -1,3 +1,4 @@
+import { FAQPage } from './../faq/faq.page';
 import { AccountsViewAssignmentPage } from './accounts/accounts-view-assignment/accounts-view-assignment.page';
 import { RotationsUpdatePage } from './rotations/rotations-update/rotations-update.page';
 import { UpdateStudentChangeElectiveRequestPage } from './student-change-elective-request/update-student-change-elective-request/update-student-change-elective-request.page';
@@ -143,7 +144,8 @@ const routes: Routes = [
     AdminViewAssignmentPage,
     StudentChangeElectiveRequestPage,
     UpdateStudentChangeElectiveRequestPage,
-    ResetPasswordRequestsPage
+    ResetPasswordRequestsPage,
+    FAQPage
   ],
   providers: [
     FieldService,
@@ -172,7 +174,8 @@ const routes: Routes = [
     StudentChangeScheduleRequestUpdatePage,
     AdminUpdateGradePage,
     AdminViewAssignmentPage,
-    UpdateStudentChangeElectiveRequestPage
+    UpdateStudentChangeElectiveRequestPage,
+    FAQPage
   ]
 })
 export class AdminPageModule {}

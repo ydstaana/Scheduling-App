@@ -1,3 +1,4 @@
+import { FAQPage } from './../faq/faq.page';
 import { StorageService, Storage } from './../services/storage.service';
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
@@ -26,6 +27,16 @@ export class StudentPage implements OnInit {
   logout() {
     this.storageService.removeItem(Storage.CURRENT_USER);
     this.router.navigateByUrl('/login');
+  }
+
+  async viewFAQ() {
+    const viewModal = await this.popoverCtrl.create({
+      component: FAQPage,
+      cssClass: 'custom-popover',
+      backdropDismiss: false
+    });
+
+    return await viewModal.present();
   }
 
   async viewProfile() {

@@ -1,3 +1,4 @@
+import { FAQPage } from './../faq/faq.page';
 import { UpdatePasswordModalPage } from 'src/app/update-password-modal/update-password-modal.page';
 import { UpdatePasswordModalPageModule } from './../update-password-modal/update-password-modal.module';
 import { ViewAssignmentPage } from './grades-management/view-assignment/view-assignment.page';
@@ -46,13 +47,15 @@ const routes: Routes = [
     FieldAdminProfilePage,
     GradesManagementPage,
     UpdateGradePage,
-    ViewAssignmentPage
+    ViewAssignmentPage,
+    FAQPage
   ],
   entryComponents: [
     FieldAdminProfilePage,
     UpdateGradePage,
     ViewAssignmentPage,
-    UpdatePasswordModalPage
+    UpdatePasswordModalPage,
+    FAQPage
   ],
   providers: [
     AssignmentService
