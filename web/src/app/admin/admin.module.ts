@@ -54,7 +54,7 @@ const routes: Routes = [
     children: [
       {
         path: '',
-        redirectTo: 'accounts',
+        redirectTo: 'change-schedule-requests',
         pathMatch: 'full'
       },
       {

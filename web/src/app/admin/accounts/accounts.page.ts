@@ -12,19 +12,30 @@ import { UserType } from 'src/app/models/user.model';
 })
 export class AccountsPage implements OnInit {
   users = [];
+  filteredUsers = [];
   UserType = UserType;
   p: any;
 
+  // user type variables
+  userType: string = UserType.STUDENT;
+  USER_TYPE_VALUES = UserType;
+  USER_TYPE_KEYS = Object.keys(UserType);
+
   constructor(
     private userService: UserService,
-    private popoverCtrl: PopoverController,
-    private modalCtrl: ModalController
+    private popoverCtrl: PopoverController
   ) { }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.listUsers();
+  }
 
   ionViewWillEnter() {
     this.listUsers();
+  }
+
+  filterByType() {
+    this.filteredUsers = this.users.filter(u => u.userType === this.userType);
   }
 
   listUsers() {
@@ -33,6 +44,8 @@ export class AccountsPage implements OnInit {
         .sort((a, b) => {
           return a.firstName > b.firstName ? 1 : -1;
         });
+
+      this.filterByType();
     });
   }
 
