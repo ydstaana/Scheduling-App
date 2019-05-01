@@ -75,6 +75,9 @@ router.post('/assignments/switch', assignmentController.approveSwitchRequest);
 //Requests
 router.post('/requests', requestController.createRequest);
 router.get('/requests/switch', requestController.listSwitchRequests);
+router.get('/requests/reset', requestController.listResetRequests);
+router.post('/requests/reset', requestController.createResetRequest);
+router.post('/requests/reset/:id', requestController.approveResetRequest);
 router.get('/requests/elective', requestController.listElectiveRequests);
 router.get('/requests/:id', requestController.getRequest);
 router.put('/requests/:id', requestController.updateRequest);
