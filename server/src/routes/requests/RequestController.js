@@ -47,26 +47,42 @@ async function approveResetRequest(req, res) {
       var user = await User.findOne({
         email : request.email
       })
-      user.password = "user123"
-      user.save()
-      .then((result) => {
-        request.isApproved = true;
-        request.save().then(() => {
-          res.status(200).json({
-            message : "Successfully reset password"
-          });
-        })
-        .catch(err => {
+
+      if(req.body.approve) {
+        user.password = "user123"
+        user.save()
+        .then((result) => {
+          request.isApproved = true;
+          request.save().then(() => {
+            res.status(200).json({
+              message : "Successfully reset password"
+            });
+          })
+          .catch(err => {
+            return res.status(422).json({
+              message: err
+            });
+          })
+       })
+       .catch(err => {
           return res.status(422).json({
             message: err
           });
-        })
-     })
-     .catch(err => {
-        return res.status(422).json({
-          message: err
-        });
-     })
+       })
+      }
+      else {
+        request.isApproved = false;
+          request.save().then(() => {
+            res.status(200).json({
+              message : "Request disapproved"
+            });
+          })
+          .catch(err => {
+            return res.status(422).json({
+              message: err
+            });
+          })
+      }
     }
   }) 
 }
