@@ -5,6 +5,7 @@ var SwitchRequest = require('../../models/requests/SwitchRequestSchema')
 var Assignment = require('../../models/assignments/AssignmentSchema.js')
 var ElectiveRequest = require('../../models/requests/ElectiveRequestSchema')
 var ResetRequest = require('../../models/requests/ResetRequestSchema')
+var User = require('../../models/users/UserSchema')
 
 var RequestTypes = {
   SWITCH : "SwitchRequest",
@@ -12,16 +13,28 @@ var RequestTypes = {
 }
 
 function createResetRequest(req, res) {
-  ResetRequest.create(req.body, (err, request) => {
-    if(err) {
-      res.status(422).json({
-        message: err
-      });
-    }
-    else {
-      res.status(200).send(request);
-    }
+  var user = await User.findOne({
+    email : req.body.email
   })
+
+  if(user == null) {
+    return res.status(422).json({
+      message: "Email is not associated to any account"
+    });
+  }
+  else {
+    ResetRequest.create(req.body, (err, request) => {
+      if(err) {
+        res.status(422).json({
+          message: err
+        });
+      }
+      else {
+        res.status(200).send(request);
+      }
+    })
+  }
+  
 }
 function listResetRequests(req, res) {
   ResetRequest.find({}, (err, requests) => {
@@ -53,6 +66,7 @@ async function approveResetRequest(req, res) {
         user.save()
         .then((result) => {
           request.isApproved = true;
+          request.dateModified = new Date();
           request.save().then(() => {
             res.status(200).json({
               message : "Successfully reset password"
@@ -72,6 +86,7 @@ async function approveResetRequest(req, res) {
       }
       else {
         request.isApproved = false;
+        request.dateModified = new Date();
           request.save().then(() => {
             res.status(200).json({
               message : "Request disapproved"
@@ -287,6 +302,7 @@ async function approveElectiveRequest(req, res) {
 
   request.isApproved = true;
   request.isPending = false;
+  request.dateModified = new Date();
   request.remarks = req.body.remarks;
 
   assignment.isCustom = true;
