@@ -11,7 +11,21 @@ import { StudentChangeScheduleRequestUpdatePage } from './student-change-schedul
 export class StudentChangeScheduleRequestsPage implements OnInit {
   requests = [];
   currentUser: any;
+  filteredRequests = [];
   p: any;
+  PENDING = {
+    isPending: true,
+    isApproved: false
+  };
+  APPROVED = {
+    isPending: false,
+    isApproved: true
+  };
+  DECLINED = {
+    isPending: false,
+    isApproved: false
+  };
+  status: any = this.PENDING;
 
   constructor(
     private scheduleService: ScheduleService,
@@ -25,9 +39,18 @@ export class StudentChangeScheduleRequestsPage implements OnInit {
     this.listRequests();
   }
 
+  filterByStatus() {
+    this.filteredRequests = this.requests.filter(r => {
+      return this.status.isPending ? r.isPending === this.status.isPending :
+        r.isPending === this.status.isPending && r.isApproved === this.status.isApproved;
+    });
+  }
+
   listRequests() {
     this.scheduleService.listSwitchRequests().then((data: any) => {
       this.requests = data;
+
+      this.filterByStatus();
     });
   }
 

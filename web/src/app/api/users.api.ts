@@ -10,6 +10,14 @@ export class UsersApi extends Api {
     super(baseUrl);
   }
 
+  changePassword(user: any) {
+    return this.http.post(
+      `${this.baseUrl}/users/change/${user.id}`,
+      user,
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
+  }
+
   create(user: any) {
     return this.http.post(
       `${this.baseUrl}/users`,
@@ -57,21 +65,16 @@ export class UsersApi extends Api {
   }
 
   listResetPasswordRequests() {
-    return Promise.resolve([
-      {
-        _id: '12312321',
-        student: {
-          email: 'test@gmail.com'
-        },
-        isApproved: false,
-        isPending: true
-      }
-    ]);
+    return this.http.get(`${this.baseUrl}/requests/reset`).toPromise();
   }
 
 
   updateResetPasswordRequest(id: string, req: any) {
-    return Promise.resolve(req);
+    return this.http.post(
+      `${this.baseUrl}/requests/reset/${id}`,
+      req,
+      { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
+    ).toPromise();
   }
 
   update(user: any) {
@@ -99,7 +102,6 @@ export class UsersApi extends Api {
   }
 
   updateUserGroups(userGroup: any) {
-    console.log(userGroup);
     return this.http.post(
       `${this.baseUrl}/groups/addStudent`,
       userGroup,
@@ -109,8 +111,8 @@ export class UsersApi extends Api {
 
   resetPassword(email: string) {
     return this.http.post(
-      `${this.baseUrl}/users/reset`, {
-        email : email
+      `${this.baseUrl}/requests/reset`, {
+        email: email
       },
       { headers: new HttpHeaders({ 'Content-Type': 'application/json' }) }
     ).toPromise();

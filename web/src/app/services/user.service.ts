@@ -8,6 +8,10 @@ export class UserService {
 
   constructor() { }
 
+  changePassword(user: any) {
+    return User.changePassword(user);
+  }
+
   create(user: any) {
     return User.create(user);
   }

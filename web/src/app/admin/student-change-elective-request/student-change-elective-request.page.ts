@@ -42,7 +42,6 @@ export class StudentChangeElectiveRequestPage implements OnInit {
   }
 
   filterByStatus() {
-    console.log(this.status);
     this.filteredRequests = this.requests.filter(r => {
       return this.status.isPending ? r.isPending === this.status.isPending :
         r.isPending === this.status.isPending && r.isApproved === this.status.isApproved;

@@ -27,8 +27,7 @@ export class ResetPasswordRequestsPage implements OnInit {
   approve(request: any) {
     this.userService.updateResetPasswordRequest(request._id, {
       ...request,
-      isApproved: true,
-      isPending: false
+      approve: true
     }).then(data => {
       this.success('Successfully approved request');
       this.listRequests();

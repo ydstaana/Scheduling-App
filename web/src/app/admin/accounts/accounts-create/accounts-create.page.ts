@@ -75,7 +75,7 @@ export class AccountsCreatePage implements OnInit {
     if (this.userType === UserType.STUDENT) {
       studentNumberCtrl.setValue('');
     } else {
-      studentNumberCtrl.setValue('dummy');
+      studentNumberCtrl.setValue('dummydummy');
     }
   }
 

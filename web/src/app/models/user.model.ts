@@ -7,6 +7,10 @@ export enum UserType {
 }
 
 export class User extends Model {
+  static changePassword(user: any) {
+    return this.api().users().changePassword(user);
+  }
+
   static create(user: any) {
     return this.api().users().create(user);
   }

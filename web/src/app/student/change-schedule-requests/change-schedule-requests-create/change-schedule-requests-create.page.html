@@ -41,9 +41,11 @@
                 formControlName="rotation"
                 (ionChange)="resolveSelectedRotation()"
                 [disabled]="!selectedCurrentRotation || rotations.length === 0">
-                <ion-select-option [value]="rotation" *ngFor="let rotation of availableRotations">
-                  {{ rotation.schedule.startDate | date: 'MMM dd, yyyy' }} - {{ rotation.schedule.endDate | date: 'MMM dd, yyyy' }} / {{ rotation.group.name }} / {{ rotation.field ? rotation.field.name : rotation.fieldGroup.name }}
-                </ion-select-option>
+                <ng-container *ngFor="let rotation of availableRotations">
+                  <ion-select-option [value]="rotation" *ngIf="rotation._id !== selectedCurrentRotation._id">
+                    {{ rotation.schedule.startDate | date: 'MMM dd, yyyy' }} - {{ rotation.schedule.endDate | date: 'MMM dd, yyyy' }} / {{ rotation.group.name }} / {{ rotation.field ? rotation.field.name : rotation.fieldGroup.name }}
+                  </ion-select-option>
+                </ng-container>
               </ion-select>
             </ion-item>
           </ion-col>

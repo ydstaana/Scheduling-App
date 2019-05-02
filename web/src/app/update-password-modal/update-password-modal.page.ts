@@ -53,7 +53,7 @@ export class UpdatePasswordModalPage implements OnInit {
     this.passwordForm = this.formBuilder.group({
       oldPassword: ['', [
         Validators.required,
-        Validators.minLength(8),
+        // Validators.minLength(8),
         Validators.maxLength(32)
       ]],
       password: ['', [
@@ -78,9 +78,11 @@ export class UpdatePasswordModalPage implements OnInit {
   updatePassword() {
     if (this.passwordForm.valid) {
       this.callInProgress = true;
-      this.userService.updateProfile({
-        password: this.newPassword,
-        id: this.currentUser._id
+      this.userService.changePassword({
+        oldPassword: this.oldPassword,
+        newPassword: this.newPassword,
+        id: this.currentUser._id,
+        email: this.currentUser.email
       }).then(data => {
         this.dismiss();
         this.success('Successfully updated password');

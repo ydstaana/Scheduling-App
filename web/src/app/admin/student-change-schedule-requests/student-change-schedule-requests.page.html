@@ -1,5 +1,23 @@
 <ion-content>
   <ion-grid fixed class="p-25">
+    <ion-list>
+      <ion-row class="m-b-15" align-items-center>
+        <ion-col offset="9" size="3">
+          <ion-item>
+            <ion-label position="floating">Filter by status</ion-label>
+            <ion-select 
+              interface="popover"
+              [value]="status"
+              [(ngModel)]="status"
+              (ionChange)="filterByStatus()">
+              <ion-select-option [value]="PENDING">Pending</ion-select-option>
+              <ion-select-option [value]="APPROVED">Approved</ion-select-option>
+              <ion-select-option [value]="DECLINED">Declined</ion-select-option>
+            </ion-select>
+          </ion-item>
+        </ion-col>
+      </ion-row>
+    </ion-list>
     <ion-row class="border-bottom">
       <ion-col size="3">
         <b>Name</b>
@@ -19,7 +37,7 @@
     </ion-row>
     <ion-row 
       class="border-bottom log p-t-b-10" 
-      align-items-center *ngFor="let request of requests | paginate: { itemsPerPage: 20, currentPage: p }"
+      align-items-center *ngFor="let request of filteredRequests | paginate: { itemsPerPage: 20, currentPage: p }"
       (click)="updateRequest(request)">
       <ion-col size="3">
         {{ request.student.firstName + ' ' + request.student.middleName + ' ' + request.student.lastName }}
